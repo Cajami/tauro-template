@@ -10,6 +10,19 @@
 
 ---
 
+## 🌐 Demo en línea
+
+Puedes ver y probar el template en el siguiente enlace:
+
+👉 https://cajami.github.io/tauro-template/
+
+> ⚠️ **Nota importante**  
+> La demo está desplegada en **GitHub Pages**, un hosting estático.  
+> Por esta razón, la navegación funciona correctamente al ingresar desde la URL principal, pero **si se actualiza la página (F5) estando en una ruta interna**, GitHub Pages puede mostrar un error **404**.  
+>
+> Esto es una **limitación del entorno de despliegue**, no un problema del template ni de la configuración de Angular.  
+> En un entorno real (servidor propio, cloud, etc.), el routing funciona sin inconvenientes.
+
 ## 📋 Índice
 
 - [✨ Características](#-características)
@@ -322,3 +335,4 @@ Este template es un ejemplo de cómo la colaboración humano-IA puede crear herr
 
 
 </div>
+
