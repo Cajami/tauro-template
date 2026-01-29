@@ -1,0 +1,35 @@
+<div class="space-y-6">
+  <!-- Header -->
+  <app-header-page
+    title="Dashboard"
+    subTitle="Bienvenido de nuevo, aquí está tu resumen"
+  ></app-header-page>
+
+  <!-- Stats Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-5">
+    @for (stat of stats(); track stat.title) {
+      <app-cardhome
+        [title]="stat.title"
+        [value]="stat.value"
+        [isPositive]="stat.isPositive"
+        [change]="stat.change"
+        [icon]="stat.icon"
+      ></app-cardhome>
+    }
+  </div>
+
+  <!-- Recent Activity -->
+  <div class="bg-white rounded-xl shadow-md p-6">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Actividad Reciente</h2>
+    <div class="space-y-4">
+      @for (activity of recentActivities(); track $index) {
+        <app-activity-item
+          [title]="activity.title"
+          [description]="activity.description"
+          [time]="activity.time"
+        >
+        </app-activity-item>
+      }
+    </div>
+  </div>
+</div>

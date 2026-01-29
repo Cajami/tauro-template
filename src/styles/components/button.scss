@@ -1,0 +1,156 @@
+@layer components {
+  /* ===== BASE BUTTON ===== */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2
+         font-medium
+         rounded
+         transition-all
+         duration-200
+         focus:outline-none
+         focus:ring-2
+         focus:ring-offset-2
+         cursor-pointer
+         active:scale-95;
+  }
+
+  /* ===== SIZES ===== */
+  .btn-sm {
+    @apply px-3 py-1.5 text-sm;
+  }
+
+  .btn-md {
+    @apply px-4 py-2.5 text-base;
+  }
+
+  .btn-lg {
+    @apply px-6 py-3 text-lg;
+  }
+
+  .btn-block {
+    @apply w-full;
+  }
+
+  .btn-disabled {
+    @apply opacity-60 cursor-not-allowed pointer-events-none;
+  }
+
+  /* ===== CIRCLE BUTTON ===== */
+  .btn-circle {
+    @apply rounded-full aspect-square p-0;
+  }
+
+  .btn-circle.btn-sm {
+    @apply w-8 h-8;
+  }
+
+  .btn-circle.btn-md {
+    @apply w-10 h-10;
+  }
+
+  .btn-circle.btn-lg {
+    @apply w-12 h-12;
+  }
+
+  /* ===== VARIANTS ===== */
+
+  /* ---- PRIMARY ---- */
+  .btn-primary {
+    background-color: var(--color-primary-600);
+    color: white;
+  }
+
+  .btn-primary:hover:not(.btn-disabled) {
+    background-color: var(--color-primary-700);
+  }
+
+  .btn-primary:active:not(.btn-disabled) {
+    background-color: var(--color-primary-800);
+  }
+
+  /* ---- SECONDARY ---- */
+  .btn-secondary {
+    background-color: var(--color-secondary-600);
+    color: white;
+  }
+
+  .btn-secondary:hover:not(.btn-disabled) {
+    background-color: var(--color-secondary-500);
+  }
+
+  .btn-secondary:active:not(.btn-disabled) {
+    opacity: 0.9;
+  }
+
+  /* ---- SUCCESS ---- */
+  .btn-success {
+    background-color: var(--color-success-600);
+    color: white;
+  }
+
+  .btn-success:hover:not(.btn-disabled) {
+    opacity: 0.9;
+  }
+
+  .btn-success:active:not(.btn-disabled) {
+    opacity: 0.8;
+  }
+
+  /* ---- ERROR ---- */
+  .btn-error {
+    background-color: var(--color-error-600);
+    color: white;
+  }
+
+  .btn-error:hover:not(.btn-disabled) {
+    opacity: 0.9;
+  }
+
+  .btn-error:active:not(.btn-disabled) {
+    opacity: 0.8;
+  }
+
+  /* ---- LINK (sin fondo, sin border, como texto) ---- */
+  .btn-link-primary,
+  .btn-link-secondary,
+  .btn-link-success,
+  .btn-link-error,
+  .btn-link-neutral {
+    background-color: transparent;
+    @apply shadow-none focus:ring-0 focus:ring-offset-0 active:scale-95;
+  }
+
+  .btn-link-primary {
+    color: var(--color-primary-600);
+  }
+  .btn-link-primary:hover:not(.btn-disabled) {
+    color: var(--color-primary-900);
+  }
+
+  .btn-link-secondary {
+    color: var(--color-secondary-600);
+  }
+  .btn-link-secondary:hover:not(.btn-disabled) {
+    color: var(--color-secondary-500);
+  }
+
+  .btn-link-success {
+    color: var(--color-success-600);
+  }
+  .btn-link-success:hover:not(.btn-disabled) {
+    color: var(--color-success-700);
+  }
+
+  .btn-link-error {
+    color: var(--color-error-600);
+  }
+  .btn-link-error:hover:not(.btn-disabled) {
+    color: var(--color-error-700);
+  }
+
+  .btn-link-neutral {
+    color: var(--color-neutral-600);
+  }
+  .btn-link-neutral:hover:not(.btn-disabled) {
+    color: var(--color-neutral-700);
+  }
+}

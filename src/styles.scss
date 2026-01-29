@@ -1,0 +1,33 @@
+/* ========================================
+   1️⃣ THEME (tokens primero)
+   ======================================== */
+@import "styles/theme.scss";
+
+/* ========================================
+   2️⃣ TAILWIND CORE
+   ======================================== */
+@import "tailwindcss";
+
+/* ========================================
+   3️⃣ COMPONENTS
+   ======================================== */
+@import "styles/components/button.scss";
+@import "styles/components/alert.scss";
+
+/* ========================================
+   BASE
+   ======================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-family-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--color-bg);
+}

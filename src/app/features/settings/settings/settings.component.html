@@ -1,0 +1,165 @@
+<div class="space-y-6">
+  <!-- Header -->
+  <app-header-page
+    title="Configuración"
+    subTitle="Administra las preferencias de tu cuenta"
+  ></app-header-page>
+
+  <!-- Tabs -->
+  <div class="border-b border-gray-200">
+    <nav class="-mb-px flex space-x-8">
+      @for (tab of tabs(); track tab.id) {
+        <button
+          (click)="activeTab.set(tab.id)"
+          class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors"
+          [class.border-primary-500]="activeTab() === tab.id"
+          [class.text-primary-600]="activeTab() === tab.id"
+          [class.border-transparent]="activeTab() !== tab.id"
+          [class.text-gray-500]="activeTab() !== tab.id"
+          [class.hover:text-gray-700]="activeTab() !== tab.id"
+          [class.hover:border-gray-300]="activeTab() !== tab.id"
+        >
+          {{ tab.label }}
+        </button>
+      }
+    </nav>
+  </div>
+
+  <!-- Tab Content -->
+  <div class="bg-white rounded-xl shadow-md">
+    <!-- Perfil -->
+    @if (activeTab() === "profile") {
+      <div class="p-6 space-y-6">
+        <div>
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">
+            Información del Perfil
+          </h3>
+
+          <form
+            [formGroup]="perfilForm"
+            class="grid grid-cols-1 md:grid-cols-2 gap-3"
+          >
+            <!-- NOMBRE -->
+            <app-input label="Nombre" size="sm" formControlName="name" />
+            <!-- EMAIL -->
+            <app-input label="Email" size="sm" formControlName="email" />
+            <!-- TELÉFONO -->
+            <app-input label="Teléfono" size="sm" formControlName="phone" />
+            <!-- CARGO -->
+            <app-input label="Cargo" size="sm" formControlName="position" />
+            <!-- BIOGRAFÍA -->
+            <app-textarea
+              label="Biografía"
+              formControlName="bio"
+              [showCharCount]="true"
+              [maxLength]="120"
+              class="md:col-span-2"
+            />
+          </form>
+        </div>
+        <div class="flex justify-end gap-3">
+          <app-button variant="secondary" size="sm">Cancelar</app-button>
+          <app-button type="button" (clicked)="saveProfile()" size="sm"
+            >Guardar Cambios</app-button
+          >
+        </div>
+      </div>
+    }
+
+    <!-- Seguridad -->
+    @if (activeTab() === "security") {
+      <div class="p-6 space-y-6">
+        <div>
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">
+            Cambiar Contraseña
+          </h3>
+          <form
+            [formGroup]="securityForm"
+            class="grid gap-3 w-full lg:w-1/2"
+            autocomplete="off"
+          >
+            <!-- CONTRASEÑA ACTUAL -->
+            <app-password-input
+              label="Contraseña Actual"
+              size="sm"
+              formControlName="passwordCurrent"
+            >
+              <lucide-icon
+                #leftIcon
+                leftIcon
+                [img]="KeyRoundIcon"
+                [size]="20"
+              />
+            </app-password-input>
+            <!-- NUEVA CONTRASEÑA -->
+            <app-password-input
+              label="Nueva Contraseña"
+              size="sm"
+              formControlName="passwordNew"
+            >
+              <lucide-icon #leftIcon leftIcon [img]="KeySquareIcon" [size]="20"
+            /></app-password-input>
+            <!-- CONFIRMAR CONTRASEÑA -->
+            <app-password-input
+              label="Confirmar Contraseña"
+              size="sm"
+              formControlName="passwordConfirm"
+            >
+              <lucide-icon #leftIcon leftIcon [img]="KeySquareIcon" [size]="20"
+            /></app-password-input>
+          </form>
+        </div>
+
+        <div class="border-t border-gray-200 pt-6">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">
+            Autenticación de Dos Factores
+          </h3>
+
+          <app-checkbox
+            label="Habilitar autenticación de dos factores"
+          ></app-checkbox>
+        </div>
+
+        <div class="flex justify-end">
+          <app-button size="sm">Actualizar Seguridad</app-button>
+        </div>
+      </div>
+    }
+
+    <!-- Notificaciones -->
+    @if (activeTab() === "notifications") {
+      <div class="p-6 space-y-6">
+        <div>
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">
+            Preferencias de Notificación
+          </h3>
+          <div class="space-y-4">
+            @for (
+              notification of notificationSettings();
+              track notification.id
+            ) {
+              <div
+                class="flex items-start gap-3 p-4 rounded-lg hover:bg-gray-50"
+              >
+                <app-checkbox class="mt-1"></app-checkbox>
+
+                <div class="flex-1">
+                  <h4 class="text-sm font-medium text-gray-800">
+                    {{ notification.title }}
+                  </h4>
+                  <p class="text-sm text-gray-600 mt-1">
+                    {{ notification.description }}
+                  </p>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="flex justify-end">
+          <app-button size="sm">Guardar Preferencias</app-button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

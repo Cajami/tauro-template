@@ -1,0 +1,87 @@
+<header class="bg-primary-900 border-b border-gray-200">
+  <div class="flex items-center justify-between h-16 px-4 md:px-6">
+    <!-- Logo + Hamburger Button -->
+    <div class="flex items-center gap-4">
+      <!-- Logo -->
+      <div class="flex items-center gap-2">
+        <div
+          class="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center"
+        >
+          <svg
+            class="w-5 h-5 text-white"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 10V3L4 14h7v7l9-11h-7z"
+            />
+          </svg>
+        </div>
+        <span class="text-lg font-bold text-white">Tauro-Template</span>
+      </div>
+
+      <!-- Hamburger Button -->
+      <button
+        (click)="onToggleSidebar()"
+        class="group p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
+        aria-label="Toggle Sidebar"
+      >
+        <svg
+          class="w-6 h-6 text-white group-hover:text-gray-600 transition-colors"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- User Menu (derecha) -->
+    <div class="flex items-center gap-3">
+      <!-- <div class="hidden md:flex flex-col items-end">
+        <span class="text-sm font-medium text-gray-700">
+          {{ authService.currentUser()?.username }}
+        </span>
+        <span class="text-xs text-gray-500">
+          {{ authService.currentUser()?.role }}
+        </span>
+      </div> -->
+
+      <!-- <div
+        class="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center text-white font-semibold"
+      >
+        {{ authService.currentUser()?.username?.charAt(0)?.toUpperCase() }}
+      </div> -->
+
+      <button
+        (click)="logout()"
+        class="group p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
+        title="Cerrar sesión"
+      >
+        <svg
+          class="w-5 h-5 text-white group-hover:text-gray-600"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>

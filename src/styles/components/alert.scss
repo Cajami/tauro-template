@@ -1,0 +1,33 @@
+@layer components {
+  .alert {
+    @apply flex items-start gap-3 p-4 rounded-lg border text-sm;
+  }
+
+  /* ===== ERROR ===== */
+  .alert-error {
+    background-color: var(--color-error-50, #fef2f2);
+    border-color: var(--color-error-600);
+    color: var(--color-error-600);
+  }
+
+  /* ===== SUCCESS ===== */
+  .alert-success {
+    background-color: var(--color-success-50, #f0fdf4);
+    border-color: var(--color-success-600);
+    color: var(--color-success-600);
+  }
+
+  /* ===== WARNING ===== */
+  .alert-warning {
+    background-color: #fefce8;
+    border-color: var(--color-warning-600);
+    color: var(--color-warning-600);
+  }
+
+  /* ===== INFO ===== */
+  .alert-info {
+    background-color: #ecfeff;
+    border-color: var(--color-info-600);
+    color: var(--color-info-600);
+  }
+}

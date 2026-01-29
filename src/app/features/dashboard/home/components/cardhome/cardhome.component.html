@@ -1,0 +1,59 @@
+<div
+  class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow"
+>
+  <div class="flex items-center justify-between">
+    <div>
+      <p class="text-sm font-medium text-gray-600">{{ title }}</p>
+      <p class="text-2xl font-bold text-gray-800 mt-2">
+        {{ value }}
+      </p>
+      <div class="flex items-center gap-1 mt-2">
+        <svg
+          class="w-4 h-4"
+          [class.text-green-500]="isPositive"
+          [class.text-red-500]="!isPositive"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          @if (isPositive) {
+            <path
+              fill-rule="evenodd"
+              d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z"
+              clip-rule="evenodd"
+            />
+          } @else {
+            <path
+              fill-rule="evenodd"
+              d="M12 13a1 1 0 100 2h5a1 1 0 001-1v-5a1 1 0 10-2 0v2.586l-4.293-4.293a1 1 0 00-1.414 0L8 9.586 3.707 5.293a1 1 0 00-1.414 1.414l5 5a1 1 0 001.414 0L11 9.414 14.586 13H12z"
+              clip-rule="evenodd"
+            />
+          }
+        </svg>
+        <span
+          class="text-sm font-medium"
+          [class.text-green-600]="isPositive"
+          [class.text-red-600]="!isPositive"
+        >
+          {{ change }}
+        </span>
+      </div>
+    </div>
+    <div
+      class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center"
+    >
+      <svg
+        class="w-6 h-6 text-primary-600"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          [attr.d]="icon"
+        />
+      </svg>
+    </div>
+  </div>
+</div>

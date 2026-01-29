@@ -1,0 +1,140 @@
+<div class="min-h-screen flex">
+  <!-- Left Side - Image -->
+  <div
+    class="hidden lg:flex lg:w-2/2 bg-linear-to-br from-primary-600 to-primary-800 relative overflow-hidden justify-center"
+  >
+    <div class="absolute inset-0 bg-black opacity-20"></div>
+    <div
+      class="relative z-10 flex flex-col justify-center items-center p-12 text-white"
+    >
+      <div class="mb-8">
+        <svg class="w-20 h-20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      </div>
+      <h1 class="text-4xl font-bold mb-4">Bienvenido de nuevo</h1>
+      <p class="text-xl text-center text-primary-100 max-w-md">
+        Accede a tu panel de administración y gestiona tu negocio de manera
+        eficiente
+      </p>
+
+      <!-- Decorative Elements -->
+      <div
+        class="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mr-32 -mt-32"
+      ></div>
+      <div
+        class="absolute bottom-0 left-0 w-96 h-96 bg-white opacity-5 rounded-full -ml-48 -mb-48"
+      ></div>
+    </div>
+  </div>
+
+  <!-- Right Side - Form -->
+  <div class="w-full lg:w-1/2 flex items-center justify-center p-8 bg-gray-50">
+    <div class="w-full max-w-md">
+      <!-- Logo for Mobile -->
+      <div class="lg:hidden text-center mb-8">
+        <div
+          class="inline-flex items-center justify-center w-16 h-16 bg-primary-500 rounded-2xl mb-4"
+        >
+          <svg
+            class="w-10 h-10 text-white"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800">Tauro-Template Dashboard</h2>
+      </div>
+
+      <!-- Form Card -->
+      <div class="bg-white rounded-2xl p-8">
+        <div class="mb-8">
+          <h2 class="text-3xl font-bold text-gray-800 mb-2">Iniciar Sesión</h2>
+          <p class="text-gray-600">Ingresa tus credenciales para continuar</p>
+        </div>
+
+        @if (errorMessage()) {
+          <app-alert variant="error">
+            {{ errorMessage() }}
+          </app-alert>
+        }
+
+        <!-- Form -->
+        <form (ngSubmit)="onSubmit()" [formGroup]="form" class="space-y-6">
+          <!-- Username Field -->
+          <app-input
+            label="Usuario"
+            placeholder="Ingresa tu usuario"
+            formControlName="username"
+          >
+            <lucide-icon
+              #leftIcon
+              leftIcon
+              [img]="UserIcon"
+              [size]="20"
+              class="text-gray-400"
+            />
+          </app-input>
+
+          <!-- Password Field -->
+          <app-password-input
+            label="Contraseña"
+            placeholder="Ingresa tu contraseña"
+            formControlName="password"
+          >
+            <lucide-icon #leftIcon leftIcon [img]="LockIcon" [size]="20" />
+          </app-password-input>
+
+          <!-- Remember & Forgot -->
+          <div class="flex items-center justify-between mt-2">
+            <label class="flex items-center">
+              <input
+                type="checkbox"
+                class="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
+              />
+              <span class="ml-2 text-sm text-gray-600">Recordarme</span>
+            </label>
+            <a
+              href="#"
+              class="text-sm text-primary-600 hover:text-primary-700 font-medium"
+            >
+              ¿Olvidaste tu contraseña?
+            </a>
+          </div>
+
+          <!-- Submit Button -->
+          <app-button [fullWidth]="true" [loading]="isLoading()" type="submit">
+            @if (isLoading()) {
+              Ingresando
+            } @else {
+              Ingresar
+            }
+          </app-button>
+        </form>
+
+        <!-- Footer -->
+        <p class="mt-8 text-center text-sm text-gray-600">
+          ¿No tienes una cuenta?
+          <a
+            href="#"
+            class="text-primary-600 hover:text-primary-700 font-medium"
+            >Regístrate aquí</a
+          >
+        </p>
+      </div>
+
+      <!-- Additional Info -->
+      <p class="mt-6 text-center text-xs text-gray-500">
+        Al iniciar sesión, aceptas nuestros
+        <a href="#" class="text-primary-600 hover:underline"
+          >Términos de Servicio</a
+        >
+        y
+        <a href="#" class="text-primary-600 hover:underline"
+          >Política de Privacidad</a
+        >
+      </p>
+    </div>
+  </div>
+</div>
