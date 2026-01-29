@@ -1,0 +1,1 @@
+import"./chunk-7CGTOI24.js";var o=[{path:"config",loadComponent:()=>import("./chunk-CA45EYWF.js").then(t=>t.SettingsComponent)},{path:"",redirectTo:"config",pathMatch:"full"}];export{o as SETTINGS_ROUTES};
