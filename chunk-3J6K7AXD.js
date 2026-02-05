@@ -1,0 +1,1 @@
+import"./chunk-C6Q5SG76.js";var o=[{path:"config",loadComponent:()=>import("./chunk-HZI4FGEU.js").then(t=>t.SettingsComponent)},{path:"",redirectTo:"config",pathMatch:"full"}];export{o as SETTINGS_ROUTES};
