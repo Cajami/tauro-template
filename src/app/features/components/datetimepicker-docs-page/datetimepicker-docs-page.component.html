@@ -1,0 +1,51 @@
+<form [formGroup]="form" class="space-y-6">
+  <!-- Header -->
+  <app-header-page
+    title="DatetimePicker Guía"
+    subTitle="Guía de uso para el componente reutilizable de fecha y hora."
+  ></app-header-page>
+
+  <app-component-showcase
+    title="Modo Fecha Simple"
+    description="Ideal para formularios estándar de registro."
+    [htmlCode]="htmlEjemplo1"
+    [tsCode]="tsEjemplo1"
+  >
+    <app-datetime-picker
+      label="Fecha de Nacimiento"
+      mode="date"
+      formatType="short"
+      formControlName="fechaNacimiento"
+    />
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Modo Fecha y Hora (24h)"
+    description="Muestra el calendario y un selector de hora en formato militar."
+    [htmlCode]="htmlEjemplo2"
+    [tsCode]="tsEjemplo2"
+  >
+    <app-datetime-picker
+      label="Cita Médica"
+      mode="datetime"
+      placeholder="Selecciona día y hora"
+      formControlName="citaMedica"
+    />
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Solo Hora (formato 24h)"
+    description="Oculta el calendario para permitir únicamente la selección de tiempo."
+    [htmlCode]="htmlEjemplo3"
+    [tsCode]="tsEjemplo3"
+  >
+    <app-datetime-picker
+      label="Hora de Entrada"
+      mode="time"
+      placeholder="Indique la hora"
+      formControlName="horaEntrada"
+    />
+  </app-component-showcase>
+</form>
+
+<app-api-info></app-api-info>

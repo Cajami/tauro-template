@@ -1,9 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-
-type ButtonVariant = 'primary' | 'secondary' | 'success' | 'error' | 'link';
-type ButtonSize = 'sm' | 'md' | 'lg';
-type ButtonColor = 'primary' | 'secondary' | 'success' | 'error' | 'neutral';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-button',
@@ -12,16 +8,22 @@ type ButtonColor = 'primary' | 'secondary' | 'success' | 'error' | 'neutral';
   styleUrl: './button.component.scss',
 })
 export class ButtonComponent {
-  @Input() type: 'button' | 'submit' | 'reset' = 'button';
-  @Input() variant: ButtonVariant = 'primary';
-  @Input() size: ButtonSize = 'md';
-  @Input() color: ButtonColor = 'primary'; // ← NUEVO
-  @Input() disabled = false;
-  @Input() loading = false;
-  @Input() fullWidth = false;
-  @Input() circle = false;
+  // Inputs v19 (Signals)
+  type = input<'button' | 'submit' | 'reset'>('button');
+  variant = input<'primary' | 'secondary' | 'success' | 'error' | 'link'>(
+    'primary',
+  );
+  size = input<'sm' | 'md' | 'lg'>('md');
+  color = input<'primary' | 'secondary' | 'success' | 'error' | 'neutral'>(
+    'primary',
+  );
+  disabled = input<boolean>(false);
+  loading = input<boolean>(false);
+  fullWidth = input<boolean>(false);
+  circle = input<boolean>(false);
 
-  @Output() clicked = new EventEmitter<Event>();
+  // Output v19 (Nueva API de eventos)
+  clicked = output<Event>();
 
   handleClick(event: Event): void {
     if (!this.disabled && !this.loading) {
@@ -32,17 +34,17 @@ export class ButtonComponent {
   getButtonClasses(): string {
     // Solo usar color personalizado en link
     const variantClass =
-      this.variant === 'link'
-        ? `btn-link-${this.color}`
-        : `btn-${this.variant}`;
+      this.variant() === 'link'
+        ? `btn-link-${this.color()}`
+        : `btn-${this.variant()}`;
 
     return [
       'btn',
       variantClass,
-      `btn-${this.size}`,
-      this.circle ? 'btn-circle' : '',
-      this.fullWidth ? 'btn-block' : '',
-      this.disabled || this.loading ? 'btn-disabled' : '',
+      `btn-${this.size()}`,
+      this.circle() ? 'btn-circle' : '',
+      this.fullWidth() ? 'btn-block' : '',
+      this.disabled() || this.loading() ? 'btn-disabled' : '',
     ]
       .filter(Boolean)
       .join(' ');

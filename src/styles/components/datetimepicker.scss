@@ -1,0 +1,54 @@
+@import "flatpickr/dist/flatpickr.min.css";
+
+.flatpickr-calendar {
+  @apply bg-[var(--color-popover)]
+         border border-[var(--color-border)]
+         shadow-lg rounded-xl
+         text-[var(--color-popover-foreground)];
+
+  &.arrowTop::after {
+    border-bottom-color: var(--color-popover);
+  }
+}
+
+.flatpickr-day {
+  @apply text-[var(--color-foreground)]
+         rounded-md
+         transition-colors
+         hover:bg-[var(--color-accent)];
+
+  &.today {
+    @apply border-[var(--color-primary)]
+           text-[var(--color-primary)]
+           font-bold;
+  }
+
+  &.selected {
+    @apply bg-[var(--color-primary)]
+           text-[var(--color-primary-foreground)]
+           hover:bg-[color-mix(in_oklab,var(--color-primary)_90%,black)];
+  }
+}
+
+.flatpickr-time {
+  @apply border-t border-[var(--color-border)];
+
+  input {
+    @apply text-[var(--color-foreground)] font-medium;
+  }
+}
+
+.flatpickr-time input:focus {
+  @apply outline-none ring-0;
+}
+
+/* Pintar Sábado y Domingo */
+.flatpickr-day.is-weekend {
+  @apply text-red-500;
+}
+
+/* Evitar que los días de otros meses se pinten */
+.dayContainer > .flatpickr-day.prevMonthDay,
+.dayContainer > .flatpickr-day.nextMonthDay {
+  @apply text-gray-300 font-normal;
+}

@@ -1,0 +1,60 @@
+<form [formGroup]="form" class="space-y-6">
+  <app-header-page
+    title="Input Guía"
+    subTitle="Componente de entrada de texto con soporte para iconos y validaciones."
+  ></app-header-page>
+
+  <app-component-showcase
+    title="Uso Básico"
+    description="Input de texto estándar con etiqueta y placeholder."
+    [htmlCode]="htmlEjemplo1"
+    [tsCode]="tsEjemplo1"
+  >
+    <app-input
+      label="Nombre Completo"
+      placeholder="Ej. Juan Pérez"
+      formControlName="nombre"
+    />
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Iconos e Identidad"
+    description="Uso de Content Projection para añadir iconos decorativos."
+    [htmlCode]="htmlEjemplo2"
+    [tsCode]="tsEjemplo2"
+  >
+    <app-input label="Correo Electrónico" type="email" formControlName="email">
+      <lucide-icon
+        #leftIcon
+        leftIcon
+        [img]="MailIcon"
+        [size]="20"
+        class="text-gray-400"
+      />
+    </app-input>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Variaciones de Tamaño (Large)"
+    description="Ajuste de dimensiones para buscadores o áreas destacadas."
+    [htmlCode]="htmlEjemplo3"
+    [tsCode]="tsEjemplo3"
+  >
+    <app-input
+      label="Búsqueda Avanzada"
+      size="lg"
+      placeholder="Buscar productos..."
+      formControlName="busqueda"
+    >
+      <lucide-icon
+        #rightIcon
+        rightIcon
+        [img]="SearchIcon"
+        [size]="20"
+        class="text-gray-400"
+      />
+    </app-input>
+  </app-component-showcase>
+</form>
+
+<app-api-info></app-api-info>

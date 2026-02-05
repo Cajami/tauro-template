@@ -25,6 +25,10 @@ export const routes: Routes = [
         loadChildren: () => import('./features/settings/settings.routes').then(m => m.SETTINGS_ROUTES)
       },
       {
+        path: 'components',
+        loadChildren: () => import('./features/components/components.routes').then(m => m.COMPONENTS_ROUTES)
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full'

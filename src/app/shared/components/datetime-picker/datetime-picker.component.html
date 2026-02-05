@@ -1,0 +1,43 @@
+<app-input
+  #inputWrapper
+  [label]="label()"
+  [placeholder]="placeholder()"
+  [size]="size()"
+  [disabled]="disabled()"
+  (blur)="onTouched()"
+>
+  <span #leftIcon leftIcon class="flex items-center">
+    <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+      />
+    </svg>
+  </span>
+
+  @if (mode() !== "date") {
+    <span rightIcon class="text-xs font-bold text-gray-400">24H</span>
+  }
+</app-input>
+<!-- <div class="relative w-full">
+  <input
+    #inputElement
+    type="text"
+    [placeholder]="placeholder()"
+    class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all"
+  />
+  <div
+    class="absolute right-3 top-2.5 text-muted-foreground pointer-events-none"
+  >
+    <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+      />
+    </svg>
+  </div>
+</div> -->

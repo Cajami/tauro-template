@@ -1,0 +1,57 @@
+<div class="flex flex-col gap-4 my-12">
+  <div class="flex flex-col gap-1 px-1">
+    <h3 class="text-xl font-bold text-foreground tracking-tight">
+      {{ title() }}
+    </h3>
+    <p class="text-sm text-muted-foreground">{{ description() }}</p>
+  </div>
+
+  <div
+    class="grid grid-cols-1 lg:grid-cols-2 border border-border rounded-xl overflow-hidden shadow-sm bg-card"
+  >
+    <div
+      class="flex items-center justify-center p-10 bg-background relative overflow-hidden"
+    >
+      <div
+        class="absolute inset-0 z-0 opacity-20 [background-image:radial-gradient(#808080_1px,transparent_1px)] [background-size:20px_20px]"
+      ></div>
+
+      <div class="w-full max-w-sm z-10">
+        <ng-content></ng-content>
+      </div>
+    </div>
+
+    <div class="bg-[#0f172a] flex flex-col h-full">
+      <div class="flex border-b border-white/10 bg-black/20">
+        <button
+          (click)="activeTab.set('html')"
+          [class.border-primary]="activeTab() === 'html'"
+          [class.text-white]="activeTab() === 'html'"
+          class="px-4 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent transition-all"
+        >
+          HTML
+        </button>
+        <button
+          (click)="activeTab.set('ts')"
+          [class.border-primary]="activeTab() === 'ts'"
+          [class.text-white]="activeTab() === 'ts'"
+          class="px-4 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent transition-all"
+        >
+          TypeScript
+        </button>
+      </div>
+
+      <div class="p-6 overflow-auto custom-scrollbar">
+        @if (activeTab() === "html") {
+          <pre
+            class="text-sm font-mono"
+          ><code class="text-sky-300">{{ htmlCode() }}</code></pre>
+        } @else {
+          <pre
+            class="text-sm font-mono"
+          ><code class="text-emerald-400">{{ tsCode() }}</code></pre>
+        }
+      </div>
+    </div>
+  </div>
+</div>

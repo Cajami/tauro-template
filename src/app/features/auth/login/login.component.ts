@@ -13,6 +13,7 @@ import { AlertComponent } from '@shared/components/alert/alert.component';
 import { InputComponent } from '@shared/components/form/input/input.component';
 import { PasswordInputComponent } from '@shared/components/form/password-input/password-input.component';
 import { LucideAngularModule, User, Lock, Eye, EyeOff } from 'lucide-angular';
+import { CheckboxComponent } from '@shared/components/checkbox/checkbox.component';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +26,7 @@ import { LucideAngularModule, User, Lock, Eye, EyeOff } from 'lucide-angular';
     AlertComponent,
     InputComponent,
     PasswordInputComponent,
+    CheckboxComponent
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],

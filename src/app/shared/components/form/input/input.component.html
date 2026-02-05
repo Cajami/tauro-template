@@ -1,6 +1,6 @@
 <div class="flex flex-col gap-2">
   <label class="text-sm font-medium text-gray-700">
-    {{ label }}
+    {{ label() }}
   </label>
 
   <div class="relative">
@@ -12,15 +12,15 @@
     </div>
 
     <input
-      [type]="type"
-      [value]="value"
-      [disabled]="disabled"
-      [autocomplete]="autocomplete"
-      [attr.name]="label.toLowerCase().replace(' ', '-')"
+      [type]="type()"
+      [value]="value()"
+      [disabled]="disabled()"
+      [autocomplete]="autocomplete()"
+      [attr.name]="label().toLowerCase().replace(' ', '-')"
       (input)="handleInput($event)"
       (blur)="onTouched()"
       [class]="getInputClasses()"
-      [placeholder]="placeholder"
+      [placeholder]="placeholder()"
     />
 
     <!-- Icono derecho (botones o iconos) -->

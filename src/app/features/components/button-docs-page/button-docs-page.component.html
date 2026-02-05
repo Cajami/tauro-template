@@ -1,0 +1,56 @@
+<div class="space-y-6">
+  <app-header-page
+    title="Button Guía"
+    subTitle="Componente de acción versátil con múltiples estilos, tamaños y estados de carga."
+  ></app-header-page>
+
+  <app-component-showcase
+    title="Variantes y Colores"
+    description="Diferentes estilos visuales según la importancia de la acción."
+    [htmlCode]="htmlEjemplo1"
+  >
+    <!-- <div class="flex flex-wrap gap-4"> -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <app-button variant="primary">Primary</app-button>
+      <app-button variant="success">Success</app-button>
+      <app-button variant="error">Error</app-button>
+      <app-button variant="link" color="secondary">Link Secundario</app-button>
+    </div>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Estados de Carga y Bloqueo"
+    description="Manejo visual para acciones asíncronas o prohibidas."
+    [htmlCode]="htmlEjemplo2"
+    [tsCode]="tsEjemplo2"
+  >
+    <div class="flex flex-wrap gap-4">
+      <app-button [loading]="true">Guardando</app-button>
+      <app-button [disabled]="true">No disponible</app-button>
+    </div>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Tamaños y Formas Especiales"
+    description="Botones de diferentes dimensiones, circulares o de ancho completo."
+    [htmlCode]="htmlEjemplo3"
+  >
+    <div class="flex flex-col gap-6 w-full">
+      <div class="flex items-center gap-4">
+        <app-button size="sm">Small</app-button>
+        <app-button size="md">Medium</app-button>
+        <app-button size="lg">Large</app-button>
+      </div>
+      <div class="gap-4 border-t pt-4">
+        <app-button [circle]="true" variant="primary">+</app-button>
+        <div class="mt-5"></div>
+        <app-button [fullWidth]="true" variant="secondary">
+          <lucide-icon [img]="SaveIcon" [size]="20" class="text-gray-400" />
+          Full Width Button</app-button
+        >
+      </div>
+    </div>
+  </app-component-showcase>
+</div>
+
+<app-api-info></app-api-info>

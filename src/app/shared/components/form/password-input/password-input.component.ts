@@ -1,12 +1,14 @@
 import {
   Component,
-  Input,
   forwardRef,
   ContentChild,
   ElementRef,
   AfterContentInit,
-  Output,
   EventEmitter,
+  input,
+  output,
+  signal,
+  model,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { LucideAngularModule, Eye, EyeOff } from 'lucide-angular';
@@ -30,10 +32,13 @@ export class PasswordInputComponent
   readonly EyeIcon = Eye;
   readonly EyeOffIcon = EyeOff;
 
-  @Input() label = '';
-  @Input() placeholder = '';
-  @Input() size: 'sm' | 'md' | 'lg' = 'md';
-  @Output() valueChange = new EventEmitter<string>();
+  // Inputs v19 (Signals)
+  label = input<string>('');
+  placeholder = input<string>('');
+  size = input<'sm' | 'md' | 'lg'>('md');
+
+  // Output v19 (Nueva API de eventos)
+  valueChange = output<string>();
 
   // Detecta si hay iconos proyectados EN ESTE COMPONENTE
   @ContentChild('leftIcon', { read: ElementRef }) leftIconRef?: ElementRef;
@@ -41,9 +46,9 @@ export class PasswordInputComponent
   hasLeftIcon = false;
   hasRightIcon = true; // Siempre tiene el botón de toggle a la derecha
 
-  show = false;
-  value = '';
-  disabled = false;
+  show = signal<boolean>(false);
+  value = model<string>('');
+  disabled = model<boolean>(false);
 
   onChange = (value: string) => {};
   onTouched = () => {};
@@ -54,7 +59,7 @@ export class PasswordInputComponent
   }
 
   writeValue(value: string): void {
-    this.value = value ?? '';
+    this.value.set(value || '');
   }
 
   registerOnChange(fn: any): void {
@@ -66,22 +71,22 @@ export class PasswordInputComponent
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
+    this.disabled.set(isDisabled);
   }
 
   handleValueChange(value: string) {
-    this.value = value;
+    this.value.set(value);
     this.onChange(value);
   }
 
   toggle() {
-    this.show = !this.show;
+    this.show.update((v) => !v);
     this.onTouched();
   }
 
   handleInput(event: Event) {
     const value = (event.target as HTMLInputElement).value;
-    this.value = value;
+    this.value.set(value);
     this.onChange(value);
     this.valueChange.emit(value);
   }
@@ -97,33 +102,33 @@ export class PasswordInputComponent
       lg: 'py-3 text-lg',
     };
 
-     // Padding según iconos y tamaño
+    // Padding según iconos y tamaño
     let paddingClasses = '';
     if (this.hasLeftIcon && this.hasRightIcon) {
       paddingClasses =
-        this.size === 'sm'
+        this.size() === 'sm'
           ? 'pl-9 pr-9'
-          : this.size === 'lg'
+          : this.size() === 'lg'
             ? 'pl-12 pr-12'
             : 'pl-10 pr-10';
     } else if (this.hasLeftIcon) {
       paddingClasses =
-        this.size === 'sm'
+        this.size() === 'sm'
           ? 'pl-9 pr-3'
-          : this.size === 'lg'
+          : this.size() === 'lg'
             ? 'pl-12 pr-3'
             : 'pl-10 pr-3';
     } else if (this.hasRightIcon) {
       paddingClasses =
-        this.size === 'sm'
+        this.size() === 'sm'
           ? 'pl-3 pr-9'
-          : this.size === 'lg'
+          : this.size() === 'lg'
             ? 'pl-3 pr-12'
             : 'pl-3 pr-10';
     } else {
       paddingClasses = 'px-3';
     }
 
-    return `${baseClasses} ${sizeClasses[this.size]} ${paddingClasses}`;
+    return `${baseClasses} ${sizeClasses[this.size()]} ${paddingClasses}`;
   }
 }
