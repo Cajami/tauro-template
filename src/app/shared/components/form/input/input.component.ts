@@ -4,24 +4,25 @@ import {
   ContentChild,
   ElementRef,
   forwardRef,
+  inject,
   input,
   model,
+  Optional,
   output,
+  Self,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-input',
+  standalone: true,
   imports: [],
   templateUrl: './input.component.html',
   styleUrl: './input.component.scss',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputComponent),
-      multi: true,
-    },
-  ],
 })
 export class InputComponent implements ControlValueAccessor, AfterContentInit {
   // Inputs v19 (Signals)
@@ -34,6 +35,11 @@ export class InputComponent implements ControlValueAccessor, AfterContentInit {
   // Output v19 (Nueva API de eventos)
   valueChange = output<string>();
 
+  private ngControl = inject(NgControl, {
+    self: true,
+    optional: true,
+  });
+
   // Detecta si hay iconos proyectados
   @ContentChild('leftIcon', { read: ElementRef }) leftIconRef?: ElementRef;
   @ContentChild('rightIcon', { read: ElementRef }) rightIconRef?: ElementRef;
@@ -44,7 +50,13 @@ export class InputComponent implements ControlValueAccessor, AfterContentInit {
   value = model<string>('');
   disabled = model<boolean>(false);
 
-  constructor(public elementRef: ElementRef) {} // Necesario para Datetimepicker (wrapper)
+  constructor(
+    public elementRef: ElementRef, // Necesario para Datetimepicker (wrapper)
+  ) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
 
   onChange = (value: string) => {};
   onTouched = () => {};
@@ -77,15 +89,38 @@ export class InputComponent implements ControlValueAccessor, AfterContentInit {
     this.valueChange.emit(value);
   }
 
+  get isInvalid(): boolean {
+    const control = this.ngControl?.control;
+
+    if (!control || !control.validator) return false;
+
+    return !!(control && control.invalid && (control.touched || control.dirty));
+  }
+
+  get isRequired(): boolean {
+    const control = this.ngControl?.control;
+
+    if (!control || !control.validator) return false;
+
+    const validator = control.validator({} as any);
+
+    return !!validator?.['required'];
+  }
+
   getInputClasses(): string {
-    const baseClasses =
-      'block w-full border border-gray-300 rounded-lg outline-none transition-colors focus:border-primary-500 focus:ring-1 focus:ring-primary-500 disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed placeholder:text-gray-400';
+    const baseClasses = `block w-full box-border border rounded-lg transition-colors outline-none
+    disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed placeholder:text-gray-400
+    `;
+
+    const stateClasses = this.isInvalid
+      ? 'border-red-500'
+      : 'border-gray-300 focus:border-primary-500';
 
     // Clases de tamaño
     const sizeClasses = {
-      sm: 'py-1.5 text-sm',
-      md: 'py-2.5 text-base',
-      lg: 'py-3 text-lg',
+      sm: 'h-9 px-3 text-sm',
+      md: 'h-11 px-3 text-base',
+      lg: 'h-13 px-4 text-lg',
     };
 
     // Padding según iconos y tamaño
@@ -115,6 +150,6 @@ export class InputComponent implements ControlValueAccessor, AfterContentInit {
       paddingClasses = 'px-3';
     }
 
-    return `${baseClasses} ${sizeClasses[this.size()]} ${paddingClasses}`;
+    return `${baseClasses} ${stateClasses} ${sizeClasses[this.size()]} ${paddingClasses}`;
   }
 }

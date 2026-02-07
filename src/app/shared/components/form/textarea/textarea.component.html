@@ -1,24 +1,34 @@
 <div class="flex flex-col gap-2">
-  @if (label) {
-    <label class="text-sm font-medium text-gray-700"> {{ label }} </label>
-  }
+  <label
+    [class]="
+      isInvalid
+        ? 'text-sm font-medium text-red-600'
+        : 'text-sm font-medium text-gray-700'
+    "
+  >
+    {{ label() }}
+    @if (isRequired) {
+      <span class="text-red-500">*</span>
+    }
+  </label>
 
   <textarea
-    [value]="value"
-    [disabled]="disabled"
-    [rows]="rows"
-    [attr.maxlength]="maxLength"
-    [attr.name]="label.toLowerCase().replace(' ', '-')"
+    [value]="value()"
+    [disabled]="disabled()"
+    [rows]="rows()"
+    [attr.maxlength]="maxLength()"
+    [attr.name]="label().toLowerCase().replace(' ', '-')"
     (input)="handleInput($event)"
     (blur)="onTouched()"
     [class]="getTextareaClasses()"
-    [placeholder]="placeholder"
+    [placeholder]="placeholder()"
+    [style.transform]="'translateZ(0)'"
   ></textarea>
 
   <!-- Contador de caracteres -->
-  @if (showCharCount && maxLength) {
+  @if (showCharCount() && maxLength()) {
     <div class="text-xs text-gray-500 text-right">
-      {{ value.length }} / {{ maxLength }}
+      {{ value().length }} / {{ maxLength() }}
     </div>
   }
 </div>

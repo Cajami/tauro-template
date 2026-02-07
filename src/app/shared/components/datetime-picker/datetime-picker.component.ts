@@ -31,7 +31,7 @@ export class DatetimePickerComponent implements OnInit, ControlValueAccessor {
   /*
   PLUGIN = https://flatpickr.js.org/
   */
- 
+
   // Inputs v19 (Signals)
   label = input<string>('');
   placeholder = input<string>('Seleccionar...');
@@ -109,49 +109,3 @@ export class DatetimePickerComponent implements OnInit, ControlValueAccessor {
     this.disabled.set(isDisabled);
   }
 }
-//   // Inputs v19
-//   mode = input<'date' | 'time' | 'datetime'>('date');
-//   format = input<string>('d/m/Y'); // Formato corto/largo según necesites
-//   placeholder = input<string>('Seleccionar...');
-
-//   private inputRef =
-//     viewChild.required<ElementRef<HTMLInputElement>>('inputElement');
-//   private instance?: flatpickr.Instance;
-
-//   constructor() {
-//     // Usamos afterNextRender porque Flatpickr necesita el DOM real (no funciona en SSR directamente)
-//     afterNextRender(() => {
-//       this.initFlatpickr();
-//     });
-//   }
-
-//   private initFlatpickr() {
-//     this.instance = flatpickr(this.inputRef().nativeElement, {
-//       locale: Spanish,
-//       dateFormat: this.format(),
-//       enableTime: this.mode() === 'datetime' || this.mode() === 'time',
-//       noCalendar: this.mode() === 'time',
-//       time_24hr: true,
-//       allowInput: true, // Permite escribir por teclado
-//       onChange: (selectedDates) => {
-//         this.onChange(selectedDates[0]);
-//       },
-//       // Clases personalizadas para el dropdown
-//       static: true,
-//     });
-//   }
-
-//   // Métodos ControlValueAccessor
-//   private onChange = (value: any) => {};
-//   private onTouched = () => {};
-
-//   writeValue(value: any): void {
-//     this.instance?.setDate(value);
-//   }
-//   registerOnChange(fn: any): void {
-//     this.onChange = fn;
-//   }
-//   registerOnTouched(fn: any): void {
-//     this.onTouched = fn;
-//   }
-// }
