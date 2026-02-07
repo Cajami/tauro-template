@@ -1,14 +1,14 @@
 import {
   afterNextRender,
   Component,
-  ElementRef,
-  forwardRef,
+  computed,
+  inject,
   input,
-  OnInit,
+  OnDestroy,
   signal,
   viewChild,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 import flatpickr from 'flatpickr';
 import { Spanish } from 'flatpickr/dist/l10n/es.js'; // Idioma español
 import { InputComponent } from '../form/input/input.component';
@@ -19,15 +19,10 @@ import { InputComponent } from '../form/input/input.component';
   standalone: true,
   templateUrl: './datetime-picker.component.html',
   styleUrl: './datetime-picker.component.scss',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => DatetimePickerComponent),
-      multi: true,
-    },
-  ],
 })
-export class DatetimePickerComponent implements OnInit, ControlValueAccessor {
+export class DatetimePickerComponent
+  implements ControlValueAccessor, OnDestroy
+{
   /*
   PLUGIN = https://flatpickr.js.org/
   */
@@ -45,7 +40,18 @@ export class DatetimePickerComponent implements OnInit, ControlValueAccessor {
   private wrapper = viewChild.required<any>('inputWrapper');
   private instance?: flatpickr.Instance;
 
+  private ngControl = inject(NgControl, {
+    self: true,
+    optional: true,
+  });
+
+  private touchedSignal = signal(0);
+
   constructor() {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+
     afterNextRender(() => {
       // Buscamos el input nativo que está dentro de tu app-input
       const nativeInput = (
@@ -80,8 +86,6 @@ export class DatetimePickerComponent implements OnInit, ControlValueAccessor {
     });
   }
 
-  ngOnInit(): void {}
-
   // Lógica para el formato que pediste (D/M/Y o Y/M/D)
   private resolveFormat(): string {
     if (this.mode() === 'time') return 'H:i';
@@ -96,6 +100,16 @@ export class DatetimePickerComponent implements OnInit, ControlValueAccessor {
   onChange = (value: any) => {};
   onTouched = () => {};
 
+  onBlurChange = () => {
+    this.touchedSignal.update((v) => v + 1);
+    this.ngControl?.control?.markAsTouched();
+  };
+
+  onValueChange = () => {
+    this.touchedSignal.update((v) => v + 1);
+    this.ngControl?.control?.markAsDirty();
+  };
+
   writeValue(value: any): void {
     if (this.instance) this.instance.setDate(value);
   }
@@ -107,5 +121,29 @@ export class DatetimePickerComponent implements OnInit, ControlValueAccessor {
   }
   setDisabledState(isDisabled: boolean): void {
     this.disabled.set(isDisabled);
+  }
+
+  isInvalid = computed(() => {
+    this.touchedSignal();
+
+    const c = this.ngControl?.control;
+    return !!(c && c.invalid && (c.touched || c.dirty));
+  });
+
+  isRequired = computed(() => {
+    const c = this.ngControl?.control;
+
+    if (!c || !c.validator) return false;
+
+    const v = c.validator({} as any);
+
+    return !!v?.['required'];
+  });
+
+  ngOnDestroy(): void {
+    if (this.instance) {
+      this.instance.destroy();
+      this.instance = undefined;
+    }
   }
 }

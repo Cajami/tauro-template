@@ -4,7 +4,10 @@
   [placeholder]="placeholder()"
   [size]="size()"
   [disabled]="disabled()"
-  (blur)="onTouched()"
+  (blurChange)="onBlurChange()"
+  (valueChange)="onValueChange()"
+  [hasError]="isInvalid()"
+  [required]="isRequired()"
 >
   <span #leftIcon leftIcon class="flex items-center">
     <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

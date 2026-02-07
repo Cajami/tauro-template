@@ -8,7 +8,6 @@ import {
 } from '@angular/forms';
 import { ComponentShowcaseComponent } from '@shared/components/component-showcase/component-showcase.component';
 import { DatetimePickerComponent } from '@shared/components/datetime-picker/datetime-picker.component';
-import { InputComponent } from '@shared/components/form/input/input.component';
 import { HeaderPageComponent } from '@shared/components/header-page/header-page.component';
 import { ApiInfoComponent } from '../api-info/api-info.component';
 

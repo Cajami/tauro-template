@@ -3,19 +3,12 @@ import {
   Component,
   ContentChild,
   ElementRef,
-  forwardRef,
   inject,
   input,
   model,
-  Optional,
   output,
-  Self,
 } from '@angular/core';
-import {
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-  NgControl,
-} from '@angular/forms';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
@@ -31,9 +24,12 @@ export class InputComponent implements ControlValueAccessor, AfterContentInit {
   type = input<string>('text');
   autocomplete = input<string>('off');
   size = input<'sm' | 'md' | 'lg'>('md');
+  hasError = input<boolean>(false); //PARA COMPONENTES QUE UTILIZAN EL COMPONENTE (COMO DATATIMEPICKER)
+  required = input<boolean>(false); //PARA COMPONENTES QUE UTILIZAN EL COMPONENTE (COMO DATATIMEPICKER)
 
   // Output v19 (Nueva API de eventos)
   valueChange = output<string>();
+  blurChange = output<void>();
 
   private ngControl = inject(NgControl, {
     self: true,
@@ -59,7 +55,9 @@ export class InputComponent implements ControlValueAccessor, AfterContentInit {
   }
 
   onChange = (value: string) => {};
-  onTouched = () => {};
+  onTouched = () => {
+    this.blurChange.emit();
+  };
 
   ngAfterContentInit() {
     this.hasLeftIcon = !!this.leftIconRef;
@@ -98,13 +96,15 @@ export class InputComponent implements ControlValueAccessor, AfterContentInit {
   }
 
   get isRequired(): boolean {
+    if (this.required()) return true;
+
     const control = this.ngControl?.control;
 
     if (!control || !control.validator) return false;
 
-    const validator = control.validator({} as any);
+    const v = control.validator({} as any);
 
-    return !!validator?.['required'];
+    return !!v?.['required'];
   }
 
   getInputClasses(): string {
@@ -112,9 +112,10 @@ export class InputComponent implements ControlValueAccessor, AfterContentInit {
     disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed placeholder:text-gray-400
     `;
 
-    const stateClasses = this.isInvalid
-      ? 'border-red-500'
-      : 'border-gray-300 focus:border-primary-500';
+    const stateClasses =
+      this.isInvalid || this.hasError()
+        ? 'border-red-500'
+        : 'border-gray-300 focus:border-primary-500';
 
     // Clases de tamaño
     const sizeClasses = {

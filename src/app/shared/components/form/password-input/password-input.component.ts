@@ -1,6 +1,5 @@
 import {
   Component,
-  forwardRef,
   ContentChild,
   ElementRef,
   AfterContentInit,
@@ -10,11 +9,7 @@ import {
   model,
   inject,
 } from '@angular/core';
-import {
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-  NgControl,
-} from '@angular/forms';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { LucideAngularModule, Eye, EyeOff } from 'lucide-angular';
 
 @Component({

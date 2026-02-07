@@ -1,7 +1,7 @@
 <div class="flex flex-col gap-2">
   <label
     [class]="
-      isInvalid
+      isInvalid || hasError()
         ? 'text-sm font-medium text-red-600'
         : 'text-sm font-medium text-gray-700'
     "
