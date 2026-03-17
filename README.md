@@ -1,4 +1,4 @@
-# ðŸ‚ Tauro Template
+ï»¿# ðŸ‚ Tauro Template
 
 > **Template profesional de Dashboard con Angular 19 y Tailwind CSS v4**  
 > Inicia tus proyectos web en minutos, no en dÃ­as.
@@ -336,18 +336,18 @@ Este template es un ejemplo de cÃ³mo la colaboraciÃ³n humano-IA puede crear herr
 
 ## Build y Deploy
 
-El desarrollo del proyecto debe hacerse en la rama `main`. La publicación en GitHub Pages ahora se realiza automáticamente con GitHub Actions cada vez que hagas push a `main`.
+El desarrollo del proyecto debe hacerse en la rama `main`. La publicacion en GitHub Pages ahora se realiza automaticamente con GitHub Actions cada vez que hagas push a `main`.
 
 ### Flujo recomendado
 
 1. Trabaja normalmente en `main`.
 2. Haz commit y push a `origin/main`.
-3. GitHub Actions ejecutará `npm ci` y `npm run build`.
-4. El contenido de `dist/tauro-template/browser` se publicará en GitHub Pages.
+3. GitHub Actions ejecutara `npm ci` y `npm run build`.
+4. El contenido de `dist/tauro-template/browser` se publicara en GitHub Pages.
 
-### Configuración requerida en GitHub
+### Configuracion requerida en GitHub
 
-En el repositorio, ve a `Settings > Pages` y asegúrate de que la fuente de publicación esté configurada como `GitHub Actions`.
+En el repositorio, ve a `Settings > Pages` y asegurate de que la fuente de publicacion este configurada como `GitHub Actions`.
 
 ### Notas
 
