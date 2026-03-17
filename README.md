@@ -334,5 +334,25 @@ Este template es un ejemplo de cÃ³mo la colaboraciÃ³n humano-IA puede crear herr
 
 
 
+## Build y Deploy
+
+El desarrollo del proyecto debe hacerse en la rama `main`. La publicación en GitHub Pages ahora se realiza automáticamente con GitHub Actions cada vez que hagas push a `main`.
+
+### Flujo recomendado
+
+1. Trabaja normalmente en `main`.
+2. Haz commit y push a `origin/main`.
+3. GitHub Actions ejecutará `npm ci` y `npm run build`.
+4. El contenido de `dist/tauro-template/browser` se publicará en GitHub Pages.
+
+### Configuración requerida en GitHub
+
+En el repositorio, ve a `Settings > Pages` y asegúrate de que la fuente de publicación esté configurada como `GitHub Actions`.
+
+### Notas
+
+- Ya no necesitas mantener una carpeta local separada para la rama `gh-pages`.
+- El workflow genera un archivo `404.html` a partir de `index.html` para mejorar el fallback de rutas en GitHub Pages.
 </div>
+
 
