@@ -1,0 +1,65 @@
+﻿<form [formGroup]="form" class="space-y-6">
+  <app-header-page
+    title="Select Guia"
+    subTitle="Selector reutilizable con soporte para busqueda, Reactive Forms y ngModel."
+  ></app-header-page>
+
+  <app-component-showcase
+    title="Uso basico"
+    description="Select simple con validacion required y lista de opciones."
+    [htmlCode]="htmlEjemplo1"
+    [tsCode]="tsEjemplo1"
+  >
+    <app-select
+      label="Pais"
+      placeholder="Selecciona un pais"
+      [options]="countryOptions"
+      formControlName="country"
+    />
+
+    <div class="mt-3 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+      Valor actual: <strong>{{ form.get('country')?.value || 'Sin seleccionar' }}</strong>
+    </div>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Busqueda dentro del listado"
+    description="Activa el buscador interno para listas medianas o grandes."
+    [htmlCode]="htmlEjemplo2"
+    [tsCode]="tsEjemplo2"
+  >
+    <app-select
+      label="Rol del usuario"
+      placeholder="Busca y selecciona un rol"
+      [options]="roleOptions"
+      [searchable]="true"
+      formControlName="role"
+    />
+
+    <div class="mt-3 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+      Valor actual: <strong>{{ form.get('role')?.value || 'Sin seleccionar' }}</strong>
+    </div>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Uso con ngModel"
+    description="Tambien funciona con binding bidireccional usando ngModel."
+    [htmlCode]="htmlEjemplo3"
+    [tsCode]="tsEjemplo3"
+  >
+    <app-select
+      label="Estado"
+      [options]="statusOptions"
+      [searchable]="true"
+      [(ngModel)]="selectedStatus"
+      [ngModelOptions]="{ standalone: true }"
+      name="estado"
+    />
+
+    <div class="mt-3 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+      Valor actual: <strong>{{ selectedStatus }}</strong>
+    </div>
+  </app-component-showcase>
+</form>
+
+<app-api-info></app-api-info>

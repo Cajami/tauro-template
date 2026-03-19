@@ -1,0 +1,141 @@
+﻿<div
+  class="relative flex flex-col gap-2"
+  [class.z-[80]]="isOpen()"
+  [class.z-0]="!isOpen()"
+>
+  <label
+    [class]="
+      isInvalid || hasError()
+        ? 'text-sm font-medium text-red-600'
+        : 'text-sm font-medium text-gray-700'
+    "
+  >
+    {{ label() }}
+    @if (isRequired) {
+      <span class="text-red-500">*</span>
+    }
+  </label>
+
+  <div class="relative">
+    <button
+      type="button"
+      [disabled]="disabled()"
+      [class]="getButtonClasses()"
+      (click)="toggleDropdown()"
+      (keydown)="handleTriggerKeydown($event)"
+    >
+      <span
+        class="block truncate"
+        [class.text-gray-400]="!selectedOption()"
+        [class.text-gray-900]="selectedOption()"
+      >
+        {{ selectedOption()?.label || placeholder() }}
+      </span>
+    </button>
+
+    @if (canClearSelection()) {
+      <button
+        type="button"
+        class="absolute right-9 top-1/2 -translate-y-1/2 z-[95] flex h-5 w-5 items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-700"
+        aria-label="Limpiar selección"
+        (click)="clearSelection($event)"
+      >
+        <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    }
+
+    <div class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
+      <svg
+        class="h-4 w-4 shrink-0 text-gray-500 transition-transform"
+        [class.rotate-180]="isOpen()"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M19 9l-7 7-7-7"
+        />
+      </svg>
+    </div>
+
+    @if (isOpen()) {
+      <div
+        class="absolute z-[90] mt-2 w-full overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg"
+      >
+        @if (searchable()) {
+          <div class="border-b border-gray-100 p-3">
+            <input
+              #searchInput
+              type="text"
+              [ngModel]="searchTerm()"
+              (ngModelChange)="handleSearchChange($event)"
+              (keydown)="handleSearchKeydown($event)"
+              [placeholder]="searchPlaceholder()"
+              class="h-10 w-full rounded-lg border border-gray-200 px-3 text-sm outline-none focus:border-primary-500"
+            />
+          </div>
+        }
+
+        <div class="max-h-60 overflow-y-auto py-1">
+          @if (!options().length) {
+            <div class="px-3 py-3 text-sm text-gray-500">
+              {{ noOptionsText() }}
+            </div>
+          } @else if (!filteredOptions().length) {
+            <div class="px-3 py-3 text-sm text-gray-500">
+              {{ emptyText() }}
+            </div>
+          } @else {
+            @for (option of filteredOptions(); track option.label + '-' + $index) {
+              <button
+                type="button"
+                class="flex w-full items-start gap-3 px-3 py-3 text-left transition-colors"
+                [attr.data-highlighted]="isHighlighted(option)"
+                [class.bg-primary-50]="isSelected(option)"
+                [class.text-primary-700]="isSelected(option)"
+                [class.bg-primary-100]="isHighlighted(option) && !isSelected(option)"
+                [class.text-gray-900]="isHighlighted(option) && !isSelected(option)"
+                [class.hover:bg-gray-50]="!option.disabled && !isHighlighted(option) && !isSelected(option)"
+                [class.cursor-not-allowed]="option.disabled"
+                [class.opacity-50]="option.disabled"
+                (click)="selectOption(option)"
+              >
+                <div class="min-w-0 flex-1">
+                  <div class="truncate text-sm font-medium">
+                    {{ option.label }}
+                  </div>
+                  @if (option.description) {
+                    <div class="mt-1 text-xs text-gray-500">
+                      {{ option.description }}
+                    </div>
+                  }
+                </div>
+
+                @if (isSelected(option)) {
+                  <svg
+                    class="mt-0.5 h-4 w-4 shrink-0 text-primary-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                }
+              </button>
+            }
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>

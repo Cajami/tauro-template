@@ -1,6 +1,13 @@
-import { Routes } from '@angular/router';
+﻿import { Routes } from '@angular/router';
 
 export const COMPONENTS_ROUTES: Routes = [
+  {
+    path: 'select',
+    loadComponent: () =>
+      import('./select-docs-page/select-docs-page.component').then(
+        (m) => m.SelectDocsPageComponent,
+      ),
+  },
   {
     path: 'input',
     loadComponent: () =>
@@ -24,7 +31,8 @@ export const COMPONENTS_ROUTES: Routes = [
   },
   {
     path: '',
-    redirectTo: 'list',
+    redirectTo: 'input',
     pathMatch: 'full',
   },
 ];
+
