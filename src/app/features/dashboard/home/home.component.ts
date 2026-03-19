@@ -26,7 +26,7 @@ interface StatCard {
 export class HomeComponent {
   stats = signal<StatCard[]>([
     {
-      title: 'Total Usuarios',
+      title: 'Total Registros',
       value: '2,543',
       change: '+12.5%',
       isPositive: true,
@@ -40,7 +40,7 @@ export class HomeComponent {
       icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
     },
     {
-      title: 'Tasa de Conversión',
+      title: 'Tasa de Conversion',
       value: '24.5%',
       change: '-2.1%',
       isPositive: false,
@@ -57,8 +57,8 @@ export class HomeComponent {
 
   recentActivities = signal([
     {
-      title: 'Nuevo usuario registrado',
-      description: 'Juan Pérez se ha registrado en la plataforma',
+      title: 'Nuevo registro creado',
+      description: 'Se agrego un nuevo elemento de ejemplo al dashboard',
       time: 'Hace 5 minutos',
     },
     {
@@ -67,8 +67,8 @@ export class HomeComponent {
       time: 'Hace 15 minutos',
     },
     {
-      title: 'Actualización del sistema',
-      description: 'El sistema se actualizó a la versión 2.1.0',
+      title: 'Actualizacion del sistema',
+      description: 'El sistema se actualizo a la version 2.1.0',
       time: 'Hace 1 hora',
     },
   ]);

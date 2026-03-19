@@ -4,39 +4,44 @@ import { authGuard } from './core/guards/auth.guard';
 export const routes: Routes = [
   {
     path: 'auth',
-    loadChildren: () => import('./features/auth/auth.routes').then(m => m.AUTH_ROUTES)
+    loadChildren: () => import('./features/auth/auth.routes').then((m) => m.AUTH_ROUTES),
   },
   {
     path: '',
-    loadComponent: () => import('./layout/dashboard-layout/dashboard-layout.component')
-      .then(m => m.DashboardLayoutComponent),
+    loadComponent: () =>
+      import('./layout/dashboard-layout/dashboard-layout.component').then(
+        (m) => m.DashboardLayoutComponent,
+      ),
     canActivate: [authGuard],
     children: [
       {
         path: 'dashboard',
-        loadChildren: () => import('./features/dashboard/dashboard.routes').then(m => m.DASHBOARD_ROUTES)
-      },
-      {
-        path: 'users',
-        loadChildren: () => import('./features/users/users.routes').then(m => m.USERS_ROUTES)
-      },
-      {
-        path: 'settings',
-        loadChildren: () => import('./features/settings/settings.routes').then(m => m.SETTINGS_ROUTES)
+        loadChildren: () =>
+          import('./features/dashboard/dashboard.routes').then(
+            (m) => m.DASHBOARD_ROUTES,
+          ),
       },
       {
         path: 'components',
-        loadChildren: () => import('./features/components/components.routes').then(m => m.COMPONENTS_ROUTES)
+        loadChildren: () =>
+          import('./features/components/components.routes').then(
+            (m) => m.COMPONENTS_ROUTES,
+          ),
+      },
+      {
+        path: 'theme',
+        loadChildren: () =>
+          import('./features/theme/theme.routes').then((m) => m.THEME_ROUTES),
       },
       {
         path: '',
         redirectTo: 'dashboard',
-        pathMatch: 'full'
-      }
-    ]
+        pathMatch: 'full',
+      },
+    ],
   },
   {
     path: '**',
-    redirectTo: 'auth/login'
-  }
+    redirectTo: 'auth/login',
+  },
 ];

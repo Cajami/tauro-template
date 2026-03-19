@@ -12,7 +12,7 @@ El template debe permitir que un desarrollador tenga desde el inicio:
 - Pantalla de login y flujo de acceso inicial.
 - Componentes reutilizables ya estilizados y listos para usar.
 - Sistema visual base con tema centralizado.
-- Ejemplos y paginas demo para acelerar la integracion en proyectos reales.
+- Guias y paginas demo para acelerar la integracion en proyectos reales.
 
 La prioridad del template es reducir trabajo repetitivo y boilerplate al iniciar un proyecto Angular administrativo.
 
@@ -25,17 +25,19 @@ Actualmente ya existe:
 - Guard e interceptor base de autenticacion.
 - Estructura por features y lazy loading.
 - Componentes reutilizables compartidos.
-- Paginas demo y documentacion para varios componentes.
+- Paginas demo y documentacion para componentes y personalizacion del template.
 - Deploy automatico en GitHub Pages desde la rama `main` mediante GitHub Actions.
 - Workspace consolidado en una sola raiz de proyecto.
 - Componente shared `Select` con busqueda interna y soporte para Reactive Forms y ngModel.
+- Seccion `Theme > Color` para documentar como cambiar la paleta principal del template.
+- `Theme > Color` mantiene la vista previa del color entre rutas y recargas durante desarrollo.
 
 Actualmente aun esta en construccion o expansion:
 - La autenticacion sigue siendo simulada; no hay backend real integrado.
-- Las features de negocio son mayormente demo o placeholder.
-- La documentacion de componentes aun no cubre necesariamente todo el inventario disponible.
+- Las features de negocio siguen siendo demo o placeholder.
+- La documentacion aun no cubre necesariamente todo el inventario posible del template.
 - Existen warnings conocidos en build relacionados con Sass `@import`, `flatpickr` CommonJS y algunos selector warnings.
-- Este archivo debe mantenerse actualizado cuando cambie la arquitectura, el flujo o el set de componentes.
+- Este archivo debe mantenerse actualizado cuando cambie la arquitectura, el flujo o el set de componentes y guias.
 
 ## Stack tecnico actual
 - Angular 19
@@ -53,7 +55,7 @@ Actualmente aun esta en construccion o expansion:
 Raiz importante del proyecto:
 - `src/app/core`: servicios, modelos, guards e interceptor.
 - `src/app/layout`: layout principal del dashboard.
-- `src/app/features`: paginas y features de ejemplo o demo.
+- `src/app/features`: paginas y features de ejemplo, demo o guia.
 - `src/app/shared/components`: componentes reutilizables.
 - `src/styles`: tema y estilos globales por componente.
 - `.github/workflows`: automatizacion de deploy.
@@ -65,6 +67,7 @@ Contiene piezas base de infraestructura:
 - `storage.service.ts`: persiste datos en almacenamiento local.
 - `auth.guard.ts`: protege rutas privadas.
 - `auth.interceptor.ts`: base para inyectar token en requests.
+- `theme-preview.service.ts`: persiste y reaplica la vista previa del color del template durante desarrollo.
 
 ### Layout
 El layout principal vive en `src/app/layout/dashboard-layout`.
@@ -74,13 +77,15 @@ Comportamiento actual:
 - El sidebar es responsive.
 - En desktop se abre por defecto.
 - En mobile se cierra por defecto y puede abrirse o cerrarse por interaccion del usuario.
+- El menu lateral fue simplificado para dejar solo Dashboard, Components y Theme.
 
 ### Features actuales
 - `auth`: login.
 - `dashboard`: home de ejemplo con metricas y actividad reciente.
-- `users`: lista de usuarios demo.
-- `settings`: pantalla de configuracion base.
 - `components`: paginas demo de componentes reutilizables.
+- `theme`: guias de personalizacion del template.
+
+Las antiguas features `users` y `settings` fueron eliminadas para dejar el template minimo viable.
 
 ### Shared components actuales
 Inventario identificado en `src/app/shared/components`:
@@ -113,22 +118,40 @@ Capacidades actuales:
 - La pagina de documentacion incluye ejemplos de valor actual para explicar su uso con Reactive Forms y `ngModel`.
 - El dropdown eleva temporalmente su capa visual dentro de `component-showcase` para evitar recortes o solapamientos en las demos.
 
+### Componente DateTimePicker
+El `DateTimePicker` usa Flatpickr con una capa visual integrada al sistema de tema.
+
+Estado actual:
+- Usa tokens del tema para borde, fondo, estados y seleccion.
+- Sigue el color `primary-*` del template, incluyendo la vista previa persistente de `Theme > Color`.
+- Marca sabados y domingos con una senal roja que se mantiene visible incluso cuando el dia esta seleccionado.
+
+### Seccion Theme
+La feature `theme` agrupa documentacion para personalizar el template sin mezclarla con el catalogo de componentes.
+
+Estado actual:
+- Existe la ruta `Theme > Color`.
+- Explica que el color principal se cambia desde `src/styles/theme.scss`.
+- Muestra paletas sugeridas para empezar rapido.
+- Aplica la paleta seleccionada en caliente sobre la app y la mantiene entre rutas o recargas durante la sesion de desarrollo.
+- Incluye un selector de color personalizado que genera una escala base `primary-*` como punto de partida, la aplica en vivo y permite restaurar el tema original.
+
 ## Navegacion actual
 Rutas principales detectadas:
 - `/auth/login`
 - `/dashboard/home`
-- `/users/list`
-- `/settings/config`
 - `/components/input`
 - `/components/select`
 - `/components/datetimepicker`
 - `/components/button`
+- `/theme/color`
 
 Comportamiento general:
 - Las rutas privadas cuelgan del `DashboardLayoutComponent`.
 - El root redirige a `dashboard` cuando el usuario esta autenticado.
 - Rutas desconocidas redirigen a `auth/login`.
 - La seccion `components` redirige a `input` por defecto.
+- La seccion `theme` redirige a `color` por defecto.
 
 ## Flujo de autenticacion actual
 La autenticacion actual es de tipo demo.
@@ -153,6 +176,7 @@ Observacion tecnica importante:
 - El build actual funciona, pero Angular muestra warnings por uso de `@import` en Sass.
 - En algun momento convendra migrar a `@use` y `@forward` para evitar deuda tecnica futura.
 - Los componentes nuevos deben seguir usando la escala `primary-*` del tema para que la personalizacion visual del template sea consistente.
+- El asterisco de campos requeridos se mantiene como senal de validacion y no como color de marca.
 
 ## Deploy y entorno
 ### Desarrollo local
@@ -174,6 +198,9 @@ Observacion tecnica importante:
 - Se configuro deploy automatico con GitHub Actions.
 - Se agregaron reglas de idioma y codificacion en `AGENTS.md`, `.editorconfig` y `.vscode/settings.json`.
 - Se agrego un componente shared `Select` con documentacion de uso.
+- Se agrego la seccion `Theme > Color` para documentar como cambiar la paleta principal del template desde `src/styles/theme.scss`.
+- La vista previa del tema ahora persiste entre rutas y recargas durante desarrollo.
+- Se eliminaron las features `users` y `settings` para dejar el template minimo viable.
 - Se ajusto `component-showcase` para soportar componentes con overlays o dropdowns sin cortar su render en las paginas de documentacion.
 
 ## Convenciones para futuros agentes
@@ -190,6 +217,7 @@ Al desarrollar nuevas funcionalidades:
 - Mantener el proyecto en espanol para documentacion y mensajes al usuario, salvo necesidad explicita.
 - Mantener archivos en UTF-8.
 - Actualizar este archivo cuando se agreguen capacidades relevantes a shared components o a la experiencia de documentacion.
+- Mantener la documentacion de `theme` separada de `components`, porque describe configuracion del template y no componentes reutilizables.
 
 ## Regla de mantenimiento de este archivo
 Este archivo debe actualizarse siempre que ocurra cualquiera de estos cambios:
@@ -206,6 +234,7 @@ Si un agente hace cambios significativos y no actualiza este archivo, la documen
 Posibles siguientes mejoras del template:
 - Expandir catalogo de componentes reutilizables.
 - Mejorar documentacion demo de componentes existentes.
+- Ampliar la seccion `theme` con configuraciones adicionales ademas de color.
 - Reemplazar autenticacion simulada por una interfaz mas adaptable a backend real.
 - Migrar Sass `@import` a `@use`.
 - Revisar y normalizar textos o codificacion en archivos fuente donde aparezcan caracteres danados.
