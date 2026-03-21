@@ -7,20 +7,25 @@
 >
   <div class="flex-1 flex flex-col overflow-hidden">
     <!-- Navigation Menu -->
-    <nav class="flex-1 overflow-y-auto py-4 px-3">
-      <ul class="space-y-1">
+    <nav class="sidebar-scroll flex-1 overflow-y-auto py-4 px-3">
+      <ul class="space-y-1.5">
         @for (item of menuItems(); track item.label) {
           <li>
-            <!-- Menu Item con hijos -->
             @if (item.children) {
               <div>
                 <button
                   (click)="toggleSubmenu(item)"
-                  class="w-full flex items-center justify-between px-3 py-2.5 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors group"
+                  class="group w-full flex items-center justify-between rounded-xl px-3 py-2.5 text-gray-700 transition-colors"
+                  [class.bg-primary-50]="isSectionActive(item)"
+                  [class.text-primary-700]="isSectionActive(item)"
+                  [class.hover:bg-gray-100]="!isSectionActive(item)"
+                  [class.hover:bg-primary-50]="isSectionActive(item)"
                 >
                   <div class="flex items-center gap-3">
                     <svg
-                      class="w-5 h-5 text-gray-500 group-hover:text-primary-500 transition-colors"
+                      class="h-5 w-5 transition-colors"
+                      [class.text-gray-500]="!isSectionActive(item)"
+                      [class.text-primary-500]="isSectionActive(item)"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -32,11 +37,13 @@
                         [attr.d]="item.icon"
                       />
                     </svg>
-                    <span class="font-medium text-sm">{{ item.label }}</span>
+                    <span class="text-sm font-medium">{{ item.label }}</span>
                   </div>
                   <svg
-                    class="w-4 h-4 transition-transform duration-200"
+                    class="h-4 w-4 transition-transform duration-200"
                     [class.rotate-180]="item.expanded"
+                    [class.text-primary-500]="isSectionActive(item)"
+                    [class.text-gray-500]="!isSectionActive(item)"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -50,38 +57,51 @@
                   </svg>
                 </button>
 
-                <!-- Submenu -->
                 <div
-                  class="overflow-hidden transition-all duration-300 ease-in-out"
-                  [class.max-h-0]="!item.expanded"
-                  [class.max-h-96]="item.expanded"
+                  class="grid transition-[grid-template-rows] duration-300 ease-in-out"
+                  [class.grid-rows-[0fr]]="!item.expanded"
+                  [class.grid-rows-[1fr]]="item.expanded"
                 >
-                  <ul class="mt-1 ml-8 space-y-1">
-                    @for (child of item.children; track child.label) {
-                      <li>
-                        <a
-                          [routerLink]="child.route"
-                          routerLinkActive="bg-primary-50 text-primary-600"
-                          (click)="onMenuClick()"
-                          class="block px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
-                        >
-                          {{ child.label }}
-                        </a>
-                      </li>
-                    }
-                  </ul>
+                  <div class="min-h-0 overflow-hidden">
+                    <div class="relative ml-7 mt-2 pl-4 pb-1">
+                      <span
+                        class="absolute left-0 top-1 bottom-1 w-px rounded-full bg-gradient-to-b from-gray-200 via-gray-200 to-transparent"
+                      ></span>
+
+                      <ul class="space-y-1">
+                        @for (child of item.children; track child.label) {
+                          <li>
+                            <a
+                              [routerLink]="child.route"
+                              routerLinkActive="text-primary-700"
+                              #childLinkActive="routerLinkActive"
+                              [routerLinkActiveOptions]="{ exact: true }"
+                              (click)="onMenuClick()"
+                              class="group relative flex items-center px-2 py-1.5 text-sm text-gray-600 transition-colors hover:text-gray-800"
+                            >
+                              <span class="font-medium leading-5">{{ child.label }}</span>
+                              <span
+                                class="absolute inset-y-0 -left-4 w-px rounded-full transition-colors"
+                                [class.bg-primary-500]="childLinkActive.isActive"
+                                [class.bg-transparent]="!childLinkActive.isActive"
+                              ></span>
+                            </a>
+                          </li>
+                        }
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             } @else {
-              <!-- Menu Item sin hijos -->
               <a
                 [routerLink]="item.route"
-                routerLinkActive="bg-primary-50 text-primary-600"
+                routerLinkActive="bg-primary-50 text-primary-700 shadow-sm shadow-primary-100/60"
                 (click)="onMenuClick()"
-                class="flex items-center gap-3 px-3 py-2.5 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors group"
+                class="group flex items-center gap-3 rounded-xl px-3 py-2.5 text-gray-700 transition-colors hover:bg-gray-100"
               >
                 <svg
-                  class="w-5 h-5 text-gray-500 group-hover:text-primary-500 transition-colors"
+                  class="h-5 w-5 text-gray-500 transition-colors group-hover:text-primary-500 group-[.bg-primary-50]:text-primary-500"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -93,7 +113,7 @@
                     [attr.d]="item.icon"
                   />
                 </svg>
-                <span class="font-medium text-sm">{{ item.label }}</span>
+                <span class="text-sm font-medium">{{ item.label }}</span>
               </a>
             }
           </li>
@@ -121,3 +141,6 @@
     </div>
   </div>
 </aside>
+
+
+

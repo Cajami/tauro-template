@@ -1,8 +1,65 @@
+.showcase-preview-pattern {
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--color-border) 72%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 20px 20px;
+}
+
+.showcase-code-panel {
+  background-color: #0f172a;
+}
+
+.showcase-code-tabs {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.showcase-code-tab {
+  padding: 0.625rem 1rem;
+  border-bottom: 2px solid transparent;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition:
+    color 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease;
+}
+
+.showcase-code-tab:hover {
+  color: rgba(255, 255, 255, 0.96);
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.showcase-code-tab-active {
+  border-color: var(--color-primary-400);
+  color: #ffffff;
+}
+
+.showcase-code-html {
+  color: #fecdd3;
+}
+
+.showcase-code-ts {
+  color: #bbf7d0;
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.28);
 }

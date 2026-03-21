@@ -79,7 +79,7 @@ Comportamiento actual:
 - En desktop se abre por defecto.
 - En mobile se cierra por defecto y puede abrirse o cerrarse por interaccion del usuario.
 - Cada cambio de ruta reinicia el scroll al inicio para evitar heredar la posicion anterior entre paginas.
-- El menu lateral fue simplificado para dejar solo Dashboard, Components y Theme.
+- El menu lateral fue simplificado para dejar solo Main, Components y Theme.
 - `AppComponent` monta un `ModalHostComponent` global para que cualquier ruta pueda abrir modales dinamicos desde el servicio.
 
 ### Features actuales
@@ -272,6 +272,7 @@ Observacion tecnica importante:
 - Se fortalecio `app-alert` como mensaje inline reusable y se agrego su pagina de documentacion.
 - Se agrego `DialogService` sobre el sistema de modal para mensajes modales y confirmaciones.
 - Se agrego `ToastService` con host global, posiciones configurables y autocierre con pausa al hover.
+- Se refino el sidebar para distinguir mejor padres con y sin hijos, y se normalizo un scrollbar global mas sutil para todo el template.
 
 ## Convenciones para futuros agentes
 Antes de hacer cambios en el proyecto:
@@ -309,9 +310,4 @@ Posibles siguientes mejoras del template:
 - Migrar Sass `@import` a `@use`.
 - Revisar y normalizar textos o codificacion en archivos fuente donde aparezcan caracteres danados.
 - Agregar mas ejemplos reales de paginas administrativas usando los componentes base.
-
-
-
-
-
 

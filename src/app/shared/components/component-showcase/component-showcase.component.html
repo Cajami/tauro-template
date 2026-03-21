@@ -1,55 +1,49 @@
-﻿<div class="relative z-0 flex flex-col gap-4 my-12" data-showcase-root>
+<div class="relative z-0 my-12 flex flex-col gap-4" data-showcase-root>
   <div class="flex flex-col gap-1 px-1">
-    <h3 class="text-xl font-bold text-foreground tracking-tight">
+    <h3 class="text-xl font-bold tracking-tight text-foreground">
       {{ title() }}
     </h3>
     <p class="text-sm text-muted-foreground">{{ description() }}</p>
   </div>
 
   <div
-    class="grid grid-cols-1 lg:grid-cols-2 border border-border rounded-xl shadow-sm bg-card overflow-visible"
+    class="grid grid-cols-1 overflow-visible rounded-xl border border-border bg-card shadow-sm lg:grid-cols-2"
   >
     <div
-      class="flex items-center justify-center p-10 bg-background relative overflow-visible rounded-t-xl lg:rounded-l-xl lg:rounded-tr-none"
+      class="relative flex items-center justify-center overflow-visible rounded-t-xl bg-background p-10 lg:rounded-l-xl lg:rounded-tr-none"
     >
       <div
-        class="absolute inset-0 z-0 opacity-20 rounded-t-xl lg:rounded-l-xl lg:rounded-tr-none [background-image:radial-gradient(#808080_1px,transparent_1px)] [background-size:20px_20px]"
+        class="showcase-preview-pattern absolute inset-0 z-0 rounded-t-xl opacity-20 lg:rounded-l-xl lg:rounded-tr-none"
       ></div>
 
-      <div class="w-full max-w-sm z-10 overflow-visible">
+      <div class="z-10 w-full max-w-sm overflow-visible">
         <ng-content></ng-content>
       </div>
     </div>
 
-    <div class="bg-[#0f172a] flex flex-col h-full rounded-b-xl lg:rounded-r-xl lg:rounded-bl-none overflow-hidden">
-      <div class="flex border-b border-white/10 bg-black/20">
+    <div class="showcase-code-panel flex h-full flex-col overflow-hidden rounded-b-xl lg:rounded-r-xl lg:rounded-bl-none">
+      <div class="showcase-code-tabs flex">
         <button
           (click)="activeTab.set('html')"
-          [class.border-primary]="activeTab() === 'html'"
-          [class.text-white]="activeTab() === 'html'"
-          class="px-4 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent transition-all"
+          [class.showcase-code-tab-active]="activeTab() === 'html'"
+          class="showcase-code-tab"
         >
           HTML
         </button>
         <button
           (click)="activeTab.set('ts')"
-          [class.border-primary]="activeTab() === 'ts'"
-          [class.text-white]="activeTab() === 'ts'"
-          class="px-4 py-2.5 text-xs font-medium text-slate-400 border-b-2 border-transparent transition-all"
+          [class.showcase-code-tab-active]="activeTab() === 'ts'"
+          class="showcase-code-tab"
         >
           TypeScript
         </button>
       </div>
 
-      <div class="p-6 overflow-auto custom-scrollbar">
+      <div class="custom-scrollbar overflow-auto p-6">
         @if (activeTab() === "html") {
-          <pre
-            class="text-sm font-mono"
-          ><code class="text-sky-300">{{ htmlCode() }}</code></pre>
+          <pre class="text-sm font-mono"><code class="showcase-code-html">{{ htmlCode() }}</code></pre>
         } @else {
-          <pre
-            class="text-sm font-mono"
-          ><code class="text-emerald-400">{{ tsCode() }}</code></pre>
+          <pre class="text-sm font-mono"><code class="showcase-code-ts">{{ tsCode() }}</code></pre>
         }
       </div>
     </div>
