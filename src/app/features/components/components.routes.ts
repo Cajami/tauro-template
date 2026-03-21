@@ -30,9 +30,15 @@ export const COMPONENTS_ROUTES: Routes = [
       ),
   },
   {
+    path: 'modal',
+    loadComponent: () =>
+      import('./modal-docs-page/modal-docs-page.component').then(
+        (m) => m.ModalDocsPageComponent,
+      ),
+  },
+  {
     path: '',
     redirectTo: 'input',
     pathMatch: 'full',
   },
 ];
-

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+﻿import { CommonModule } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 
 @Component({
@@ -26,13 +26,12 @@ export class ButtonComponent {
   clicked = output<Event>();
 
   handleClick(event: Event): void {
-    if (!this.disabled && !this.loading) {
+    if (!this.disabled() && !this.loading()) {
       this.clicked.emit(event);
     }
   }
 
   getButtonClasses(): string {
-    // Solo usar color personalizado en link
     const variantClass =
       this.variant() === 'link'
         ? `btn-link-${this.color()}`

@@ -1,0 +1,79 @@
+<div class="space-y-6">
+  <app-header-page
+    title="Modal Guia"
+    subTitle="Shell global para cargar componentes dinamicos con modalService.open(MiComponente, config)."
+  ></app-header-page>
+
+  <app-component-showcase
+    title="Uso basico con contenido dinamico"
+    description="El modal monta un componente standalone y devuelve un resultado al cerrarse."
+    [htmlCode]="htmlEjemplo1"
+    [tsCode]="tsEjemplo1"
+  >
+    <div class="w-full space-y-4">
+      <app-button [fullWidth]="true" (clicked)="openWelcomeModal()">
+        Abrir modal basico
+      </app-button>
+
+      <div class="rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+        Ultimo resultado: <strong>{{ lastBasicResult() }}</strong>
+      </div>
+    </div>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Footer con multiples acciones"
+    description="El arreglo actions permite definir tres, cuatro o mas botones segun el flujo."
+    [htmlCode]="htmlEjemplo2"
+    [tsCode]="tsEjemplo2"
+  >
+    <div class="w-full space-y-4">
+      <app-button variant="secondary" [fullWidth]="true" (clicked)="openReviewModal()">
+        Abrir modal con 4 acciones
+      </app-button>
+
+      <div class="rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+        Ultimo resultado: <strong>{{ lastReviewResult() }}</strong>
+      </div>
+    </div>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Formulario largo con scroll"
+    description="El modal ya es movible por defecto; aqui se muestra un caso largo con scroll y acciones que interactuan con el componente interno."
+    [htmlCode]="htmlEjemplo3"
+    [tsCode]="tsEjemplo3"
+  >
+    <div class="w-full space-y-4">
+      <app-button variant="primary" [fullWidth]="true" (clicked)="openFormModal()">
+        Abrir modal con formulario largo
+      </app-button>
+
+      <div class="rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700 break-words">
+        Ultimo resultado: <strong>{{ lastFormResult() }}</strong>
+      </div>
+    </div>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Logica dentro del componente cargado"
+    description="El componente padre solo abre el modal y escucha el resultado. La validacion y el guardado pueden vivir dentro del componente que se carga en el modal."
+    [htmlCode]="htmlEjemplo4"
+    [tsCode]="tsEjemplo4"
+  >
+    <div class="w-full space-y-4 rounded-xl border border-blue-100 bg-blue-50 px-4 py-4 text-sm text-blue-900">
+      <p class="font-semibold">Patron recomendado</p>
+      <p>
+        Si una pantalla como <strong>/venta</strong> abre un modal para editar proveedores,
+        el componente del modal puede encargarse de validar y guardar. El footer solo llama
+        metodos como <code>save()</code> mediante <code>componentInstance</code>.
+      </p>
+      <p>
+        El componente padre queda limpio: abre el modal y, cuando este se cierra, decide si
+        refresca datos o actualiza su vista.
+      </p>
+    </div>
+  </app-component-showcase>
+</div>
+
+<app-api-info></app-api-info>

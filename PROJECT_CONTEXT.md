@@ -1,4 +1,4 @@
-# Contexto del Proyecto: Tauro Template
+﻿# Contexto del Proyecto: Tauro Template
 
 ## Resumen ejecutivo
 Tauro Template es un template base de dashboard construido con Angular 19, Tailwind CSS v4 y SCSS. Su objetivo es acelerar el inicio de nuevos proyectos web ofreciendo una base ya resuelta para autenticacion, layout principal y componentes reutilizables, de modo que el desarrollador pueda concentrarse rapido en la logica de negocio.
@@ -31,6 +31,7 @@ Actualmente ya existe:
 - Componente shared `Select` con busqueda interna y soporte para Reactive Forms y ngModel.
 - Seccion `Theme > Color` para documentar como cambiar la paleta principal del template.
 - `Theme > Color` mantiene la vista previa del color entre rutas y recargas durante desarrollo.
+- Sistema global de modal dinamico mediante `modalService.open(MiComponente, config)`.
 
 Actualmente aun esta en construccion o expansion:
 - La autenticacion sigue siendo simulada; no hay backend real integrado.
@@ -78,6 +79,7 @@ Comportamiento actual:
 - En desktop se abre por defecto.
 - En mobile se cierra por defecto y puede abrirse o cerrarse por interaccion del usuario.
 - El menu lateral fue simplificado para dejar solo Dashboard, Components y Theme.
+- `AppComponent` monta un `ModalHostComponent` global para que cualquier ruta pueda abrir modales dinamicos desde el servicio.
 
 ### Features actuales
 - `auth`: login.
@@ -99,6 +101,7 @@ Inventario identificado en `src/app/shared/components`:
 - `form/password-input`
 - `form/textarea`
 - `header-page`
+- `modal`
 
 Estos componentes son parte central del valor del template y deben crecer con enfoque de reusabilidad.
 
@@ -124,7 +127,22 @@ El `DateTimePicker` usa Flatpickr con una capa visual integrada al sistema de te
 Estado actual:
 - Usa tokens del tema para borde, fondo, estados y seleccion.
 - Sigue el color `primary-*` del template, incluyendo la vista previa persistente de `Theme > Color`.
-- Marca sabados y domingos con una senal roja que se mantiene visible incluso cuando el dia esta seleccionado.
+- Marca sabados y domingos con una senal roja cuando no estan seleccionados.
+
+### Sistema de Modal
+El modal compartido se resolvio como un shell global con contenido dinamico.
+
+Capacidades actuales:
+- Se abre con `modalService.open(MiComponente, config)`.
+- Renderiza componentes standalone de forma dinamica dentro de un host global.
+- Inyecta `MODAL_DATA` y `MODAL_REF` al componente cargado.
+- Permite definir `title`, `subtitle`, `size`, `draggable`, `showCloseButton`, `closeOnBackdrop` y `closeOnEscape`.
+- Permite definir multiples botones en el footer mediante `actions`, sin limitarse a `Aceptar` y `Cancelar`.
+- Cada accion puede ejecutar logica personalizada y luego cerrar o no cerrar el modal.
+- El contenido interno puede cerrar el modal con su propio resultado usando `MODAL_REF`.
+- Los modales son dragables por defecto y pueden desactivarse con `draggable: false` cuando un caso puntual lo necesite.`r`n- No cierra por `Escape` ni por clic fuera por defecto.
+- Bloquea el scroll del `body` mientras hay un modal abierto.
+- Tiene documentacion demo en `Components > Modal`.
 
 ### Seccion Theme
 La feature `theme` agrupa documentacion para personalizar el template sin mezclarla con el catalogo de componentes.
@@ -135,6 +153,7 @@ Estado actual:
 - Muestra paletas sugeridas para empezar rapido.
 - Aplica la paleta seleccionada en caliente sobre la app y la mantiene entre rutas o recargas durante la sesion de desarrollo.
 - Incluye un selector de color personalizado que genera una escala base `primary-*` como punto de partida, la aplica en vivo y permite restaurar el tema original.
+- La vista previa se guarda en `localStorage` con la clave `tauro-template.theme-preview`.
 
 ## Navegacion actual
 Rutas principales detectadas:
@@ -144,6 +163,7 @@ Rutas principales detectadas:
 - `/components/select`
 - `/components/datetimepicker`
 - `/components/button`
+- `/components/modal`
 - `/theme/color`
 
 Comportamiento general:
@@ -152,6 +172,7 @@ Comportamiento general:
 - Rutas desconocidas redirigen a `auth/login`.
 - La seccion `components` redirige a `input` por defecto.
 - La seccion `theme` redirige a `color` por defecto.
+- El sidebar expande automaticamente la seccion correspondiente cuando la URL activa cae dentro de ella.
 
 ## Flujo de autenticacion actual
 La autenticacion actual es de tipo demo.
@@ -202,6 +223,7 @@ Observacion tecnica importante:
 - La vista previa del tema ahora persiste entre rutas y recargas durante desarrollo.
 - Se eliminaron las features `users` y `settings` para dejar el template minimo viable.
 - Se ajusto `component-showcase` para soportar componentes con overlays o dropdowns sin cortar su render en las paginas de documentacion.
+- Se agrego un sistema de modal dinamico con host global y apertura por servicio.
 
 ## Convenciones para futuros agentes
 Antes de hacer cambios en el proyecto:
@@ -239,3 +261,4 @@ Posibles siguientes mejoras del template:
 - Migrar Sass `@import` a `@use`.
 - Revisar y normalizar textos o codificacion en archivos fuente donde aparezcan caracteres danados.
 - Agregar mas ejemplos reales de paginas administrativas usando los componentes base.
+

@@ -1,6 +1,7 @@
-﻿## Instrucciones de idioma
+## Instrucciones de idioma
 - Responde siempre en español.
 - Si necesitas pedir permisos, confirmar acciones o explicar resultados, hazlo en español.
+- Toda consulta visible para el usuario, incluyendo solicitudes de aprobacion de herramientas, debe ir en español.
 - Si generas documentación, comentarios o mensajes para el usuario, usa español salvo que el archivo o el contexto requieran inglés.
 
 ## Instrucciones de archivos

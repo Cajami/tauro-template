@@ -1,8 +1,14 @@
-﻿{
-    "files.encoding": "utf8",
-    "files.autoGuessEncoding": false,
-    "files.associations": {
-        "*.scss": "tailwindcss"
-    },
-    "tailwindCSS.experimental.configFile": "src/styles.scss"
+{
+  "files.encoding": "utf8",
+  "files.autoGuessEncoding": false,
+  "files.associations": {
+    "*.scss": "tailwindcss"
+  },
+  "tailwindCSS.experimental.configFile": "src/styles.scss",
+  "terminal.integrated.defaultProfile.windows": "PowerShell 7",
+  "terminal.integrated.profiles.windows": {
+    "PowerShell 7": {
+      "path": "C:\\Users\\javie\\AppData\\Local\\Microsoft\\WindowsApps\\pwsh.exe"
+    }
+  }
 }

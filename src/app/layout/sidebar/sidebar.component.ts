@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+﻿import { CommonModule } from '@angular/common';
 import { Component, input, output, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
@@ -56,6 +56,7 @@ export class SidebarComponent {
           route: '/components/datetimepicker',
         },
         { label: 'Button', icon: '', route: '/components/button' },
+        { label: 'Modal', icon: '', route: '/components/modal' },
       ],
     },
     {
