@@ -1,0 +1,9 @@
+@for (group of groupedToasts(); track group.position) {
+  @if (group.items.length > 0) {
+    <div [class]="getPositionClasses(group.position)">
+      @for (toast of group.items; track toast.id) {
+        <app-toast-item [toast]="toast"></app-toast-item>
+      }
+    </div>
+  }
+}

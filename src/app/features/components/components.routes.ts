@@ -16,6 +16,27 @@ export const COMPONENTS_ROUTES: Routes = [
       ),
   },
   {
+    path: 'alert',
+    loadComponent: () =>
+      import('./alert-docs-page/alert-docs-page.component').then(
+        (m) => m.AlertDocsPageComponent,
+      ),
+  },
+  {
+    path: 'dialog',
+    loadComponent: () =>
+      import('./dialog-docs-page/dialog-docs-page.component').then(
+        (m) => m.DialogDocsPageComponent,
+      ),
+  },
+  {
+    path: 'toast',
+    loadComponent: () =>
+      import('./toast-docs-page/toast-docs-page.component').then(
+        (m) => m.ToastDocsPageComponent,
+      ),
+  },
+  {
     path: 'checkbox',
     loadComponent: () =>
       import('./checkbox-docs-page/checkbox-docs-page.component').then(

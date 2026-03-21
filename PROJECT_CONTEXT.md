@@ -102,10 +102,46 @@ Inventario identificado en `src/app/shared/components`:
 - `form/password-input`
 - `form/textarea`
 - `header-page`
+- `dialog`
 - `modal`
 - `radio-group`
+- `toast`
 
 Estos componentes son parte central del valor del template y deben crecer con enfoque de reusabilidad.
+
+### Componente Alert
+El `Alert` compartido se mantiene como mensaje inline dentro del flujo de la pagina.
+
+Capacidades actuales:
+- Variantes `success`, `error`, `warning`, `info` y `question`.
+- Soporta `title`, `description`, contenido proyectado y acciones con el slot `alertActions`.
+- Puede ocultarse localmente con `dismissible`.
+- Usa tokens del tema para colores semanticos y la variante `question` usa la escala `primary-*`.
+- Tiene documentacion demo propia en la seccion Components.
+- No reemplaza dialogs ni toasts; esos patrones deben resolverse como componentes o servicios separados.
+
+### Sistema de Dialog
+El template ahora tiene una capa de dialogs encima del sistema de modal.
+
+Capacidades actuales:
+- `dialogService.alert(...)` para mensajes modales informativos con una sola accion.
+- `dialogService.confirm(...)` para confirmaciones bloqueantes con respuesta booleana.
+- Los dialogs se presentan siempre en posicion `top-center`.
+- Reutiliza el shell global del modal y el lenguaje visual de `app-alert`.
+- Se documenta por separado en `Components > Dialog`.
+- No reemplaza el futuro `Toast`, que debe seguir siendo un patron distinto para notificaciones flotantes.
+
+### Sistema de Toast
+El template ahora tiene un sistema global de toasts para notificaciones flotantes no bloqueantes.
+
+Capacidades actuales:
+- `toastService.show(...)` con posicion configurable y default `top-right`.
+- Helpers `success`, `error`, `warning`, `info` y `question`.
+- Icono por variante, barra de progreso y autocierre.
+- Pausa del temporizador cuando el mouse pasa por encima del toast.
+- Cierre manual con `X` y una sola accion opcional tipo `Deshacer` o `Ver`.
+- No reemplaza confirmaciones; para eso se sigue usando `DialogService`.
+- `AppComponent` monta un `ToastHostComponent` global para renderizar notificaciones desde cualquier ruta.
 
 ### Componente Select
 El `Select` compartido fue construido sin dependencia externa adicional.
@@ -164,6 +200,9 @@ Rutas principales detectadas:
 - `/dashboard/home`
 - `/components/input`
 - `/components/select`
+- `/components/alert`
+- `/components/dialog`
+- `/components/toast`
 - `/components/checkbox`
 - `/components/radio`
 - `/components/datetimepicker`
@@ -230,6 +269,9 @@ Observacion tecnica importante:
 - Se ajusto `component-showcase` para soportar componentes con overlays o dropdowns sin cortar su render en las paginas de documentacion.
 - Se agrego un sistema de modal dinamico con host global y apertura por servicio.
 - Se agregaron documentacion para `Checkbox` y un nuevo shared `Radio Group` con soporte para Reactive Forms y ngModel.
+- Se fortalecio `app-alert` como mensaje inline reusable y se agrego su pagina de documentacion.
+- Se agrego `DialogService` sobre el sistema de modal para mensajes modales y confirmaciones.
+- Se agrego `ToastService` con host global, posiciones configurables y autocierre con pausa al hover.
 
 ## Convenciones para futuros agentes
 Antes de hacer cambios en el proyecto:
@@ -267,5 +309,9 @@ Posibles siguientes mejoras del template:
 - Migrar Sass `@import` a `@use`.
 - Revisar y normalizar textos o codificacion en archivos fuente donde aparezcan caracteres danados.
 - Agregar mas ejemplos reales de paginas administrativas usando los componentes base.
+
+
+
+
 
 

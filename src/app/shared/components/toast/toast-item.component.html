@@ -1,0 +1,53 @@
+<div
+  class="pointer-events-auto relative w-full max-w-[22rem] overflow-hidden rounded-xl border border-gray-200 bg-white shadow-xl"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+>
+  <div class="flex items-start gap-3 px-3.5 py-3">
+    <div class="mt-0.5 shrink-0" [class]="iconClasses()">
+      <lucide-icon [img]="icon()" [size]="18"></lucide-icon>
+    </div>
+
+    <div class="min-w-0 flex-1 space-y-1">
+      <p class="text-sm font-semibold leading-5 text-gray-900">
+        {{ toast.title }}
+      </p>
+
+      @if (toast.description) {
+        <p class="text-[13px] leading-5 text-gray-600">
+          {{ toast.description }}
+        </p>
+      }
+
+      @if (toast.action; as action) {
+        <button
+          type="button"
+          class="mt-1 inline-flex cursor-pointer items-center text-[13px] font-medium transition-colors"
+          [class]="actionClasses()"
+          (click)="handleAction()"
+        >
+          {{ action.label }}
+        </button>
+      }
+    </div>
+
+    @if (toast.dismissible) {
+      <button
+        type="button"
+        class="inline-flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-700"
+        aria-label="Cerrar notificacion"
+        (click)="close()"
+      >
+        <lucide-icon [img]="CloseIcon" [size]="14"></lucide-icon>
+      </button>
+    }
+  </div>
+
+  <div class="h-0.5 w-full bg-gray-100">
+    <div
+      class="h-full transition-[width] duration-100 ease-linear"
+      [class]="progressClasses()"
+      [style.width.%]="progress()"
+    ></div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="space-y-6">
+  <app-header-page
+    title="Toast Guia"
+    subTitle="Notificaciones flotantes no bloqueantes para informar eventos breves, con autocierre, pausa al hover y accion opcional."
+  ></app-header-page>
+
+  <app-component-showcase
+    title="Variantes base"
+    description="Success, error, warning e info usan icono, autocierre y barra de progreso."
+    [htmlCode]="htmlEjemplo1"
+    [tsCode]="tsEjemplo1"
+  >
+    <app-button variant="primary" (clicked)="showVariants()">
+      Mostrar toasts de ejemplo
+    </app-button>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Posicion configurable"
+    description="El default es top-right, pero puedes cambiar la posicion por notificacion."
+    [htmlCode]="htmlEjemplo2"
+    [tsCode]="tsEjemplo2"
+  >
+    <app-button variant="secondary" (clicked)="showBottomLeft()">
+      Mostrar toast en bottom-left
+    </app-button>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Accion unica opcional"
+    description="Toast puede ofrecer una sola accion ligera como Deshacer o Ver, pero no reemplaza confirmaciones."
+    [htmlCode]="htmlEjemplo3"
+    [tsCode]="tsEjemplo3"
+  >
+    <app-button variant="secondary" (clicked)="showUndoToast()">
+      Mostrar toast con Deshacer
+    </app-button>
+  </app-component-showcase>
+
+  <div class="rounded-2xl border border-primary-200 bg-primary-50 px-5 py-4 text-sm text-primary-800">
+    <strong>Recomendacion UX:</strong> usa `Toast` para informar. Si el usuario debe decidir entre aceptar o cancelar, el patron correcto sigue siendo `DialogService`, no un toast.
+  </div>
+</div>
+
+<app-api-info></app-api-info>
+

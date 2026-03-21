@@ -17,6 +17,7 @@ import {
   ActiveModalState,
   ModalAction,
   ModalActionContext,
+  ModalPlacement,
   ModalSize,
 } from './modal.types';
 
@@ -158,6 +159,18 @@ export class ModalHostComponent {
     this.activeModal()?.ref.close();
   }
 
+  protected getOverlayClasses(placement: ModalPlacement): string {
+    const placementClass =
+      placement === 'top-center'
+        ? 'items-start justify-center pt-8 sm:pt-10'
+        : 'items-center justify-center';
+
+    return [
+      'fixed inset-0 z-[100] flex p-4 transition-opacity duration-280 ease-[cubic-bezier(0.22,1,0.36,1)] sm:p-5',
+      placementClass,
+    ].join(' ');
+  }
+
   protected getDialogClasses(size: ModalSize): string {
     const widthClasses: Record<ModalSize, string> = {
       sm: 'max-w-lg',
@@ -174,7 +187,9 @@ export class ModalHostComponent {
   }
 
   protected getDialogTransform(): string {
-    const entranceY = this.isVisible() ? 0 : 28;
+    const modal = this.renderedModal();
+    const placement = modal?.config.placement ?? 'center';
+    const entranceY = this.isVisible() ? 0 : placement === 'top-center' ? -20 : 28;
     const scale = this.isVisible() ? 1 : 0.93;
     return `translate(${this.translateX()}px, calc(${this.translateY()}px + ${entranceY}px)) scale(${scale})`;
   }
@@ -239,5 +254,3 @@ export class ModalHostComponent {
     }
   }
 }
-
-

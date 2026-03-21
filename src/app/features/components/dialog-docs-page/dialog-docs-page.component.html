@@ -1,0 +1,64 @@
+<div class="space-y-6">
+  <app-header-page
+    title="Dialog Guia"
+    subTitle="Dialogs modales para mensajes informativos y confirmaciones bloqueantes encima de toda la pantalla, siempre en posicion top center."
+  ></app-header-page>
+
+  <app-component-showcase
+    title="Dialog informativo"
+    description="Usa alert(...) cuando solo quieres mostrar un mensaje modal con una unica accion de cierre."
+    [htmlCode]="htmlEjemplo1"
+    [tsCode]="tsEjemplo1"
+  >
+    <div class="space-y-4">
+      <app-button variant="primary" (clicked)="openAlertDialog()">
+        Abrir dialog informativo
+      </app-button>
+
+      <div class="rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+        Resultado actual: <strong>{{ lastAlertResult() }}</strong>
+      </div>
+    </div>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Confirmacion con riesgo"
+    description="Usa confirm(...) cuando el usuario debe decidir entre continuar o cancelar una accion sensible."
+    [htmlCode]="htmlEjemplo2"
+    [tsCode]="tsEjemplo2"
+  >
+    <div class="space-y-4">
+      <app-button variant="error" (clicked)="openDeleteConfirm()">
+        Abrir confirmacion de borrado
+      </app-button>
+
+      <div class="rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+        Resultado actual: <strong>{{ lastConfirmResult() }}</strong>
+      </div>
+    </div>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Confirmacion neutra"
+    description="La variante question funciona bien cuando la decisión no implica peligro, pero sí requiere confirmación."
+    [htmlCode]="htmlEjemplo3"
+    [tsCode]="tsEjemplo3"
+  >
+    <div class="space-y-4">
+      <app-button variant="secondary" (clicked)="openQuestionConfirm()">
+        Abrir confirmacion de publicacion
+      </app-button>
+
+      <div class="rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+        Resultado actual: <strong>{{ lastDangerResult() }}</strong>
+      </div>
+    </div>
+  </app-component-showcase>
+
+  <div class="rounded-2xl border border-primary-200 bg-primary-50 px-5 py-4 text-sm text-primary-800">
+    <strong>Nota de arquitectura:</strong> `Dialog` usa el sistema de `Modal` por debajo y se presenta siempre en posicion `top-center`. `app-alert` sigue reservado para mensajes inline, mientras que `Toast` quedará como componente o servicio aparte para notificaciones flotantes no bloqueantes.
+  </div>
+</div>
+
+<app-api-info></app-api-info>
+

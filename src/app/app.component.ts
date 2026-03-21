@@ -4,11 +4,12 @@ import { filter } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ThemePreviewService } from '@core/services/theme-preview.service';
 import { ModalHostComponent } from '@shared/components/modal/modal-host.component';
+import { ToastHostComponent } from '@shared/components/toast/toast-host.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ModalHostComponent],
+  imports: [RouterOutlet, ModalHostComponent, ToastHostComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

@@ -1,0 +1,79 @@
+<div class="space-y-6">
+  <app-header-page
+    title="Alert Guia"
+    subTitle="Mensajes inline para informar estados, advertencias o decisiones contextuales dentro de la página."
+  ></app-header-page>
+
+  <app-component-showcase
+    title="Variantes base"
+    description="Usa success, error, warning e info para mensajes simples dentro del flujo de la vista."
+    [htmlCode]="htmlEjemplo1"
+    [tsCode]="tsEjemplo1"
+  >
+    <div class="space-y-4">
+      <app-alert variant="success">
+        Los cambios se guardaron correctamente.
+      </app-alert>
+
+      <app-alert variant="error">
+        No fue posible completar la operación.
+      </app-alert>
+
+      <app-alert variant="warning">
+        Revisa los datos antes de continuar.
+      </app-alert>
+
+      <app-alert variant="info">
+        Puedes continuar con el siguiente paso.
+      </app-alert>
+    </div>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Titulo, descripcion y acciones"
+    description="La variante question es útil para decisiones inline cuando no quieres bloquear toda la interfaz."
+    [htmlCode]="htmlEjemplo2"
+    [tsCode]="tsEjemplo2"
+  >
+    <div class="space-y-4">
+      <app-alert
+        variant="question"
+        title="¿Deseas reenviar la invitación?"
+        description="El sistema enviará un nuevo correo al usuario seleccionado."
+      >
+        <div alertActions>
+          <app-button size="sm" variant="secondary" (clicked)="setDecision('cancelado')">
+            Cancelar
+          </app-button>
+          <app-button size="sm" variant="primary" (clicked)="setDecision('aceptado')">
+            Reenviar
+          </app-button>
+        </div>
+      </app-alert>
+
+      <div class="rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+        Decision actual: <strong>{{ inlineDecision() }}</strong>
+      </div>
+    </div>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Dismissible"
+    description="Puedes permitir que el usuario cierre mensajes informativos inline sin salir de la página."
+    [htmlCode]="htmlEjemplo3"
+    [tsCode]="tsEjemplo3"
+  >
+    <app-alert
+      variant="info"
+      title="Sincronización programada"
+      description="El proceso se ejecutará cada 30 minutos."
+      [dismissible]="true"
+    ></app-alert>
+  </app-component-showcase>
+
+  <div class="rounded-2xl border border-primary-200 bg-primary-50 px-5 py-4 text-sm text-primary-800">
+    <strong>Nota de arquitectura:</strong> `app-alert` se mantiene como mensaje inline. Para mensajes encima de toda la pantalla o confirmaciones bloqueantes, el template debería usar un dialog basado en el sistema de modal. Para notificaciones en una esquina, lo correcto será un `Toast` separado.
+  </div>
+</div>
+
+<app-api-info></app-api-info>

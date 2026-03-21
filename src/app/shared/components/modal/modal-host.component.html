@@ -1,7 +1,7 @@
 @let modal = renderedModal();
 
 <div
-  class="fixed inset-0 z-[100] flex items-center justify-center p-4 transition-opacity duration-280 ease-[cubic-bezier(0.22,1,0.36,1)] sm:p-5"
+  [class]="getOverlayClasses(modal?.config?.placement ?? 'center')"
   [class.pointer-events-none]="!modal"
   [class.opacity-0]="!isVisible()"
   [class.opacity-100]="isVisible()"
@@ -89,6 +89,3 @@
     </section>
   }
 </div>
-
-
-

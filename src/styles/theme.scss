@@ -28,14 +28,33 @@
   --color-neutral-900: #111827;
 
   /* ===== STATES ===== */
+  --color-success-50: #f0fdf4;
+  --color-success-100: #dcfce7;
+  --color-success-200: #bbf7d0;
   --color-success-600: #16a34a;
   --color-success-700: #15803d;
+  --color-success-800: #166534;
+
+  --color-warning-50: #fefce8;
+  --color-warning-100: #fef9c3;
+  --color-warning-200: #fef08a;
   --color-warning-600: #ca8a04;
   --color-warning-700: #a16207;
+  --color-warning-800: #854d0e;
+
+  --color-error-50: #fef2f2;
+  --color-error-100: #fee2e2;
+  --color-error-200: #fecaca;
   --color-error-600: #dc2626;
   --color-error-700: #b91c1c;
+  --color-error-800: #991b1b;
+
+  --color-info-50: #ecfeff;
+  --color-info-100: #cffafe;
+  --color-info-200: #a5f3fc;
   --color-info-600: #0891b2;
   --color-info-700: #0e7490;
+  --color-info-800: #155e75;
 
   /* ===== UI TOKENS ===== */
   --color-bg: var(--color-neutral-50);

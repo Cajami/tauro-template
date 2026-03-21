@@ -1,33 +1,119 @@
 @layer components {
   .alert {
-    @apply flex items-start gap-3 p-4 rounded-lg border text-sm;
+    @apply flex gap-3 rounded-xl px-4 py-4 text-sm shadow-sm;
+    background-color: var(--alert-bg);
+    color: var(--alert-text);
   }
 
-  /* ===== ERROR ===== */
-  .alert-error {
-    background-color: var(--color-error-50, #fef2f2);
-    border-color: var(--color-error-600);
-    color: var(--color-error-600);
+  .alert-bordered {
+    @apply border;
+    border-color: var(--alert-border);
   }
 
-  /* ===== SUCCESS ===== */
+  .alert-soft {
+    @apply border border-transparent;
+  }
+
+  .alert-icon {
+    @apply mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-full;
+    background-color: var(--alert-icon-bg);
+    color: var(--alert-icon-color);
+  }
+
+  .alert-content {
+    @apply min-w-0 flex-1 space-y-3;
+  }
+
+  .alert-copy {
+    @apply space-y-1;
+  }
+
+  .alert-title {
+    @apply text-sm font-semibold leading-5;
+    color: var(--alert-title);
+  }
+
+  .alert-description {
+    @apply text-sm leading-6;
+    color: var(--alert-text);
+  }
+
+  .alert-body {
+    @apply text-sm leading-6;
+    color: var(--alert-text);
+  }
+
+  .alert-body:empty,
+  .alert-actions:empty {
+    display: none;
+  }
+
+  .alert-actions {
+    @apply flex flex-wrap items-center gap-2 pt-1;
+  }
+
+  .alert-close {
+    @apply inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-full transition-colors;
+    color: var(--alert-muted);
+  }
+
+  .alert-close:hover {
+    background-color: var(--alert-hover);
+    color: var(--alert-title);
+  }
+
   .alert-success {
-    background-color: var(--color-success-50, #f0fdf4);
-    border-color: var(--color-success-600);
-    color: var(--color-success-600);
+    --alert-bg: var(--color-success-50);
+    --alert-border: var(--color-success-200);
+    --alert-title: var(--color-success-800);
+    --alert-text: var(--color-success-700);
+    --alert-icon-bg: var(--color-success-100);
+    --alert-icon-color: var(--color-success-700);
+    --alert-muted: var(--color-success-600);
+    --alert-hover: color-mix(in srgb, var(--color-success-100) 70%, white);
   }
 
-  /* ===== WARNING ===== */
+  .alert-error {
+    --alert-bg: var(--color-error-50);
+    --alert-border: var(--color-error-200);
+    --alert-title: var(--color-error-800);
+    --alert-text: var(--color-error-700);
+    --alert-icon-bg: var(--color-error-100);
+    --alert-icon-color: var(--color-error-700);
+    --alert-muted: var(--color-error-600);
+    --alert-hover: color-mix(in srgb, var(--color-error-100) 70%, white);
+  }
+
   .alert-warning {
-    background-color: #fefce8;
-    border-color: var(--color-warning-600);
-    color: var(--color-warning-600);
+    --alert-bg: var(--color-warning-50);
+    --alert-border: var(--color-warning-200);
+    --alert-title: var(--color-warning-800);
+    --alert-text: var(--color-warning-700);
+    --alert-icon-bg: var(--color-warning-100);
+    --alert-icon-color: var(--color-warning-700);
+    --alert-muted: var(--color-warning-600);
+    --alert-hover: color-mix(in srgb, var(--color-warning-100) 70%, white);
   }
 
-  /* ===== INFO ===== */
   .alert-info {
-    background-color: #ecfeff;
-    border-color: var(--color-info-600);
-    color: var(--color-info-600);
+    --alert-bg: var(--color-info-50);
+    --alert-border: var(--color-info-200);
+    --alert-title: var(--color-info-800);
+    --alert-text: var(--color-info-700);
+    --alert-icon-bg: var(--color-info-100);
+    --alert-icon-color: var(--color-info-700);
+    --alert-muted: var(--color-info-600);
+    --alert-hover: color-mix(in srgb, var(--color-info-100) 70%, white);
+  }
+
+  .alert-question {
+    --alert-bg: var(--color-primary-50);
+    --alert-border: var(--color-primary-200);
+    --alert-title: var(--color-primary-800);
+    --alert-text: var(--color-primary-700);
+    --alert-icon-bg: var(--color-primary-100);
+    --alert-icon-color: var(--color-primary-700);
+    --alert-muted: var(--color-primary-600);
+    --alert-hover: color-mix(in srgb, var(--color-primary-100) 70%, white);
   }
 }

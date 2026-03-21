@@ -1,3 +1,40 @@
-<div class="alert" [class]="'alert-' + variant">
-  <ng-content></ng-content>
-</div>
+@if (visible()) {
+  <div [class]="alertClasses()" role="alert">
+    <div class="alert-icon">
+      <lucide-icon [img]="icon()" [size]="18"></lucide-icon>
+    </div>
+
+    <div class="alert-content">
+      @if (hasStructuredContent()) {
+        <div class="alert-copy">
+          @if (title) {
+            <h4 class="alert-title">{{ title }}</h4>
+          }
+
+          @if (description) {
+            <p class="alert-description">{{ description }}</p>
+          }
+        </div>
+      }
+
+      <div class="alert-body">
+        <ng-content></ng-content>
+      </div>
+
+      <div class="alert-actions">
+        <ng-content select="[alertActions]"></ng-content>
+      </div>
+    </div>
+
+    @if (dismissible) {
+      <button
+        type="button"
+        class="alert-close"
+        aria-label="Cerrar alerta"
+        (click)="close()"
+      >
+        <lucide-icon [img]="CloseIcon" [size]="16"></lucide-icon>
+      </button>
+    }
+  </div>
+}

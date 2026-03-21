@@ -1,4 +1,4 @@
-﻿import { Injectable, Type, signal } from '@angular/core';
+import { Injectable, Type, signal } from '@angular/core';
 import { ModalRef } from './modal-ref';
 import {
   ActiveModalState,
@@ -55,6 +55,7 @@ export class ModalService {
       title: config.title ?? 'Modal',
       subtitle: config.subtitle,
       size: config.size ?? 'md',
+      placement: config.placement ?? 'center',
       draggable: config.draggable ?? true,
       showCloseButton: config.showCloseButton ?? false,
       closeOnBackdrop: config.closeOnBackdrop ?? false,
@@ -65,4 +66,3 @@ export class ModalService {
     };
   }
 }
-

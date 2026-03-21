@@ -50,6 +50,9 @@ export class SidebarComponent {
       children: [
         { label: 'Input', icon: '', route: '/components/input' },
         { label: 'Select', icon: '', route: '/components/select' },
+        { label: 'Alert', icon: '', route: '/components/alert' },
+        { label: 'Dialog', icon: '', route: '/components/dialog' },
+        { label: 'Toast', icon: '', route: '/components/toast' },
         { label: 'Checkbox', icon: '', route: '/components/checkbox' },
         { label: 'Radio', icon: '', route: '/components/radio' },
         {

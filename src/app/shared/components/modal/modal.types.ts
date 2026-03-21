@@ -1,7 +1,8 @@
-﻿import { Type } from '@angular/core';
+import { Type } from '@angular/core';
 import { ModalRef } from './modal-ref';
 
 export type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
+export type ModalPlacement = 'center' | 'top-center';
 export type ModalActionVariant =
   | 'primary'
   | 'secondary'
@@ -47,6 +48,7 @@ export interface ModalConfig<TComponent = unknown, TData = unknown, TResult = un
   title?: string;
   subtitle?: string;
   size?: ModalSize;
+  placement?: ModalPlacement;
   draggable?: boolean;
   showCloseButton?: boolean;
   closeOnBackdrop?: boolean;
@@ -64,6 +66,7 @@ export interface ResolvedModalConfig<
   title: string;
   subtitle?: string;
   size: ModalSize;
+  placement: ModalPlacement;
   draggable: boolean;
   showCloseButton: boolean;
   closeOnBackdrop: boolean;
