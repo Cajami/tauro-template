@@ -1,4 +1,4 @@
-﻿# Contexto del Proyecto: Tauro Template
+# Contexto del Proyecto: Tauro Template
 
 ## Resumen ejecutivo
 Tauro Template es un template base de dashboard construido con Angular 19, Tailwind CSS v4 y SCSS. Su objetivo es acelerar el inicio de nuevos proyectos web ofreciendo una base ya resuelta para autenticacion, layout principal y componentes reutilizables, de modo que el desarrollador pueda concentrarse rapido en la logica de negocio.
@@ -78,6 +78,7 @@ Comportamiento actual:
 - El sidebar es responsive.
 - En desktop se abre por defecto.
 - En mobile se cierra por defecto y puede abrirse o cerrarse por interaccion del usuario.
+- Cada cambio de ruta reinicia el scroll al inicio para evitar heredar la posicion anterior entre paginas.
 - El menu lateral fue simplificado para dejar solo Dashboard, Components y Theme.
 - `AppComponent` monta un `ModalHostComponent` global para que cualquier ruta pueda abrir modales dinamicos desde el servicio.
 
@@ -102,6 +103,7 @@ Inventario identificado en `src/app/shared/components`:
 - `form/textarea`
 - `header-page`
 - `modal`
+- `radio-group`
 
 Estos componentes son parte central del valor del template y deben crecer con enfoque de reusabilidad.
 
@@ -140,7 +142,8 @@ Capacidades actuales:
 - Permite definir multiples botones en el footer mediante `actions`, sin limitarse a `Aceptar` y `Cancelar`.
 - Cada accion puede ejecutar logica personalizada y luego cerrar o no cerrar el modal.
 - El contenido interno puede cerrar el modal con su propio resultado usando `MODAL_REF`.
-- Los modales son dragables por defecto y pueden desactivarse con `draggable: false` cuando un caso puntual lo necesite.`r`n- No cierra por `Escape` ni por clic fuera por defecto.
+- Los modales son dragables por defecto y pueden desactivarse con `draggable: false` cuando un caso puntual lo necesite.
+- No cierra por `Escape` ni por clic fuera por defecto.
 - Bloquea el scroll del `body` mientras hay un modal abierto.
 - Tiene documentacion demo en `Components > Modal`.
 
@@ -161,6 +164,8 @@ Rutas principales detectadas:
 - `/dashboard/home`
 - `/components/input`
 - `/components/select`
+- `/components/checkbox`
+- `/components/radio`
 - `/components/datetimepicker`
 - `/components/button`
 - `/components/modal`
@@ -224,6 +229,7 @@ Observacion tecnica importante:
 - Se eliminaron las features `users` y `settings` para dejar el template minimo viable.
 - Se ajusto `component-showcase` para soportar componentes con overlays o dropdowns sin cortar su render en las paginas de documentacion.
 - Se agrego un sistema de modal dinamico con host global y apertura por servicio.
+- Se agregaron documentacion para `Checkbox` y un nuevo shared `Radio Group` con soporte para Reactive Forms y ngModel.
 
 ## Convenciones para futuros agentes
 Antes de hacer cambios en el proyecto:
@@ -261,4 +267,5 @@ Posibles siguientes mejoras del template:
 - Migrar Sass `@import` a `@use`.
 - Revisar y normalizar textos o codificacion en archivos fuente donde aparezcan caracteres danados.
 - Agregar mas ejemplos reales de paginas administrativas usando los componentes base.
+
 

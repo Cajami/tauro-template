@@ -1,4 +1,4 @@
-﻿import { Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 
 export const COMPONENTS_ROUTES: Routes = [
   {
@@ -13,6 +13,20 @@ export const COMPONENTS_ROUTES: Routes = [
     loadComponent: () =>
       import('./input-docs-page/input-docs-page.component').then(
         (m) => m.InputDocsPageComponent,
+      ),
+  },
+  {
+    path: 'checkbox',
+    loadComponent: () =>
+      import('./checkbox-docs-page/checkbox-docs-page.component').then(
+        (m) => m.CheckboxDocsPageComponent,
+      ),
+  },
+  {
+    path: 'radio',
+    loadComponent: () =>
+      import('./radio-docs-page/radio-docs-page.component').then(
+        (m) => m.RadioDocsPageComponent,
       ),
   },
   {

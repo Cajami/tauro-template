@@ -1,0 +1,66 @@
+<form [formGroup]="form" class="space-y-6">
+  <app-header-page
+    title="Checkbox Guia"
+    subTitle="Casilla reutilizable para confirmaciones, preferencias y estados binarios."
+  ></app-header-page>
+
+  <app-component-showcase
+    title="Uso basico"
+    description="Ideal para aceptar terminos o confirmar una accion puntual."
+    [htmlCode]="htmlEjemplo1"
+    [tsCode]="tsEjemplo1"
+  >
+    <app-checkbox
+      label="Acepto los terminos y condiciones"
+      formControlName="terms"
+    ></app-checkbox>
+
+    <div class="mt-3 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+      Valor actual: <strong>{{ form.get('terms')?.value ? 'Aceptado' : 'Pendiente' }}</strong>
+    </div>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Uso con ngModel"
+    description="Permite enlazar estados rapidos en formularios sencillos o preferencias locales."
+    [htmlCode]="htmlEjemplo2"
+    [tsCode]="tsEjemplo2"
+  >
+    <app-checkbox
+      label="Recibir novedades del producto"
+      [(ngModel)]="marketingConsent"
+      [ngModelOptions]="{ standalone: true }"
+    ></app-checkbox>
+
+    <div class="mt-3 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+      Valor actual: <strong>{{ marketingConsent ? 'Activo' : 'Inactivo' }}</strong>
+    </div>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Estados y disabled"
+    description="Puedes combinar el checkbox activo del formulario con variantes bloqueadas para vistas de consulta."
+    [htmlCode]="htmlEjemplo3"
+    [tsCode]="tsEjemplo3"
+  >
+    <div class="space-y-3">
+      <app-checkbox
+        label="Notificaciones habilitadas"
+        formControlName="notifications"
+      ></app-checkbox>
+
+      <app-checkbox
+        label="Opcion bloqueada"
+        [disabled]="true"
+        [ngModel]="true"
+        [ngModelOptions]="{ standalone: true }"
+      ></app-checkbox>
+    </div>
+
+    <div class="mt-3 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+      Valor actual: <strong>{{ form.get('notifications')?.value ? 'Activo' : 'Inactivo' }}</strong>
+    </div>
+  </app-component-showcase>
+</form>
+
+<app-api-info></app-api-info>

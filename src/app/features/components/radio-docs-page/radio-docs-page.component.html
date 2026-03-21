@@ -1,0 +1,82 @@
+<form [formGroup]="form" class="space-y-6">
+  <app-header-page
+    title="Radio Guia"
+    subTitle="Grupo de seleccion unica para decisiones excluyentes con soporte para formularios y ngModel."
+  ></app-header-page>
+
+  <app-component-showcase
+    title="Uso basico"
+    description="La variante por defecto mantiene el grupo mas limpio, sin bordes por opcion."
+    [htmlCode]="htmlEjemplo1"
+    [tsCode]="tsEjemplo1"
+  >
+    <app-radio-group
+      label="Metodo de pago"
+      hint="Selecciona la opcion principal para este flujo."
+      [options]="paymentOptions"
+      formControlName="paymentMethod"
+    ></app-radio-group>
+
+    <div class="mt-3 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+      Valor actual: <strong>{{ form.get('paymentMethod')?.value }}</strong>
+    </div>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Uso con ngModel"
+    description="Permite manejar configuraciones rapidas con una seleccion unica y layout horizontal."
+    [htmlCode]="htmlEjemplo2"
+    [tsCode]="tsEjemplo2"
+  >
+    <app-radio-group
+      label="Modo de color"
+      [options]="colorModeOptions"
+      layout="horizontal"
+      [(ngModel)]="selectedColorMode"
+      [ngModelOptions]="{ standalone: true }"
+    ></app-radio-group>
+
+    <div class="mt-3 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+      Valor actual: <strong>{{ selectedColorMode }}</strong>
+    </div>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Variante card"
+    description="Si quieres agrupar visualmente cada opcion, puedes activar la variante con borde y fondo tipo tarjeta."
+    [htmlCode]="htmlEjemplo3"
+    [tsCode]="tsEjemplo3"
+  >
+    <app-radio-group
+      label="Estado editorial"
+      [options]="statusOptions"
+      [required]="true"
+      variant="card"
+      formControlName="status"
+    ></app-radio-group>
+
+    <div class="mt-3 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+      Valor actual: <strong>{{ form.get('status')?.value }}</strong>
+    </div>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Sin descripcion"
+    description="La propiedad description es opcional. Si no la envias, el componente no deja espacios vacios ni rompe el layout."
+    [htmlCode]="htmlEjemplo4"
+    [tsCode]="tsEjemplo4"
+  >
+    <app-radio-group
+      label="Prioridad"
+      [options]="simplePriorityOptions"
+      [(ngModel)]="selectedPriority"
+      [ngModelOptions]="{ standalone: true }"
+    ></app-radio-group>
+
+    <div class="mt-3 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+      Valor actual: <strong>{{ selectedPriority }}</strong>
+    </div>
+  </app-component-showcase>
+</form>
+
+<app-api-info></app-api-info>

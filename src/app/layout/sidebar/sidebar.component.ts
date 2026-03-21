@@ -1,4 +1,4 @@
-﻿import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, input, output, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
@@ -50,6 +50,8 @@ export class SidebarComponent {
       children: [
         { label: 'Input', icon: '', route: '/components/input' },
         { label: 'Select', icon: '', route: '/components/select' },
+        { label: 'Checkbox', icon: '', route: '/components/checkbox' },
+        { label: 'Radio', icon: '', route: '/components/radio' },
         {
           label: 'DateTimePicker',
           icon: '',

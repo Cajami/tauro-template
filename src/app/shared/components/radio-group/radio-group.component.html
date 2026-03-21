@@ -1,0 +1,53 @@
+<div class="space-y-3">
+  @if (label) {
+    <div class="space-y-1">
+      <label class="block text-sm font-medium text-gray-700">
+        {{ label }}
+        @if (required) {
+          <span class="text-red-500">*</span>
+        }
+      </label>
+
+      @if (hint) {
+        <p class="text-sm text-gray-500">{{ hint }}</p>
+      }
+    </div>
+  }
+
+  <div [class]="getContainerClasses()">
+    @for (option of options; track $index) {
+      <label [class]="getOptionClasses(option)">
+        <input
+          type="radio"
+          class="sr-only"
+          [name]="name"
+          [checked]="isChecked(option)"
+          [disabled]="disabled || !!option.disabled"
+          (change)="selectOption(option)"
+          (blur)="onTouched()"
+        />
+
+        <span
+          class="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full border transition-colors"
+          [class.border-primary-500]="isChecked(option)"
+          [class.border-gray-300]="!isChecked(option)"
+          [class.bg-white]="!isChecked(option)"
+          [class.bg-primary-500]="isChecked(option)"
+        >
+          <span
+            class="size-2 rounded-full bg-white transition-opacity"
+            [class.opacity-100]="isChecked(option)"
+            [class.opacity-0]="!isChecked(option)"
+          ></span>
+        </span>
+
+        <span class="min-w-0 flex-1">
+          <span class="block text-sm font-medium text-gray-800">{{ option.label }}</span>
+          @if (option.description) {
+            <span class="mt-1 block text-sm text-gray-500">{{ option.description }}</span>
+          }
+        </span>
+      </label>
+    }
+  </div>
+</div>
