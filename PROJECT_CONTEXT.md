@@ -75,6 +75,7 @@ El layout principal vive en `src/app/layout/dashboard-layout`.
 
 Comportamiento actual:
 - Usa `HeaderComponent`, `SidebarComponent` y `FooterComponent`.
+- El header muestra branding, boton hamburguesa, breadcrumbs visuales segun la ruta activa y una campana de notificaciones placeholder con badge semantico.
 - El shell del dashboard esta organizado con CSS Grid: header arriba, sidebar a la izquierda y columna principal a la derecha con `main` y `footer`.
 - El footer queda como pieza opcional del shell; si se retira, `main` ocupa el alto disponible sin romper la estructura.
 - El sidebar es responsive.

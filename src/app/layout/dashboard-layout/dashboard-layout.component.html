@@ -1,7 +1,7 @@
 <div class="grid h-screen grid-rows-[4rem_minmax(0,1fr)] overflow-hidden bg-gray-50">
   <app-header (toggleSidebar)="toggleSidebar()"></app-header>
 
-  <div class="relative min-h-0">
+  <div class="relative min-h-0 overflow-hidden">
     @if (isMobile() && isSidebarOpen()) {
       <div
         class="fixed inset-0 top-16 z-20 bg-black/30 transition-opacity lg:hidden"

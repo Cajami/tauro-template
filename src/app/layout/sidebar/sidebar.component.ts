@@ -36,7 +36,7 @@ interface AccountMenuItem {
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
   host: {
-    class: 'relative z-30 block h-full shrink-0 overflow-visible',
+    class: 'relative z-30 block h-full min-h-0 shrink-0 overflow-visible',
     '[style.width]': 'getHostWidth()',
   },
 })

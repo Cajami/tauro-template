@@ -1,12 +1,12 @@
 <aside
-  class="fixed inset-y-0 left-0 top-16 z-30 flex h-[calc(100vh-4rem)] flex-col overflow-visible border-r border-gray-200 bg-white transition-all duration-300 ease-in-out lg:relative lg:top-0 lg:h-full lg:w-full"
+  class="fixed inset-y-0 left-0 top-16 z-30 flex h-[calc(100vh-4rem)] min-h-0 flex-col overflow-hidden border-r border-gray-200 bg-white transition-all duration-300 ease-in-out lg:relative lg:top-0 lg:h-full lg:w-full"
   [class.w-[calc(100vw-1rem)]]="isMobile() && isOpen()"
   [class.max-w-sm]="isMobile()"
   [class.-translate-x-full]="isMobile() && !isOpen()"
   [class.translate-x-0]="!isMobile() || isOpen()"
 >
-  <div class="flex min-h-0 flex-1 flex-col overflow-visible">
-    <nav class="sidebar-scroll flex-1 overflow-y-auto px-3 py-4">
+  <div class="grid min-h-0 flex-1 grid-rows-[minmax(0,1fr)_auto] overflow-hidden">
+    <nav class="sidebar-scroll min-h-0 overflow-y-auto px-3 py-4">
       <ul class="space-y-1.5">
         @for (item of menuItems(); track item.label) {
           <li>
@@ -62,12 +62,12 @@
                   [class.grid-rows-[1fr]]="item.expanded"
                 >
                   <div class="min-h-0 overflow-hidden">
-                    <div class="relative ml-7 mt-2 pb-1 pl-4">
+                    <div class="relative ml-7 mt-2 pl-4">
                       <span
-                        class="absolute bottom-1 left-0 top-1 w-px rounded-full bg-gradient-to-b from-gray-200 via-gray-200 to-transparent"
+                        class="absolute bottom-0 left-0 top-0 w-px rounded-full bg-gray-200"
                       ></span>
 
-                      <ul class="space-y-1">
+                      <ul class="space-y-0.5">
                         @for (child of item.children; track child.label) {
                           <li>
                             <a
@@ -196,3 +196,6 @@
     }
   </div>
 }
+
+
+

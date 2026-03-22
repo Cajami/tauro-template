@@ -38,7 +38,7 @@ export class ThemeLayoutPageComponent {
   readonly layoutSnippet = `<div class="grid h-screen grid-rows-[4rem_minmax(0,1fr)] overflow-hidden bg-gray-50">
   <app-header (toggleSidebar)="toggleSidebar()"></app-header>
 
-  <div class="relative min-h-0">
+  <div class="relative min-h-0 overflow-hidden">
     <div class="grid h-full min-h-0 grid-cols-[auto_minmax(0,1fr)]">
       <app-sidebar
         [isOpen]="isSidebarOpen()"
@@ -57,17 +57,9 @@ export class ThemeLayoutPageComponent {
   </div>
 </div>`;
 
-  readonly footerlessSnippet = `<div class="grid min-h-0 min-w-0 grid-rows-[minmax(0,1fr)_auto] overflow-hidden">
-  <main #mainContent class="min-h-0 overflow-y-auto p-4 md:p-5 lg:p-6">
-    <router-outlet></router-outlet>
-  </main>
+  readonly footerlessSnippet = `<!-- Si no quieres footer -->
 
-  <app-footer></app-footer>
-</div>
-
-<!-- Si no quieres footer -->
-
-<div class="grid min-h-0 min-w-0 grid-rows-[minmax(0,1fr)_auto] overflow-hidden">
+<div class="grid min-h-0 min-w-0 grid-rows-[minmax(0,1fr)] overflow-hidden">
   <main #mainContent class="min-h-0 overflow-y-auto p-4 md:p-5 lg:p-6">
     <router-outlet></router-outlet>
   </main>

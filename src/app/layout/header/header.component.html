@@ -1,7 +1,7 @@
 <header class="bg-primary-900 border-b border-gray-200">
-  <div class="flex items-center justify-between h-16 px-4 md:px-6">
-    <div class="flex items-center gap-4">
-      <div class="flex items-center gap-2">
+  <div class="flex h-16 items-center justify-between gap-4 px-4 md:px-6">
+    <div class="flex min-w-0 items-center gap-4">
+      <div class="flex items-center gap-2 shrink-0">
         <div class="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
           <svg
             class="w-5 h-5 text-white"
@@ -17,12 +17,12 @@
             />
           </svg>
         </div>
-        <span class="text-lg font-bold text-white">Tauro-Template</span>
+        <span class="text-lg font-bold text-white whitespace-nowrap">Tauro-Template</span>
       </div>
 
       <button
         (click)="onToggleSidebar()"
-        class="group p-2 rounded-lg hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
+        class="group shrink-0 p-2 rounded-lg hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
         aria-label="Toggle Sidebar"
       >
         <svg
@@ -39,6 +39,60 @@
           />
         </svg>
       </button>
+
+      <div class="hidden min-w-0 md:flex items-center gap-2 overflow-hidden">
+        @for (item of breadcrumbItems(); track $index; let last = $last) {
+          <span class="truncate text-sm font-medium text-white" [class.opacity-70]="!last">
+            {{ item }}
+          </span>
+          @if (!last) {
+            <svg
+              class="h-4 w-4 shrink-0 text-white/35"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          }
+        }
+      </div>
+    </div>
+
+    <div class="flex shrink-0 items-center">
+      <button
+        type="button"
+        class="group relative rounded-xl p-2.5 transition-colors hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-primary-500"
+        aria-label="Notificaciones"
+      >
+        <svg
+          class="h-5 w-5 text-white transition-colors group-hover:text-white/90"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V4a2 2 0 10-4 0v1.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+          />
+        </svg>
+
+        @if (notificationCount() > 0) {
+          <span
+            class="absolute -right-0.5 -top-0.5 inline-flex min-h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[11px] font-semibold leading-none text-white ring-2 ring-primary-900"
+          >
+            {{ notificationCount() > 99 ? '99+' : notificationCount() }}
+          </span>
+        }
+      </button>
     </div>
   </div>
 </header>
+
