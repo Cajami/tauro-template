@@ -75,6 +75,8 @@ El layout principal vive en `src/app/layout/dashboard-layout`.
 
 Comportamiento actual:
 - Usa `HeaderComponent`, `SidebarComponent` y `FooterComponent`.
+- El shell del dashboard esta organizado con CSS Grid: header arriba, sidebar a la izquierda y columna principal a la derecha con `main` y `footer`.
+- El footer queda como pieza opcional del shell; si se retira, `main` ocupa el alto disponible sin romper la estructura.
 - El sidebar es responsive.
 - En desktop se abre por defecto.
 - En mobile se cierra por defecto y puede abrirse o cerrarse por interaccion del usuario.

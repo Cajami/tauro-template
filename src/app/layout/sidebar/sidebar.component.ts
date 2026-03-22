@@ -18,8 +18,14 @@ interface MenuItem {
   imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
+  host: {
+    class: 'relative z-30 block h-full shrink-0',
+    '[style.width]': 'getHostWidth()',
+  },
 })
 export class SidebarComponent {
+  private readonly desktopSidebarWidth = 256;
+
   isOpen = input.required<boolean>();
   isMobile = input.required<boolean>();
   closeSidebar = output<void>();
@@ -72,6 +78,14 @@ export class SidebarComponent {
     },
   ]);
 
+  getHostWidth(): string {
+    if (this.isMobile()) {
+      return '0px';
+    }
+
+    return this.isOpen() ? `${this.desktopSidebarWidth}px` : '0px';
+  }
+
   toggleSubmenu(item: MenuItem): void {
     if (item.children) {
       item.expanded = !item.expanded;
@@ -114,4 +128,3 @@ export class SidebarComponent {
     this.menuItems.set(updated);
   }
 }
-
