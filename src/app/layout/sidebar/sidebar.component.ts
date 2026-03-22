@@ -1,5 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, input, output, signal } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  ViewChild,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
 import { filter } from 'rxjs';
@@ -12,6 +21,14 @@ interface MenuItem {
   expanded?: boolean;
 }
 
+interface AccountMenuItem {
+  id: string;
+  label: string;
+  icon: string;
+  hint?: string;
+  divider?: boolean;
+}
+
 @Component({
   selector: 'app-sidebar',
   standalone: true,
@@ -19,12 +36,35 @@ interface MenuItem {
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
   host: {
-    class: 'relative z-30 block h-full shrink-0',
+    class: 'relative z-30 block h-full shrink-0 overflow-visible',
     '[style.width]': 'getHostWidth()',
   },
 })
-export class SidebarComponent {
+export class SidebarComponent implements AfterViewInit {
+  @ViewChild('accountTrigger') private accountTrigger?: ElementRef<HTMLButtonElement>;
+  @ViewChild('accountMenuPanel') private accountMenuPanel?: ElementRef<HTMLDivElement>;
+
   private readonly desktopSidebarWidth = 256;
+  private readonly accountMenuWidth = 248;
+  private readonly accountMenuGap = 12;
+  private readonly viewportPadding = 12;
+
+  readonly accountMenuOpen = signal(false);
+  readonly accountMenuStyle = signal<Record<string, string>>({});
+  readonly accountMenuItems: AccountMenuItem[] = [
+    {
+      id: 'profile',
+      label: 'Mi perfil',
+      icon: 'M5.121 17.804A9 9 0 1118.88 17.8M15 11a3 3 0 11-6 0 3 3 0 016 0z',
+      hint: 'Prox.',
+    },
+    {
+      id: 'logout',
+      label: 'Cerrar sesion',
+      icon: 'M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1',
+      divider: true,
+    },
+  ];
 
   isOpen = input.required<boolean>();
   isMobile = input.required<boolean>();
@@ -33,6 +73,7 @@ export class SidebarComponent {
   constructor(
     public authService: AuthService,
     private router: Router,
+    private elementRef: ElementRef<HTMLElement>,
   ) {
     this.syncExpandedMenu(this.router.url);
 
@@ -40,7 +81,14 @@ export class SidebarComponent {
       .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
       .subscribe((event) => {
         this.syncExpandedMenu(event.urlAfterRedirects);
+        this.closeAccountMenu();
       });
+  }
+
+  ngAfterViewInit(): void {
+    if (this.accountMenuOpen()) {
+      this.updateAccountMenuPosition();
+    }
   }
 
   menuItems = signal<MenuItem[]>([
@@ -81,6 +129,25 @@ export class SidebarComponent {
     },
   ]);
 
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    if (!this.accountMenuOpen()) {
+      return;
+    }
+
+    const target = event.target as Node | null;
+    if (target && !this.elementRef.nativeElement.contains(target)) {
+      this.closeAccountMenu();
+    }
+  }
+
+  @HostListener('window:resize')
+  onWindowResize(): void {
+    if (this.accountMenuOpen()) {
+      this.deferAccountMenuPosition();
+    }
+  }
+
   getHostWidth(): string {
     if (this.isMobile()) {
       return '0px';
@@ -97,9 +164,45 @@ export class SidebarComponent {
   }
 
   onMenuClick(): void {
+    this.closeAccountMenu();
+
     if (this.isMobile()) {
       this.closeSidebar.emit();
     }
+  }
+
+  toggleAccountMenu(): void {
+    if (this.accountMenuOpen()) {
+      this.closeAccountMenu();
+      return;
+    }
+
+    this.accountMenuOpen.set(true);
+    this.deferAccountMenuPosition();
+  }
+
+  onAccountMenuAction(actionId: string): void {
+    if (actionId === 'profile') {
+      this.closeAccountMenu();
+      return;
+    }
+
+    if (actionId === 'logout') {
+      this.closeAccountMenu();
+      this.authService.logout();
+
+      if (this.isMobile()) {
+        this.closeSidebar.emit();
+      }
+    }
+  }
+
+  getAccountChevronTransform(): string {
+    if (this.isMobile()) {
+      return this.accountMenuOpen() ? 'rotate(180deg)' : 'rotate(0deg)';
+    }
+
+    return this.accountMenuOpen() ? 'rotate(90deg)' : 'rotate(-90deg)';
   }
 
   isSectionActive(item: MenuItem): boolean {
@@ -109,6 +212,60 @@ export class SidebarComponent {
 
     const currentUrl = this.router.url.split('?')[0].split('#')[0];
     return item.children.some((child) => (child.route ? currentUrl.startsWith(child.route) : false));
+  }
+
+  private closeAccountMenu(): void {
+    this.accountMenuOpen.set(false);
+    this.accountMenuStyle.set({});
+  }
+
+  private deferAccountMenuPosition(): void {
+    requestAnimationFrame(() => {
+      this.updateAccountMenuPosition();
+    });
+  }
+
+  private updateAccountMenuPosition(): void {
+    const trigger = this.accountTrigger?.nativeElement;
+    const panel = this.accountMenuPanel?.nativeElement;
+    if (!trigger || !panel) {
+      return;
+    }
+
+    const triggerRect = trigger.getBoundingClientRect();
+    const panelRect = panel.getBoundingClientRect();
+    const panelHeight = Math.min(panelRect.height || 0, window.innerHeight - this.viewportPadding * 2);
+    const panelWidth = this.accountMenuWidth;
+    const maxTop = Math.max(this.viewportPadding, window.innerHeight - panelHeight - this.viewportPadding);
+
+    if (this.isMobile()) {
+      const left = Math.min(
+        Math.max(this.viewportPadding, triggerRect.right - panelWidth),
+        window.innerWidth - panelWidth - this.viewportPadding,
+      );
+      const desiredTop = triggerRect.top - panelHeight - this.accountMenuGap;
+      const top = Math.max(this.viewportPadding, desiredTop);
+
+      this.accountMenuStyle.set({
+        left: `${left}px`,
+        top: `${top}px`,
+        width: `${panelWidth}px`,
+        maxHeight: `${window.innerHeight - this.viewportPadding * 2}px`,
+      });
+      return;
+    }
+
+    const desiredLeft = triggerRect.right + this.accountMenuGap;
+    const left = Math.min(desiredLeft, window.innerWidth - panelWidth - this.viewportPadding);
+    const desiredTop = triggerRect.top + triggerRect.height / 2 - panelHeight / 2;
+    const top = Math.min(Math.max(this.viewportPadding, desiredTop), maxTop);
+
+    this.accountMenuStyle.set({
+      left: `${left}px`,
+      top: `${top}px`,
+      width: `${panelWidth}px`,
+      maxHeight: `${window.innerHeight - this.viewportPadding * 2}px`,
+    });
   }
 
   private syncExpandedMenu(currentUrl: string): void {
@@ -131,4 +288,5 @@ export class SidebarComponent {
     this.menuItems.set(updated);
   }
 }
+
 

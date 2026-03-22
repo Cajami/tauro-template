@@ -1,6 +1,5 @@
-import { Component, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../core/services/auth.service';
+import { Component, output } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -12,13 +11,7 @@ import { AuthService } from '../../core/services/auth.service';
 export class HeaderComponent {
   toggleSidebar = output<void>();
 
-  constructor(public authService: AuthService) {}
-
   onToggleSidebar(): void {
     this.toggleSidebar.emit();
-  }
-
-  logout(): void {
-    this.authService.logout();
   }
 }

@@ -82,6 +82,7 @@ Comportamiento actual:
 - En mobile se cierra por defecto y puede abrirse o cerrarse por interaccion del usuario.
 - Cada cambio de ruta reinicia el scroll al inicio para evitar heredar la posicion anterior entre paginas.
 - El menu lateral fue simplificado para dejar solo Main, Components y Theme.
+- La parte inferior del sidebar muestra el bloque de usuario y abre un menu de cuenta flotante: a la derecha en desktop y hacia arriba en mobile, con ajuste al viewport y scroll propio si crece.
 - `AppComponent` monta un `ModalHostComponent` global para que cualquier ruta pueda abrir modales dinamicos desde el servicio.
 
 ### Features actuales

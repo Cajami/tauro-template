@@ -1,11 +1,11 @@
 <aside
-  class="fixed inset-y-0 left-0 top-16 z-30 flex h-[calc(100vh-4rem)] flex-col overflow-hidden border-r border-gray-200 bg-white transition-all duration-300 ease-in-out lg:relative lg:top-0 lg:h-full lg:w-full"
+  class="fixed inset-y-0 left-0 top-16 z-30 flex h-[calc(100vh-4rem)] flex-col overflow-visible border-r border-gray-200 bg-white transition-all duration-300 ease-in-out lg:relative lg:top-0 lg:h-full lg:w-full"
   [class.w-[calc(100vw-1rem)]]="isMobile() && isOpen()"
   [class.max-w-sm]="isMobile()"
   [class.-translate-x-full]="isMobile() && !isOpen()"
   [class.translate-x-0]="!isMobile() || isOpen()"
 >
-  <div class="flex min-h-0 flex-1 flex-col overflow-hidden">
+  <div class="flex min-h-0 flex-1 flex-col overflow-visible">
     <nav class="sidebar-scroll flex-1 overflow-y-auto px-3 py-4">
       <ul class="space-y-1.5">
         @for (item of menuItems(); track item.label) {
@@ -120,22 +120,79 @@
       </ul>
     </nav>
 
-    <div class="border-t border-gray-200 p-4">
-      <div class="flex items-center gap-3">
+    <div class="border-t border-gray-200 p-3">
+      <button
+        #accountTrigger
+        (click)="toggleAccountMenu()"
+        class="group flex w-full items-center gap-3 rounded-xl px-2.5 py-2 text-left transition-colors hover:bg-gray-100"
+        type="button"
+      >
         <div
-          class="flex h-10 w-10 items-center justify-center rounded-full bg-primary-500 font-semibold text-white"
+          class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-500 font-semibold text-white"
         >
           {{ authService.currentUser()?.username?.charAt(0)?.toUpperCase() }}
         </div>
         <div class="min-w-0 flex-1">
-          <p class="truncate text-sm font-medium text-primary-900">
+          <p class="truncate text-sm font-semibold text-primary-900">
             {{ authService.currentUser()?.username?.toUpperCase() }}
           </p>
           <p class="truncate text-xs text-gray-500">
             {{ authService.currentUser()?.role }}
           </p>
         </div>
-      </div>
+        <svg
+          class="h-4 w-4 shrink-0 text-gray-400 transition-transform duration-200"
+          [style.transform]="getAccountChevronTransform()"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+      </button>
     </div>
   </div>
 </aside>
+
+@if (accountMenuOpen()) {
+  <div
+    #accountMenuPanel
+    class="sidebar-scroll fixed z-[120] overflow-y-auto rounded-xl border border-gray-200 bg-white py-1.5 shadow-2xl"
+    [ngStyle]="accountMenuStyle()"
+  >
+    @for (item of accountMenuItems; track item.id) {
+      <button
+        (click)="onAccountMenuAction(item.id)"
+        type="button"
+        class="flex w-full items-center gap-3 px-3 py-2.5 text-left text-sm font-medium text-gray-700 transition-colors hover:bg-primary-50 hover:text-primary-700"
+        [class.border-t]="item.divider"
+        [class.border-gray-100]="item.divider"
+      >
+        <svg
+          class="h-4 w-4 shrink-0"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            [attr.d]="item.icon"
+          />
+        </svg>
+        <span class="min-w-0 flex-1 truncate">{{ item.label }}</span>
+        @if (item.hint) {
+          <span class="text-[11px] font-semibold uppercase tracking-[0.14em] text-gray-400">
+            {{ item.hint }}
+          </span>
+        }
+      </button>
+    }
+  </div>
+}
