@@ -1,0 +1,146 @@
+<app-header-page
+  title="Theme / Layout"
+  subTitle="Guia para entender el shell del dashboard y personalizar piezas base como el footer sin romper la estructura."
+></app-header-page>
+
+<section class="mt-8 space-y-8">
+  <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+      <div class="max-w-3xl space-y-3">
+        <p class="text-sm font-semibold uppercase tracking-[0.28em] text-primary-600">
+          Shell del dashboard
+        </p>
+        <h2 class="text-2xl font-semibold text-slate-900">La estructura base vive en <code>dashboard-layout.component.html</code></h2>
+        <p class="text-sm leading-6 text-slate-600">
+          El layout principal del template esta resuelto con un shell basado en grid: header arriba,
+          sidebar a la izquierda y una columna derecha donde conviven <code>main</code> y <code>footer</code>.
+          Esta pagina sirve para explicar esos puntos de extension sin mezclarlo con componentes reutilizables.
+        </p>
+      </div>
+
+      <div class="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
+        <p class="font-semibold text-slate-900">Archivo clave</p>
+        <p class="mt-1 font-mono text-xs">src/app/layout/dashboard-layout/dashboard-layout.component.html</p>
+      </div>
+    </div>
+  </article>
+
+  <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div class="space-y-2">
+      <p class="text-sm font-semibold uppercase tracking-[0.28em] text-primary-600">Mapa rapido</p>
+      <h2 class="text-2xl font-semibold text-slate-900">Que hace cada zona del layout</h2>
+      <p class="text-sm leading-6 text-slate-600">
+        Antes de tocar el shell conviene ubicar donde vive cada pieza. Asi puedes modificar el layout sin entrar a ciegas al proyecto.
+      </p>
+    </div>
+
+    <div class="mt-6 grid gap-6 xl:grid-cols-[1.05fr_0.95fr] xl:items-stretch">
+      <div class="h-full rounded-[2rem] border border-slate-200 bg-slate-50 p-5 shadow-inner shadow-slate-200/40">
+        <div class="rounded-[1.35rem] border border-slate-200 bg-white px-5 py-4 shadow-sm">
+          <p class="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Header</p>
+          <p class="mt-2 text-sm font-medium text-slate-700">Branding, acciones globales y boton hamburguesa para mobile.</p>
+        </div>
+
+        <div class="mt-3 grid min-h-[23rem] grid-cols-[minmax(10rem,0.75fr)_minmax(0,1.65fr)] items-stretch gap-3">
+          <div class="h-full rounded-[1.35rem] border border-slate-200 bg-slate-100 px-4 py-5 shadow-sm">
+            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Sidebar</p>
+            <p class="mt-3 text-sm leading-6 text-slate-700">
+              Navegacion lateral del template. En desktop ocupa su columna y en mobile aparece como overlay.
+            </p>
+          </div>
+
+          <div class="grid h-full min-h-0 grid-rows-[minmax(0,1fr)_auto] gap-3">
+            <div class="rounded-[1.35rem] border border-slate-200 bg-white px-4 py-5 shadow-sm">
+              <p class="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Main</p>
+              <p class="mt-3 text-sm leading-6 text-slate-700">
+                Area principal donde se renderizan las paginas privadas y vive el scroll del contenido.
+              </p>
+            </div>
+
+            <div class="rounded-[1.35rem] border border-slate-200 bg-slate-100 px-4 py-4 shadow-sm">
+              <p class="text-xs font-semibold uppercase tracking-[0.28em] text-slate-600">Footer</p>
+              <p class="mt-2 text-sm leading-6 text-slate-600">
+                Pie de la columna derecha. Es opcional y puede retirarse sin romper el shell.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-1">
+        @for (item of shellMap; track item.area) {
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <p class="text-xs font-semibold uppercase tracking-[0.22em] text-primary-600">{{ item.area }}</p>
+            <p class="mt-3 text-sm leading-6 text-slate-700">{{ item.description }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </article>
+
+  <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div class="space-y-2">
+      <p class="text-sm font-semibold uppercase tracking-[0.28em] text-primary-600">Footer opcional</p>
+      <h2 class="text-2xl font-semibold text-slate-900">Como quitar el footer sin romper el template</h2>
+      <p class="text-sm leading-6 text-slate-600">
+        El footer no es obligatorio. El shell ya esta preparado para que, si lo retiras, el <code>main</code>
+        ocupe el alto disponible de la columna derecha sin rehacer la grilla.
+      </p>
+    </div>
+
+    <div class="mt-6 grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
+      <div class="rounded-3xl border border-slate-200 bg-slate-50 p-5">
+        <p class="text-xs uppercase tracking-[0.3em] text-slate-500">Pasos sugeridos</p>
+        <ol class="mt-4 space-y-3 text-sm leading-6 text-slate-700">
+          @for (step of footerRemovalSteps; track step; let index = $index) {
+            <li class="flex items-start gap-3">
+              <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-100 text-xs font-semibold text-primary-700">
+                {{ index + 1 }}
+              </span>
+              <span>{{ step }}</span>
+            </li>
+          }
+        </ol>
+      </div>
+
+      <div class="rounded-3xl border border-slate-200 bg-slate-950 p-5 text-sm text-slate-100 shadow-inner">
+        <div class="flex items-center justify-between gap-3 border-b border-white/10 pb-3">
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em] text-slate-400">Snippet actual</p>
+            <h3 class="mt-1 text-base font-semibold text-white">Shell del dashboard</h3>
+          </div>
+          <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">
+            layout
+          </span>
+        </div>
+        <pre class="mt-4 overflow-auto text-xs leading-6 text-sky-300"><code>{{ layoutSnippet }}</code></pre>
+      </div>
+    </div>
+  </article>
+
+  <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div class="space-y-2">
+      <p class="text-sm font-semibold uppercase tracking-[0.28em] text-primary-600">Comparacion</p>
+      <h2 class="text-2xl font-semibold text-slate-900">Con footer y sin footer</h2>
+      <p class="text-sm leading-6 text-slate-600">
+        Aqui se ve el bloque que controla la columna derecha del dashboard. Si mantienes la fila
+        <code>minmax(0,1fr)</code> para <code>main</code>, el contenido seguira comportandose bien incluso sin footer.
+      </p>
+    </div>
+
+    <div class="mt-6 rounded-3xl border border-slate-200 bg-slate-950 p-5 text-sm text-slate-100 shadow-inner">
+      <pre class="overflow-auto text-xs leading-6 text-emerald-300"><code>{{ footerlessSnippet }}</code></pre>
+    </div>
+  </article>
+
+  <article class="rounded-3xl border border-primary-200 bg-primary-50 p-6 shadow-sm">
+    <p class="text-sm font-semibold uppercase tracking-[0.28em] text-primary-700">Esta guia crecera aqui</p>
+    <p class="mt-3 text-sm leading-6 text-primary-900">
+      Esta seccion <strong>Theme / Layout</strong> queda preparada para futuras configuraciones del shell,
+      por ejemplo variantes del sidebar, anchos del menu lateral, header fijo, footer condicional u otras decisiones de layout base.
+    </p>
+  </article>
+</section>
+
+
+

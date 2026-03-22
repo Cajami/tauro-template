@@ -189,6 +189,8 @@ Capacidades actuales:
 La feature `theme` agrupa documentacion para personalizar el template sin mezclarla con el catalogo de componentes.
 
 Estado actual:
+- Existe la ruta `Theme > Layout`.
+- `Theme > Layout` documenta el shell del dashboard, la estructura base del layout y como retirar el footer sin romper la grilla.
 - Existe la ruta `Theme > Color`.
 - Explica que el color principal se cambia desde `src/styles/theme.scss`.
 - Muestra paletas sugeridas para empezar rapido.
@@ -210,6 +212,7 @@ Rutas principales detectadas:
 - `/components/datetimepicker`
 - `/components/button`
 - `/components/modal`
+- `/theme/layout`
 - `/theme/color`
 
 Comportamiento general:
@@ -217,7 +220,7 @@ Comportamiento general:
 - El root redirige a `dashboard` cuando el usuario esta autenticado.
 - Rutas desconocidas redirigen a `auth/login`.
 - La seccion `components` redirige a `input` por defecto.
-- La seccion `theme` redirige a `color` por defecto.
+- La seccion `theme` redirige a `layout` por defecto.
 - El sidebar expande automaticamente la seccion correspondiente cuando la URL activa cae dentro de ella.
 
 ## Flujo de autenticacion actual
@@ -307,7 +310,7 @@ Si un agente hace cambios significativos y no actualiza este archivo, la documen
 Posibles siguientes mejoras del template:
 - Expandir catalogo de componentes reutilizables.
 - Mejorar documentacion demo de componentes existentes.
-- Ampliar la seccion `theme` con configuraciones adicionales ademas de color.
+- Ampliar la seccion `theme` con mas configuraciones de layout y personalizacion del shell.
 - Reemplazar autenticacion simulada por una interfaz mas adaptable a backend real.
 - Migrar Sass `@import` a `@use`.
 - Revisar y normalizar textos o codificacion en archivos fuente donde aparezcan caracteres danados.

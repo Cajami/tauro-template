@@ -74,7 +74,10 @@ export class SidebarComponent {
       label: 'Theme',
       icon: 'M11 3a1 1 0 011 1v1.07a7.002 7.002 0 015.93 5.93H19a1 1 0 110 2h-1.07a7.002 7.002 0 01-5.93 5.93V20a1 1 0 11-2 0v-1.07a7.002 7.002 0 01-5.93-5.93H3a1 1 0 110-2h1.07a7.002 7.002 0 015.93-5.93V4a1 1 0 011-1zm0 4a5 5 0 100 10 5 5 0 000-10z',
       expanded: false,
-      children: [{ label: 'Color', icon: '', route: '/theme/color' }],
+      children: [
+        { label: 'Layout', icon: '', route: '/theme/layout' },
+        { label: 'Color', icon: '', route: '/theme/color' },
+      ],
     },
   ]);
 
@@ -128,3 +131,4 @@ export class SidebarComponent {
     this.menuItems.set(updated);
   }
 }
+
