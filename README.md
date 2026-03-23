@@ -18,6 +18,11 @@ Puedes ver y probar el template aquí:
 
 La demo publicada en GitHub Pages ya soporta recarga directa de rutas internas, así que puedes navegar y usar `F5` sin problema.
 
+> **Estado responsive actual**
+> La experiencia principal del template esta enfocada hoy en **desktop**.
+> La version mobile/tablet todavia **no esta cerrada por completo** y puede presentar fallas visuales o de layout.
+> Por ahora, se recomienda usar Tauro Template como base para pantallas de escritorio mientras se termina de estabilizar la experiencia responsive.
+
 ## 📋 Índice
 
 - [✨ Características](#-características)
@@ -38,10 +43,10 @@ La demo publicada en GitHub Pages ya soporta recarga directa de rutas internas, 
 - Persistencia temporal del color elegido en `localStorage` durante desarrollo.
 - Los componentes principales reaccionan automáticamente al tema activo.
 
-### 📱 Dashboard completo y responsive
+### 📱 Dashboard base con soporte responsive en evolucion
 - Header, sidebar, footer y layout administrativo base.
 - Sidebar con secciones para `Dashboard`, `Componentes` y `Theme`.
-- Comportamiento adaptado para desktop y mobile.
+- Base responsive en construccion; la experiencia recomendada por ahora es desktop.
 - El scroll vuelve al inicio en cada cambio de ruta.
 
 ### 🔐 Base de autenticación

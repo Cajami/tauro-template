@@ -37,6 +37,7 @@ Actualmente aun esta en construccion o expansion:
 - La autenticacion sigue siendo simulada; no hay backend real integrado.
 - Las features de negocio siguen siendo demo o placeholder.
 - La documentacion aun no cubre necesariamente todo el inventario posible del template.
+- La experiencia desktop es la referencia principal actual; la version mobile/tablet todavia no esta estabilizada por completo y puede presentar fallas de layout o scroll.
 - Existen warnings conocidos en build relacionados con Sass `@import`, `flatpickr` CommonJS y algunos selector warnings.
 - Este archivo debe mantenerse actualizado cuando cambie la arquitectura, el flujo o el set de componentes y guias.
 
@@ -80,7 +81,7 @@ Comportamiento actual:
 - El footer queda como pieza opcional del shell; si se retira, `main` ocupa el alto disponible sin romper la estructura.
 - El sidebar es responsive.
 - En desktop se abre por defecto.
-- En mobile se cierra por defecto y puede abrirse o cerrarse por interaccion del usuario.
+- En mobile se cierra por defecto y puede abrirse o cerrarse por interaccion del usuario, pero esa experiencia todavia no debe considerarse cerrada ni lista como referencia final del template.
 - Cada cambio de ruta reinicia el scroll al inicio para evitar heredar la posicion anterior entre paginas.
 - El menu lateral fue simplificado para dejar solo Main, Components y Theme.
 - La parte inferior del sidebar muestra el bloque de usuario y abre un menu de cuenta flotante: a la derecha en desktop y hacia arriba en mobile, con ajuste al viewport y scroll propio si crece.
