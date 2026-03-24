@@ -6,6 +6,13 @@ import { ComponentShowcaseComponent } from '@shared/components/component-showcas
 import { HeaderPageComponent } from '@shared/components/header-page/header-page.component';
 import { ApiInfoComponent } from '../api-info/api-info.component';
 
+interface AlertApiItem {
+  property: string;
+  values: string;
+  defaultValue: string;
+  description: string;
+}
+
 @Component({
   selector: 'app-alert-docs-page',
   standalone: true,
@@ -21,6 +28,44 @@ import { ApiInfoComponent } from '../api-info/api-info.component';
 })
 export class AlertDocsPageComponent {
   protected readonly inlineDecision = signal<'pendiente' | 'aceptado' | 'cancelado'>('pendiente');
+  protected readonly alertProps: AlertApiItem[] = [
+    {
+      property: 'variant',
+      values: "`'success'`, `'error'`, `'warning'`, `'info'`, `'question'`",
+      defaultValue: "'info'",
+      description: 'Cambia el tono semantico del mensaje inline.',
+    },
+    {
+      property: 'title',
+      values: 'string',
+      defaultValue: "''",
+      description: 'Titulo corto mostrado al inicio del contenido del alert.',
+    },
+    {
+      property: 'description',
+      values: 'string',
+      defaultValue: "''",
+      description: 'Texto secundario debajo del titulo.',
+    },
+    {
+      property: 'dismissible',
+      values: '`true` o `false`',
+      defaultValue: 'false',
+      description: 'Permite cerrar localmente el alert dentro de la vista.',
+    },
+    {
+      property: 'bordered',
+      values: '`true` o `false`',
+      defaultValue: 'true',
+      description: 'Activa o quita el borde del contenedor.',
+    },
+    {
+      property: '[alertActions]',
+      values: 'Slot de contenido proyectado',
+      defaultValue: 'Sin acciones',
+      description: 'Zona opcional para botones u otras acciones inline al final del alert.',
+    },
+  ];
 
   htmlEjemplo1 = `<app-alert variant="success">
   Los cambios se guardaron correctamente.

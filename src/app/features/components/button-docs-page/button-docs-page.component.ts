@@ -5,6 +5,13 @@ import { ButtonComponent } from '@shared/components/button/button.component';
 import { ComponentShowcaseComponent } from '@shared/components/component-showcase/component-showcase.component';
 import { LucideAngularModule, Save } from 'lucide-angular';
 
+interface ButtonApiItem {
+  property: string;
+  values: string;
+  defaultValue: string;
+  description: string;
+}
+
 @Component({
   selector: 'app-button-docs-page',
   imports: [
@@ -19,6 +26,62 @@ import { LucideAngularModule, Save } from 'lucide-angular';
 })
 export class ButtonDocsPageComponent {
   readonly SaveIcon = Save;
+  readonly buttonProps: ButtonApiItem[] = [
+    {
+      property: 'type',
+      values: "`'button'`, `'submit'`, `'reset'`",
+      defaultValue: "'button'",
+      description: 'Controla el comportamiento nativo del elemento boton dentro de formularios.',
+    },
+    {
+      property: 'variant',
+      values: "`'primary'`, `'secondary'`, `'success'`, `'error'`, `'link'`",
+      defaultValue: "'primary'",
+      description: 'Define la jerarquia visual principal del boton.',
+    },
+    {
+      property: 'color',
+      values: "`'primary'`, `'secondary'`, `'success'`, `'error'`, `'neutral'`",
+      defaultValue: "'primary'",
+      description: 'Permite ajustar la paleta usada por el boton, sobre todo en variantes como `link`.',
+    },
+    {
+      property: 'size',
+      values: "`'sm'`, `'md'`, `'lg'`",
+      defaultValue: "'md'",
+      description: 'Cambia altura, paddings y escala visual del boton.',
+    },
+    {
+      property: 'disabled',
+      values: '`true` o `false`',
+      defaultValue: 'false',
+      description: 'Bloquea interaccion, foco y evento `clicked`.',
+    },
+    {
+      property: 'loading',
+      values: '`true` o `false`',
+      defaultValue: 'false',
+      description: 'Muestra estado de carga y evita que el usuario dispare la accion otra vez.',
+    },
+    {
+      property: 'fullWidth',
+      values: '`true` o `false`',
+      defaultValue: 'false',
+      description: 'Hace que el boton ocupe todo el ancho disponible del contenedor.',
+    },
+    {
+      property: 'circle',
+      values: '`true` o `false`',
+      defaultValue: 'false',
+      description: 'Convierte el boton en una pieza circular, util para acciones compactas o iconicas.',
+    },
+    {
+      property: 'clicked',
+      values: 'Output<void>',
+      defaultValue: 'Se emite al hacer clic si no esta disabled ni loading',
+      description: 'Evento recomendado para reaccionar a la accion del usuario.',
+    },
+  ];
 
   // Ejemplo 1: Variantes de Color
   htmlEjemplo1 = `<app-button variant="primary">Primary</app-button>

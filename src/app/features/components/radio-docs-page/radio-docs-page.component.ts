@@ -15,6 +15,13 @@ import {
 } from '@shared/components/radio-group/radio-group.component';
 import { HeaderPageComponent } from '@shared/components/header-page/header-page.component';
 
+interface RadioApiItem {
+  property: string;
+  values: string;
+  defaultValue: string;
+  description: string;
+}
+
 @Component({
   selector: 'app-radio-docs-page',
   standalone: true,
@@ -30,6 +37,95 @@ import { HeaderPageComponent } from '@shared/components/header-page/header-page.
   templateUrl: './radio-docs-page.component.html',
 })
 export class RadioDocsPageComponent {
+  readonly radioProps: RadioApiItem[] = [
+    {
+      property: 'label',
+      values: 'string',
+      defaultValue: "''",
+      description: 'Titulo visible del grupo.',
+    },
+    {
+      property: 'hint',
+      values: 'string',
+      defaultValue: "''",
+      description: 'Texto de apoyo debajo del label para explicar la decision.',
+    },
+    {
+      property: 'required',
+      values: '`true` o `false`',
+      defaultValue: 'false',
+      description: 'Marca visualmente el grupo como obligatorio.',
+    },
+    {
+      property: 'disabled',
+      values: '`true` o `false`',
+      defaultValue: 'false',
+      description: 'Bloquea la interaccion con todas las opciones del grupo.',
+    },
+    {
+      property: 'name',
+      values: 'string',
+      defaultValue: 'Se genera automaticamente',
+      description: 'Nombre HTML compartido por las opciones para que funcionen como grupo nativo.',
+    },
+    {
+      property: 'layout',
+      values: "`'vertical'` o `'horizontal'`",
+      defaultValue: "'vertical'",
+      description: 'Distribuye las opciones en columna o en fila.',
+    },
+    {
+      property: 'variant',
+      values: "`'default'` o `'card'`",
+      defaultValue: "'default'",
+      description: 'La variante `default` es ligera; `card` da mas presencia visual a cada opcion.',
+    },
+    {
+      property: 'options',
+      values: 'RadioOption<T>[]',
+      defaultValue: '[]',
+      description: 'Listado de opciones renderizadas dentro del grupo.',
+    },
+    {
+      property: 'valueChange',
+      values: 'Output<T | null>',
+      defaultValue: 'Se emite cuando cambia la opcion',
+      description: 'Notifica el valor elegido por el usuario.',
+    },
+    {
+      property: 'ControlValueAccessor',
+      values: 'Integracion con Forms',
+      defaultValue: 'Disponible siempre',
+      description: 'Permite usar `formControlName`, `formControl` o `ngModel` sin wiring adicional.',
+    },
+  ];
+
+  readonly optionProps: RadioApiItem[] = [
+    {
+      property: 'label',
+      values: 'string',
+      defaultValue: 'Requerido',
+      description: 'Texto principal visible de la opcion.',
+    },
+    {
+      property: 'value',
+      values: 'T',
+      defaultValue: 'Requerido',
+      description: 'Valor real que se guarda en el modelo cuando esa opcion queda seleccionada.',
+    },
+    {
+      property: 'description',
+      values: 'string',
+      defaultValue: 'Sin descripcion',
+      description: 'Texto secundario opcional para dar mas contexto.',
+    },
+    {
+      property: 'disabled',
+      values: '`true` o `false`',
+      defaultValue: 'false',
+      description: 'Deshabilita solo esa opcion puntual.',
+    },
+  ];
   readonly paymentOptions: RadioOption<string>[] = [
     {
       label: 'Transferencia bancaria',

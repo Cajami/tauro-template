@@ -12,6 +12,13 @@ import { ApiInfoComponent } from '../api-info/api-info.component';
 
 import { LucideAngularModule, Mail, Search } from 'lucide-angular';
 
+interface InputApiItem {
+  property: string;
+  values: string;
+  defaultValue: string;
+  description: string;
+}
+
 @Component({
   selector: 'app-input-docs-page',
   imports: [
@@ -29,6 +36,80 @@ export class InputDocsPageComponent {
   form: FormGroup;
   readonly MailIcon = Mail;
   readonly SearchIcon = Search;
+  readonly inputProps: InputApiItem[] = [
+    {
+      property: 'label',
+      values: 'string',
+      defaultValue: "''",
+      description: 'Texto superior del campo. Si el input es requerido, el asterisco se agrega automaticamente.',
+    },
+    {
+      property: 'placeholder',
+      values: 'string',
+      defaultValue: "''",
+      description: 'Texto guia dentro del input cuando aun no tiene valor.',
+    },
+    {
+      property: 'type',
+      values: 'Cualquier tipo nativo de input HTML, como `text`, `email`, `number`, `password`',
+      defaultValue: "'text'",
+      description: 'Define el comportamiento base del control y el teclado sugerido en mobile.',
+    },
+    {
+      property: 'autocomplete',
+      values: 'string',
+      defaultValue: "'off'",
+      description: 'Permite controlar el autocompletado nativo del navegador.',
+    },
+    {
+      property: 'size',
+      values: "`'sm'`, `'md'`, `'lg'`",
+      defaultValue: "'md'",
+      description: 'Ajusta altura y espaciado del input.',
+    },
+    {
+      property: 'hasError',
+      values: '`true` o `false`',
+      defaultValue: 'false',
+      description: 'Fuerza el estado visual de error cuando la pantalla lo necesita.',
+    },
+    {
+      property: 'required',
+      values: '`true` o `false`',
+      defaultValue: 'false',
+      description: 'Marca visualmente el campo como obligatorio.',
+    },
+    {
+      property: 'value',
+      values: 'Model<string>',
+      defaultValue: "''",
+      description: 'Valor actual del componente cuando se usa con binding directo o como ControlValueAccessor.',
+    },
+    {
+      property: 'disabled',
+      values: 'Model<boolean>',
+      defaultValue: 'false',
+      description: 'Deshabilita interaccion y sincroniza el estado desde formularios Angular.',
+    },
+    {
+      property: 'valueChange',
+      values: 'Output<string>',
+      defaultValue: 'Se emite en cada cambio de valor',
+      description: 'Sirve para reaccionar manualmente al contenido escrito por el usuario.',
+    },
+    {
+      property: 'blurChange',
+      values: 'Output<void>',
+      defaultValue: 'Se emite al perder foco',
+      description: 'Util para validaciones diferidas o telemetria de interaccion.',
+    },
+    {
+      property: '#leftIcon / #rightIcon',
+      values: 'Content projection',
+      defaultValue: 'Sin iconos',
+      description: 'Slots opcionales para proyectar iconos o adornos a la izquierda y derecha.',
+    },
+  ];
 
   constructor(private fb: NonNullableFormBuilder) {
     this.form = this.fb.group({

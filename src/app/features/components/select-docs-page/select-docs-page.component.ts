@@ -15,6 +15,13 @@ import { HeaderPageComponent } from '@shared/components/header-page/header-page.
 import { ComponentShowcaseComponent } from '@shared/components/component-showcase/component-showcase.component';
 import { ApiInfoComponent } from '../api-info/api-info.component';
 
+interface SelectApiItem {
+  property: string;
+  values: string;
+  defaultValue: string;
+  description: string;
+}
+
 @Component({
   selector: 'app-select-docs-page',
   imports: [
@@ -30,6 +37,126 @@ import { ApiInfoComponent } from '../api-info/api-info.component';
   styleUrl: './select-docs-page.component.scss',
 })
 export class SelectDocsPageComponent {
+  readonly selectProps: SelectApiItem[] = [
+    {
+      property: 'label',
+      values: 'string',
+      defaultValue: "''",
+      description: 'Etiqueta visible del control.',
+    },
+    {
+      property: 'placeholder',
+      values: 'string',
+      defaultValue: "'Seleccionar...'",
+      description: 'Texto mostrado cuando no hay valor seleccionado.',
+    },
+    {
+      property: 'searchPlaceholder',
+      values: 'string',
+      defaultValue: "'Buscar...'",
+      description: 'Placeholder interno del buscador cuando `searchable` esta activo.',
+    },
+    {
+      property: 'emptyText',
+      values: 'string',
+      defaultValue: "'No se encontraron resultados'",
+      description: 'Mensaje cuando el filtro no devuelve coincidencias.',
+    },
+    {
+      property: 'noOptionsText',
+      values: 'string',
+      defaultValue: "'No hay opciones disponibles'",
+      description: 'Mensaje cuando el arreglo `options` esta vacio.',
+    },
+    {
+      property: 'size',
+      values: "`'sm'`, `'md'`, `'lg'`",
+      defaultValue: "'md'",
+      description: 'Cambia altura y espaciado del control.',
+    },
+    {
+      property: 'options',
+      values: 'SelectOption<T>[]',
+      defaultValue: '[]',
+      description: 'Listado de opciones visibles en el dropdown.',
+    },
+    {
+      property: 'searchable',
+      values: '`true` o `false`',
+      defaultValue: 'false',
+      description: 'Activa el buscador interno por label, description y keywords.',
+    },
+    {
+      property: 'hasError',
+      values: '`true` o `false`',
+      defaultValue: 'false',
+      description: 'Fuerza el estado visual de error.',
+    },
+    {
+      property: 'required',
+      values: '`true` o `false`',
+      defaultValue: 'false',
+      description: 'Marca visualmente el select como obligatorio.',
+    },
+    {
+      property: 'compareWith',
+      values: 'funcion `(a, b) => boolean`',
+      defaultValue: 'Object.is',
+      description: 'Permite personalizar la comparacion entre valores seleccionados y opciones.',
+    },
+    {
+      property: 'value',
+      values: 'Model<T | null>',
+      defaultValue: 'null',
+      description: 'Valor actual del select cuando se usa con binding directo o como CVA.',
+    },
+    {
+      property: 'disabled',
+      values: 'Model<boolean>',
+      defaultValue: 'false',
+      description: 'Deshabilita interaccion y cierra el dropdown si estaba abierto.',
+    },
+    {
+      property: 'valueChange / blurChange',
+      values: 'Outputs',
+      defaultValue: 'Se emiten en cambio de valor y blur',
+      description: 'Eventos utiles para reaccionar fuera de formularios Angular.',
+    },
+  ];
+
+  readonly optionProps: SelectApiItem[] = [
+    {
+      property: 'label',
+      values: 'string',
+      defaultValue: 'Requerido',
+      description: 'Texto principal visible para el usuario.',
+    },
+    {
+      property: 'value',
+      values: 'T',
+      defaultValue: 'Requerido',
+      description: 'Valor real que se escribe en el modelo al seleccionar la opcion.',
+    },
+    {
+      property: 'disabled',
+      values: '`true` o `false`',
+      defaultValue: 'false',
+      description: 'Impide seleccionar esa opcion puntual.',
+    },
+    {
+      property: 'description',
+      values: 'string',
+      defaultValue: 'Sin descripcion',
+      description: 'Linea secundaria dentro del listado para dar mas contexto.',
+    },
+    {
+      property: 'keywords',
+      values: 'string[]',
+      defaultValue: '[]',
+      description: 'Palabras adicionales que tambien participan en la busqueda.',
+    },
+  ];
+
   readonly countryOptions: SelectOption<string>[] = [
     {
       label: 'Peru',

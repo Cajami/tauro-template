@@ -12,6 +12,13 @@ import { ComponentShowcaseComponent } from '@shared/components/component-showcas
 import { CheckboxComponent } from '@shared/components/checkbox/checkbox.component';
 import { HeaderPageComponent } from '@shared/components/header-page/header-page.component';
 
+interface CheckboxApiItem {
+  property: string;
+  values: string;
+  defaultValue: string;
+  description: string;
+}
+
 @Component({
   selector: 'app-checkbox-docs-page',
   standalone: true,
@@ -29,6 +36,32 @@ import { HeaderPageComponent } from '@shared/components/header-page/header-page.
 export class CheckboxDocsPageComponent {
   readonly form: FormGroup;
   marketingConsent = false;
+  readonly checkboxProps: CheckboxApiItem[] = [
+    {
+      property: 'label',
+      values: 'string',
+      defaultValue: "''",
+      description: 'Texto descriptivo asociado a la casilla.',
+    },
+    {
+      property: 'disabled',
+      values: '`true` o `false`',
+      defaultValue: 'false',
+      description: 'Bloquea la interaccion del usuario con el checkbox.',
+    },
+    {
+      property: 'valueChange',
+      values: 'Output<boolean>',
+      defaultValue: 'Se emite cada vez que cambia el estado',
+      description: 'Notifica el valor actual cuando el usuario marca o desmarca.',
+    },
+    {
+      property: 'ControlValueAccessor',
+      values: 'Integracion con Forms',
+      defaultValue: 'Disponible siempre',
+      description: 'Permite usar `formControlName`, `formControl` o `ngModel` sin codigo extra.',
+    },
+  ];
 
   constructor(private fb: NonNullableFormBuilder) {
     this.form = this.fb.group({

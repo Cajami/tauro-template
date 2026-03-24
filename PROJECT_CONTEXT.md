@@ -117,6 +117,25 @@ Inventario identificado en `src/app/shared/components`:
 
 Estos componentes son parte central del valor del template y deben crecer con enfoque de reusabilidad.
 
+### Documentacion de componentes
+La documentacion publica dentro de `Components` ahora sigue un patron mas consistente:
+- Primero muestra ejemplos visuales y casos de uso reales.
+- Luego deja notas de implementacion o recomendaciones cuando aplica.
+- Finalmente cierra con una referencia API al final de la pagina.
+
+Esa referencia API ya se esta usando en los componentes documentados para listar:
+- Propiedad o metodo.
+- Valores admitidos.
+- Valor por defecto.
+- Descripcion de uso.
+
+Los componentes mas simples usan una sola tabla corta y los mas complejos pueden cerrar con varias tablas, por ejemplo:
+- `Grid`: inputs del componente y propiedades por columna.
+- `Modal`: `ModalConfig`, `actions` y `ModalRef`.
+- `Dialog`: configs de alert y confirm, mas metodos del servicio.
+- `Toast`: config, accion y helpers del servicio.
+- `Select`, `Radio` y `Tabs`: propiedades del componente y de sus items/opciones.
+
 ### Componente Grid
 La tabla shared del template ahora se apoya en TanStack Table para ofrecer una base mas potente que una tabla HTML simple.
 
@@ -217,6 +236,7 @@ Capacidades actuales:
 - No cierra por `Escape` ni por clic fuera por defecto.
 - Bloquea el scroll del `body` mientras hay un modal abierto.
 - Tiene documentacion demo en `Components > Modal`.
+- La documentacion de `Modal` ya incluye una referencia API al final con propiedades de `ModalConfig`, `actions` y `ModalRef`.
 
 ### Seccion Theme
 La feature `theme` agrupa documentacion para personalizar el template sin mezclarla con el catalogo de componentes.
@@ -316,6 +336,7 @@ Observacion tecnica importante:
 - Se agrego `DialogService` sobre el sistema de modal para mensajes modales y confirmaciones.
 - Se agrego `ToastService` con host global, posiciones configurables y autocierre con pausa al hover.
 - Se refino el sidebar para distinguir mejor padres con y sin hijos, y se normalizo un scrollbar global mas sutil para todo el template.
+- La documentacion publica de componentes ahora incorpora una referencia API al final de cada pagina, con nivel de detalle variable segun la complejidad de cada componente.
 
 ## Convenciones para futuros agentes
 Antes de hacer cambios en el proyecto:

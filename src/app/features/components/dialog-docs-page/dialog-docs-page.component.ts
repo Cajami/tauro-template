@@ -6,6 +6,13 @@ import { DialogService } from '@shared/components/dialog/dialog.service';
 import { HeaderPageComponent } from '@shared/components/header-page/header-page.component';
 import { ApiInfoComponent } from '../api-info/api-info.component';
 
+interface DialogApiItem {
+  property: string;
+  values: string;
+  defaultValue: string;
+  description: string;
+}
+
 @Component({
   selector: 'app-dialog-docs-page',
   standalone: true,
@@ -19,6 +26,110 @@ import { ApiInfoComponent } from '../api-info/api-info.component';
   templateUrl: './dialog-docs-page.component.html',
 })
 export class DialogDocsPageComponent {
+  protected readonly alertConfigProps: DialogApiItem[] = [
+    {
+      property: 'title',
+      values: 'string',
+      defaultValue: 'Requerido',
+      description: 'Titulo principal del dialog informativo.',
+    },
+    {
+      property: 'message',
+      values: 'string',
+      defaultValue: 'Requerido',
+      description: 'Mensaje principal del dialog.',
+    },
+    {
+      property: 'description',
+      values: 'string',
+      defaultValue: 'Sin descripcion',
+      description: 'Texto secundario opcional debajo del mensaje.',
+    },
+    {
+      property: 'variant',
+      values: "`'success'`, `'error'`, `'warning'`, `'info'`",
+      defaultValue: "'info'",
+      description: 'Tono visual del dialog alert.',
+    },
+    {
+      property: 'confirmText',
+      values: 'string',
+      defaultValue: "'Aceptar'",
+      description: 'Texto del unico boton principal.',
+    },
+    {
+      property: 'size',
+      values: "`'sm'`, `'md'`, `'lg'`",
+      defaultValue: "'md'",
+      description: 'Ancho general del dialog.',
+    },
+  ];
+
+  protected readonly confirmConfigProps: DialogApiItem[] = [
+    {
+      property: 'title',
+      values: 'string',
+      defaultValue: 'Requerido',
+      description: 'Titulo principal de la confirmacion.',
+    },
+    {
+      property: 'message',
+      values: 'string',
+      defaultValue: 'Requerido',
+      description: 'Texto principal de la decision.',
+    },
+    {
+      property: 'description',
+      values: 'string',
+      defaultValue: 'Sin descripcion',
+      description: 'Contexto adicional para ayudar al usuario a decidir.',
+    },
+    {
+      property: 'variant',
+      values: "`'warning'`, `'error'`, `'question'`, `'info'`",
+      defaultValue: "'question'",
+      description: 'La variante `question` es neutra; `warning` y `error` suben el nivel de riesgo.',
+    },
+    {
+      property: 'confirmText',
+      values: 'string',
+      defaultValue: "'Aceptar'",
+      description: 'Texto del boton de confirmacion.',
+    },
+    {
+      property: 'cancelText',
+      values: 'string',
+      defaultValue: "'Cancelar'",
+      description: 'Texto del boton secundario.',
+    },
+    {
+      property: 'confirmVariant',
+      values: "`'primary'`, `'secondary'`, `'success'`, `'error'`",
+      defaultValue: "'primary'",
+      description: 'Estilo visual del boton de confirmacion.',
+    },
+    {
+      property: 'size',
+      values: "`'sm'`, `'md'`, `'lg'`",
+      defaultValue: "'md'",
+      description: 'Ancho general del dialog.',
+    },
+  ];
+
+  protected readonly serviceMethods: DialogApiItem[] = [
+    {
+      property: 'alert(config)',
+      values: 'DialogAlertConfig',
+      defaultValue: 'Disponible siempre',
+      description: 'Abre un dialog informativo y devuelve un ref con `afterClosed$`.',
+    },
+    {
+      property: 'confirm(config)',
+      values: 'DialogConfirmConfig',
+      defaultValue: 'Disponible siempre',
+      description: 'Abre una confirmacion y emite `true` o `false` al cerrarse.',
+    },
+  ];
   protected readonly lastAlertResult = signal('Sin acciones todavia');
   protected readonly lastConfirmResult = signal('Sin acciones todavia');
   protected readonly lastDangerResult = signal('Sin acciones todavia');

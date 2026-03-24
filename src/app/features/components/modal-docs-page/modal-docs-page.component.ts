@@ -9,6 +9,13 @@ import { ModalProjectFormContentComponent } from './modal-project-form-content.c
 import { ModalReviewContentComponent } from './modal-review-content.component';
 import { ModalWelcomeContentComponent } from './modal-welcome-content.component';
 
+interface ModalApiItem {
+  property: string;
+  values: string;
+  defaultValue: string;
+  description: string;
+}
+
 @Component({
   selector: 'app-modal-docs-page',
   standalone: true,
@@ -22,6 +29,141 @@ import { ModalWelcomeContentComponent } from './modal-welcome-content.component'
   templateUrl: './modal-docs-page.component.html',
 })
 export class ModalDocsPageComponent {
+  protected readonly modalConfigProps: ModalApiItem[] = [
+    {
+      property: 'title',
+      values: 'string',
+      defaultValue: "'Modal'",
+      description: 'Titulo principal del shell del modal.',
+    },
+    {
+      property: 'subtitle',
+      values: 'string',
+      defaultValue: 'Sin subtitulo',
+      description: 'Texto secundario debajo del titulo.',
+    },
+    {
+      property: 'size',
+      values: "`'sm'`, `'md'`, `'lg'`, `'xl'`, `'full'`",
+      defaultValue: "'md'",
+      description: 'Controla el ancho maximo del modal.',
+    },
+    {
+      property: 'placement',
+      values: "`'center'` o `'top-center'`",
+      defaultValue: "'center'",
+      description: 'Posicion general del modal dentro del viewport.',
+    },
+    {
+      property: 'draggable',
+      values: '`true` o `false`',
+      defaultValue: 'true',
+      description: 'Permite arrastrar el modal desde su cabecera.',
+    },
+    {
+      property: 'showCloseButton',
+      values: '`true` o `false`',
+      defaultValue: 'false',
+      description: 'Muestra el boton visual de cierre en la cabecera.',
+    },
+    {
+      property: 'closeOnBackdrop',
+      values: '`true` o `false`',
+      defaultValue: 'false',
+      description: 'Cierra el modal al hacer clic fuera del contenedor.',
+    },
+    {
+      property: 'closeOnEscape',
+      values: '`true` o `false`',
+      defaultValue: 'false',
+      description: 'Cierra el modal al presionar la tecla Escape.',
+    },
+    {
+      property: 'data',
+      values: 'TData',
+      defaultValue: 'undefined',
+      description: 'Payload inyectado al componente dinamico mediante `MODAL_DATA`.',
+    },
+    {
+      property: 'inputs',
+      values: 'Record<string, unknown>',
+      defaultValue: '{}',
+      description: 'Inputs que se asignan al componente cargado dentro del modal.',
+    },
+    {
+      property: 'actions',
+      values: 'ModalAction[]',
+      defaultValue: '[]',
+      description: 'Define el footer reusable del modal y sus botones.',
+    },
+  ];
+
+  protected readonly modalActionProps: ModalApiItem[] = [
+    {
+      property: 'label',
+      values: 'string',
+      defaultValue: 'Requerido',
+      description: 'Texto visible del boton en el footer.',
+    },
+    {
+      property: 'variant',
+      values: "`'primary'`, `'secondary'`, `'success'`, `'error'`, `'link'`",
+      defaultValue: 'Sin valor; el boton cae en el comportamiento base del shared `Button`',
+      description: 'Define el estilo visual principal de la accion.',
+    },
+    {
+      property: 'color',
+      values: "`'primary'`, `'secondary'`, `'success'`, `'error'`, `'neutral'`",
+      defaultValue: 'Sin valor',
+      description: 'Color adicional, sobre todo util cuando `variant` es `link`.',
+    },
+    {
+      property: 'closeOnClick',
+      values: '`true` o `false`',
+      defaultValue: 'false',
+      description: 'Si vale `true`, cierra el modal despues de ejecutar la accion.',
+    },
+    {
+      property: 'result',
+      values: 'TResult o funcion `(context) => TResult`',
+      defaultValue: 'undefined',
+      description: 'Resultado que se emite por `afterClosed$` al cerrarse el modal.',
+    },
+    {
+      property: 'disabled',
+      values: 'boolean o funcion `(context) => boolean`',
+      defaultValue: 'false',
+      description: 'Permite deshabilitar la accion de forma fija o dinamica.',
+    },
+    {
+      property: 'onClick',
+      values: 'funcion `(context) => void | Promise<void>`',
+      defaultValue: 'Sin handler',
+      description: 'Ejecuta logica personalizada con acceso a `modalRef`, `componentInstance` y `data`.',
+    },
+  ];
+
+  protected readonly modalRefProps: ModalApiItem[] = [
+    {
+      property: 'afterClosed$',
+      values: 'Observable<TResult | undefined>',
+      defaultValue: 'Disponible siempre',
+      description: 'Stream que emite el resultado final cuando el modal se cierra.',
+    },
+    {
+      property: 'close(result?)',
+      values: 'Metodo',
+      defaultValue: 'Sin resultado',
+      description: 'Cierra el modal manualmente desde el componente interno o desde logica externa.',
+    },
+    {
+      property: 'componentInstance',
+      values: 'TComponent | null',
+      defaultValue: 'null hasta que el componente carga',
+      description: 'Referencia al componente dinamico que se monto dentro del modal.',
+    },
+  ];
+
   protected readonly lastBasicResult = signal('Sin acciones todavia');
   protected readonly lastReviewResult = signal('Sin acciones todavia');
   protected readonly lastFormResult = signal('Sin acciones todavia');
