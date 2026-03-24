@@ -7,7 +7,10 @@
   </div>
 
   <div
-    class="grid grid-cols-1 overflow-visible rounded-xl border border-border bg-card shadow-sm lg:grid-cols-2"
+    #showcaseLayout
+    class="grid grid-cols-1 overflow-visible rounded-xl border border-border bg-card shadow-sm lg:grid-cols-none"
+    [class.select-none]="isResizing()"
+    [style.gridTemplateColumns]="gridTemplateColumns()"
   >
     <div
       class="relative flex items-center justify-center overflow-visible rounded-t-xl bg-background p-10 lg:rounded-l-xl lg:rounded-tr-none"
@@ -16,10 +19,25 @@
         class="showcase-preview-pattern absolute inset-0 z-0 rounded-t-xl opacity-20 lg:rounded-l-xl lg:rounded-tr-none"
       ></div>
 
-      <div class="z-10 w-full max-w-sm overflow-visible">
+      <div class="z-10 w-full max-w-full overflow-visible">
         <ng-content></ng-content>
       </div>
     </div>
+
+    <button
+      type="button"
+      aria-label="Redimensionar secciones"
+      class="showcase-resizer hidden lg:flex"
+      [class.showcase-resizer-active]="isResizing()"
+      (pointerdown)="startResize($event)"
+    >
+      <span class="showcase-resizer-line"></span>
+      <span class="showcase-resizer-handle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
 
     <div class="showcase-code-panel flex h-full flex-col overflow-hidden rounded-b-xl lg:rounded-r-xl lg:rounded-bl-none">
       <div class="showcase-code-tabs flex">

@@ -10,6 +10,96 @@
   background-color: #0f172a;
 }
 
+.showcase-resizer {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  cursor: col-resize;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-primary-200) 24%, transparent) 0%,
+      transparent 24%,
+      transparent 76%,
+      color-mix(in srgb, var(--color-primary-200) 24%, transparent) 100%
+    );
+  transition: background-color 180ms ease;
+}
+
+.showcase-resizer:hover,
+.showcase-resizer-active {
+  background-color: color-mix(in srgb, var(--color-primary-100) 65%, transparent);
+}
+
+.showcase-resizer-line {
+  position: absolute;
+  top: 0.75rem;
+  bottom: 0.75rem;
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: color-mix(in srgb, var(--color-border) 72%, transparent);
+  transition:
+    background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.showcase-resizer:hover .showcase-resizer-line,
+.showcase-resizer-active .showcase-resizer-line {
+  background: var(--color-primary-400);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary-100) 80%, transparent);
+}
+
+.showcase-resizer-handle {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  gap: 3px;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.3rem;
+  border: 1px solid color-mix(in srgb, var(--color-border) 88%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, white 92%, transparent);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.showcase-resizer:hover .showcase-resizer-handle,
+.showcase-resizer-active .showcase-resizer-handle {
+  transform: scale(1.05);
+  border-color: color-mix(in srgb, var(--color-primary-300) 80%, transparent);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+}
+
+.showcase-resizer-handle span {
+  width: 3px;
+  height: 18px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-text-muted) 80%, transparent);
+  transition:
+    transform 220ms ease,
+    background-color 180ms ease;
+}
+
+.showcase-resizer:hover .showcase-resizer-handle span,
+.showcase-resizer-active .showcase-resizer-handle span {
+  background: var(--color-primary-500);
+}
+
+.showcase-resizer:hover .showcase-resizer-handle span:nth-child(1),
+.showcase-resizer-active .showcase-resizer-handle span:nth-child(1) {
+  transform: translateX(-1px);
+}
+
+.showcase-resizer:hover .showcase-resizer-handle span:nth-child(3),
+.showcase-resizer-active .showcase-resizer-handle span:nth-child(3) {
+  transform: translateX(1px);
+}
+
 .showcase-code-tabs {
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   background-color: rgba(255, 255, 255, 0.04);

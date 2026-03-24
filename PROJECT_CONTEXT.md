@@ -115,6 +115,16 @@ Inventario identificado en `src/app/shared/components`:
 
 Estos componentes son parte central del valor del template y deben crecer con enfoque de reusabilidad.
 
+### Componente ComponentShowcase
+El `ComponentShowcase` es la base visual usada en la documentacion de componentes para mostrar preview y codigo lado a lado.
+
+Capacidades actuales:
+- Soporta preview a la izquierda y panel de codigo a la derecha.
+- En desktop permite redimensionar manualmente ambas secciones arrastrando el divisor central.
+- El divisor muestra un estado visual de hover para comunicar que puede moverse horizontalmente.
+- La vista previa ya no queda limitada a un ancho fijo, por lo que aprovecha el espacio extra cuando el usuario ensancha la columna izquierda.
+- En mobile mantiene una disposicion apilada sin redimensionamiento manual.
+
 ### Componente Alert
 El `Alert` compartido se mantiene como mensaje inline dentro del flujo de la pagina.
 
@@ -280,6 +290,7 @@ Observacion tecnica importante:
 - Se agrego un sistema de modal dinamico con host global y apertura por servicio.
 - Se agregaron documentacion para `Checkbox` y un nuevo shared `Radio Group` con soporte para Reactive Forms y ngModel.
 - Se agrego un nuevo shared `Tabs` con soporte para iconos, badges, variantes visuales, navegacion por teclado y documentacion propia en `Components > Tabs`.
+- Se agrego redimensionamiento manual al `ComponentShowcase` en desktop para ajustar el ancho entre preview y codigo durante las demos.
 - Se fortalecio `app-alert` como mensaje inline reusable y se agrego su pagina de documentacion.
 - Se agrego `DialogService` sobre el sistema de modal para mensajes modales y confirmaciones.
 - Se agrego `ToastService` con host global, posiciones configurables y autocierre con pausa al hover.
