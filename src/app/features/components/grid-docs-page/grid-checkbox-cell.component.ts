@@ -9,7 +9,10 @@ import { CheckboxComponent } from '@shared/components/checkbox/checkbox.componen
   imports: [FormsModule, CheckboxComponent],
   template: `
     <div class="flex justify-center">
-      <app-checkbox [ngModel]="checked" [disabled]="true"></app-checkbox>
+      <app-checkbox
+        [ngModel]="checked"
+        (ngModelChange)="updateChecked($event)"
+      ></app-checkbox>
     </div>
   `,
 })
@@ -18,5 +21,10 @@ export class GridCheckboxCellComponent {
 
   get checked(): boolean {
     return !!this.context().getValue();
+  }
+
+  updateChecked(nextValue: boolean): void {
+    const row = this.context().row.original as { done?: boolean };
+    row.done = nextValue;
   }
 }

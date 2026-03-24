@@ -153,7 +153,7 @@ export class GridComponent<TData extends object = any> {
 
   protected getHeaderCellClasses(header: Header<TData, unknown>): string {
     return [
-      'group relative border-b border-r border-primary-100 bg-primary-50/80 px-4 py-3 text-left align-middle text-xs font-semibold uppercase tracking-[0.18em] text-primary-800 last:border-r-0 hover:z-40 focus-within:z-40',
+      'group relative border-b border-r border-primary-100 bg-primary-50/80 px-4 py-3 text-left align-middle text-xs font-semibold uppercase tracking-[0.18em] text-primary-800 hover:z-40 focus-within:z-40',
       this.stickyHeader() ? 'sticky top-0 z-20' : '',
       this.getAlignmentClass((header.column.columnDef.meta as GridColumnMeta | undefined)?.align),
       (header.column.columnDef.meta as GridColumnMeta | undefined)?.headerClassName ?? '',
@@ -164,7 +164,7 @@ export class GridComponent<TData extends object = any> {
 
   protected getBodyCellClasses(cell: Cell<TData, unknown>, rowIndex: number): string {
     return [
-      'border-b border-r border-primary-100/60 px-4 py-3 align-top text-sm text-slate-700 last:border-r-0',
+      'border-b border-r border-primary-100/60 px-4 py-3 align-top text-sm text-slate-700',
       this.dense() ? 'py-2.5' : '',
       this.stripedRows() && rowIndex % 2 === 1 ? 'bg-primary-50/30' : 'bg-white',
       this.getAlignmentClass((cell.column.columnDef.meta as GridColumnMeta | undefined)?.align),
@@ -176,7 +176,7 @@ export class GridComponent<TData extends object = any> {
 
   protected getFooterCellClasses(header: Header<TData, unknown>): string {
     return [
-      'border-r border-t border-primary-100 bg-primary-50/70 px-4 py-3 text-sm font-semibold text-primary-900 last:border-r-0',
+      'border-r border-t border-primary-100 bg-primary-50/70 px-4 py-3 text-sm font-semibold text-primary-900',
       this.getAlignmentClass((header.column.columnDef.meta as GridColumnMeta | undefined)?.align),
       (header.column.columnDef.meta as GridColumnMeta | undefined)?.footerClassName ?? '',
     ]

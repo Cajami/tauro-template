@@ -6,6 +6,9 @@ import { ComponentShowcaseComponent } from '@shared/components/component-showcas
 import { GridComponent, GridColumnDef } from '@shared/components/grid/grid.component';
 import { HeaderPageComponent } from '@shared/components/header-page/header-page.component';
 import { GridCheckboxCellComponent } from './grid-checkbox-cell.component';
+import { GridDatetimeCellComponent } from './grid-datetime-cell.component';
+import { GridInputCellComponent } from './grid-input-cell.component';
+import { GridModalActionCellComponent } from './grid-modal-action-cell.component';
 
 interface EmployeeRow {
   id: number;
@@ -32,8 +35,17 @@ interface TaskRow {
   owner: string;
   sprint: string;
   priority: 'Alta' | 'Media' | 'Baja';
+  note: string;
+  dueDate: Date | null;
   done: boolean;
   alerts: number;
+}
+
+interface GridApiItem {
+  property: string;
+  values: string;
+  defaultValue: string;
+  description: string;
 }
 
 const employeeHelper = createColumnHelper<EmployeeRow>();
@@ -53,6 +65,198 @@ const taskHelper = createColumnHelper<TaskRow>();
   templateUrl: './grid-docs-page.component.html',
 })
 export class GridDocsPageComponent {
+  readonly gridProps: GridApiItem[] = [
+    {
+      property: 'data',
+      values: 'TData[]',
+      defaultValue: '[]',
+      description: 'Array fuente que la grilla renderiza. Todo sorting, paginacion y celdas custom parte de este arreglo.',
+    },
+    {
+      property: 'columns',
+      values: 'GridColumnDef<TData>[]',
+      defaultValue: '[]',
+      description: 'Definicion declarativa de columnas, grupos, celdas custom, footers, pinning y resize.',
+    },
+    {
+      property: 'ariaLabel',
+      values: 'string',
+      defaultValue: "'Grid de datos'",
+      description: 'Etiqueta accesible del elemento table para lectores de pantalla.',
+    },
+    {
+      property: 'stickyHeader',
+      values: '`true` mantiene el header fijo, `false` lo deja en flujo normal',
+      defaultValue: 'true',
+      description: 'Mantiene el header fijo mientras el usuario recorre el cuerpo de la tabla.',
+    },
+    {
+      property: 'showPagination',
+      values: '`true` muestra el footer paginado, `false` lo oculta',
+      defaultValue: 'true',
+      description: 'Muestra u oculta el footer de paginacion local.',
+    },
+    {
+      property: 'loading',
+      values: '`true` muestra estado de carga, `false` renderiza filas o estado vacio',
+      defaultValue: 'false',
+      description: 'Activa el estado de carga y reemplaza las filas por un mensaje temporal.',
+    },
+    {
+      property: 'emptyTitle',
+      values: 'string',
+      defaultValue: "'Sin registros'",
+      description: 'Titulo del estado vacio cuando no existen filas.',
+    },
+    {
+      property: 'emptyDescription',
+      values: 'string',
+      defaultValue: "'No hay informacion para mostrar en esta tabla.'",
+      description: 'Texto de apoyo del estado vacio para explicar por que no hay datos.',
+    },
+    {
+      property: 'pageSizeOptions',
+      values: 'Arreglo de numeros como `[5, 10, 20]`, `[10, 25, 50]`, etc.',
+      defaultValue: '[10, 20, 50]',
+      description: 'Lista de tamanos disponibles en el selector de paginacion.',
+    },
+    {
+      property: 'minTableWidth',
+      values: 'number',
+      defaultValue: '960',
+      description: 'Ancho minimo base de la tabla antes de entrar a scroll horizontal.',
+    },
+    {
+      property: 'stripedRows',
+      values: '`true` alterna filas, `false` deja fondo uniforme',
+      defaultValue: 'false',
+      description: 'Aplica alternancia visual de filas para listados mas densos.',
+    },
+    {
+      property: 'dense',
+      values: '`true` reduce padding vertical, `false` mantiene espaciado normal',
+      defaultValue: 'false',
+      description: 'Reduce el padding vertical del cuerpo para mostrar mas filas en el mismo espacio.',
+    },
+    {
+      property: 'resizableColumns',
+      values: '`true` activa resize global, `false` desactiva handles',
+      defaultValue: 'false',
+      description: 'Activa la infraestructura de resize. Luego cada columna decide si realmente se puede redimensionar.',
+    },
+    {
+      property: 'pageIndex',
+      values: 'number (model)',
+      defaultValue: '0',
+      description: 'Modelo del indice de pagina actual, util si luego quieres sincronizar la paginacion desde fuera.',
+    },
+    {
+      property: 'pageSize',
+      values: 'number (model)',
+      defaultValue: '10',
+      description: 'Modelo del tamano de pagina actual para control externo o persistencia.',
+    },
+  ];
+
+  readonly columnProps: GridApiItem[] = [
+    {
+      property: 'id',
+      values: 'string',
+      defaultValue: 'Sin valor implicito; conviene declararlo cuando la columna necesita identidad estable',
+      description: 'Identificador estable de columna. Es recomendable cuando hay pinning, resize o columnas display.',
+    },
+    {
+      property: 'accessorKey',
+      values: 'keyof TData',
+      defaultValue: 'Sin valor implicito',
+      description: 'Amarra una columna a una propiedad del objeto fila y permite usar ese valor en header, cell y sorting.',
+    },
+    {
+      property: 'header',
+      values: 'string, template o renderer',
+      defaultValue: 'Sin valor implicito',
+      description: 'Texto o renderer del header. Puede ser simple o formar parte de un grupo.',
+    },
+    {
+      property: 'cell',
+      values: 'renderer',
+      defaultValue: 'Si no se define, TanStack usa el valor base de la columna',
+      description: 'Define el contenido de la celda. Aqui puedes devolver texto, templates o componentes Angular shared.',
+    },
+    {
+      property: 'footer',
+      values: 'string o renderer',
+      defaultValue: 'Sin footer',
+      description: 'Contenido del footer por columna o grupo, util para totales y resumentes.',
+    },
+    {
+      property: 'columns',
+      values: 'GridColumnDef<TData>[]',
+      defaultValue: 'Sin grupo',
+      description: 'Convierte una columna en grupo visual para crear headers o footers de varias filas.',
+    },
+    {
+      property: 'size',
+      values: 'number',
+      defaultValue: '180',
+      description: 'Ancho inicial en pixeles de la columna.',
+    },
+    {
+      property: 'minSize',
+      values: 'number',
+      defaultValue: '120',
+      description: 'Ancho minimo permitido al redimensionar.',
+    },
+    {
+      property: 'maxSize',
+      values: 'number',
+      defaultValue: '480',
+      description: 'Ancho maximo permitido al redimensionar.',
+    },
+    {
+      property: 'enableSorting',
+      values: '`true` permite ordenar, `false` deja la columna estatica',
+      defaultValue: 'false',
+      description: 'Activa el ordenamiento para esa columna. En la grid es opt-in, no viene habilitado por defecto.',
+    },
+    {
+      property: 'enableResizing',
+      values: '`true` permite resize en esa columna, `false` lo desactiva',
+      defaultValue: 'Hereda `resizableColumns()` de la grid',
+      description: 'Permite resize solo en esa columna, siempre que la grid tenga `resizableColumns` en true.',
+    },
+    {
+      property: 'meta.pinned',
+      values: "`'left'` fija a la izquierda, `'right'` fija a la derecha",
+      defaultValue: 'Sin pinning',
+      description: 'Congela la columna a la izquierda o derecha.',
+    },
+    {
+      property: 'meta.align',
+      values: "`'left'`, `'center'` o `'right'`",
+      defaultValue: "'left'",
+      description: 'Alinea header, body y footer de esa columna.',
+    },
+    {
+      property: 'meta.headerClassName',
+      values: 'string',
+      defaultValue: 'Sin clase extra',
+      description: 'Clase extra para personalizar solo la celda de header.',
+    },
+    {
+      property: 'meta.cellClassName',
+      values: 'string',
+      defaultValue: 'Sin clase extra',
+      description: 'Clase extra para personalizar solo la celda del cuerpo.',
+    },
+    {
+      property: 'meta.footerClassName',
+      values: 'string',
+      defaultValue: 'Sin clase extra',
+      description: 'Clase extra para personalizar solo la celda del footer.',
+    },
+  ];
+
   readonly employeeRows: EmployeeRow[] = [
     { id: 1, responsible: 'Lucia Herrera', role: 'Product Owner', team: 'Core', region: 'Lima', status: 'Activo' },
     { id: 2, responsible: 'Marco Rojas', role: 'Frontend Lead', team: 'UX', region: 'Bogota', status: 'En revision' },
@@ -76,11 +280,61 @@ export class GridDocsPageComponent {
   ];
 
   readonly taskRows: TaskRow[] = [
-    { id: 1, task: 'Cerrar alcance del sprint', owner: 'Lucia', sprint: 'Sprint 17', priority: 'Alta', done: true, alerts: 0 },
-    { id: 2, task: 'Validar feed de auditoria', owner: 'Marco', sprint: 'Sprint 17', priority: 'Media', done: false, alerts: 2 },
-    { id: 3, task: 'Ajustar layout del modulo compras', owner: 'Camila', sprint: 'Sprint 18', priority: 'Alta', done: false, alerts: 5 },
-    { id: 4, task: 'Revisar reglas de conciliacion', owner: 'Sofia', sprint: 'Sprint 18', priority: 'Baja', done: true, alerts: 1 },
-    { id: 5, task: 'Corregir integracion con proveedor', owner: 'Diego', sprint: 'Sprint 18', priority: 'Alta', done: false, alerts: 3 },
+    {
+      id: 1,
+      task: 'Cerrar alcance del sprint',
+      owner: 'Lucia',
+      sprint: 'Sprint 17',
+      priority: 'Alta',
+      note: 'Coordinar con negocio',
+      dueDate: new Date('2026-03-28'),
+      done: true,
+      alerts: 0,
+    },
+    {
+      id: 2,
+      task: 'Validar feed de auditoria',
+      owner: 'Marco',
+      sprint: 'Sprint 17',
+      priority: 'Media',
+      note: 'Revisar payload nuevo',
+      dueDate: new Date('2026-03-30'),
+      done: false,
+      alerts: 2,
+    },
+    {
+      id: 3,
+      task: 'Ajustar layout del modulo compras',
+      owner: 'Camila',
+      sprint: 'Sprint 18',
+      priority: 'Alta',
+      note: 'Validar con UX',
+      dueDate: new Date('2026-04-02'),
+      done: false,
+      alerts: 5,
+    },
+    {
+      id: 4,
+      task: 'Revisar reglas de conciliacion',
+      owner: 'Sofia',
+      sprint: 'Sprint 18',
+      priority: 'Baja',
+      note: 'Pendiente de QA',
+      dueDate: new Date('2026-04-05'),
+      done: true,
+      alerts: 1,
+    },
+    {
+      id: 5,
+      task: 'Corregir integracion con proveedor',
+      owner: 'Diego',
+      sprint: 'Sprint 18',
+      priority: 'Alta',
+      note: 'Esperando credenciales',
+      dueDate: new Date('2026-04-08'),
+      done: false,
+      alerts: 3,
+    },
   ];
 
   readonly financeTotals = this.financeRows.reduce(
@@ -217,6 +471,30 @@ export class GridDocsPageComponent {
       enableResizing: true,
       enableSorting: true,
     }),
+    taskHelper.accessor('note', {
+      header: 'Nota',
+      cell: (info) =>
+        flexRenderComponent(GridInputCellComponent, {
+          inputs: {
+            context: info,
+          },
+        }),
+      size: 220,
+      minSize: 200,
+      enableResizing: true,
+    }),
+    taskHelper.accessor('dueDate', {
+      header: 'Fecha',
+      cell: (info) =>
+        flexRenderComponent(GridDatetimeCellComponent, {
+          inputs: {
+            context: info,
+          },
+        }),
+      size: 190,
+      minSize: 170,
+      enableResizing: true,
+    }),
     taskHelper.accessor('done', {
       header: 'Completa',
       cell: (info) =>
@@ -226,6 +504,19 @@ export class GridDocsPageComponent {
           },
         }),
       size: 120,
+      enableResizing: true,
+      meta: { align: 'center' },
+    }),
+    taskHelper.display({
+      id: 'actions',
+      header: 'Accion',
+      cell: (info) =>
+        flexRenderComponent(GridModalActionCellComponent, {
+          inputs: {
+            context: info,
+          },
+        }),
+      size: 150,
       enableResizing: true,
       meta: { align: 'center' },
     }),
@@ -364,6 +655,9 @@ readonly financeColumns: GridColumnDef<FinanceRow>[] = [
 
   tsEjemplo3 = `import { createColumnHelper } from '@tanstack/angular-table';
 import { GridCheckboxCellComponent } from './grid-checkbox-cell.component';
+import { GridInputCellComponent } from './grid-input-cell.component';
+import { GridDatetimeCellComponent } from './grid-datetime-cell.component';
+import { GridModalActionCellComponent } from './grid-modal-action-cell.component';
 
 const taskHelper = createColumnHelper<TaskRow>();
 
@@ -392,6 +686,22 @@ readonly taskColumns: GridColumnDef<TaskRow>[] = [
     enableResizing: true,
     enableSorting: true,
   }),
+  taskHelper.accessor('note', {
+    header: 'Nota',
+    cell: (info) =>
+      flexRenderComponent(GridInputCellComponent, {
+        inputs: { context: info },
+      }),
+    enableResizing: true,
+  }),
+  taskHelper.accessor('dueDate', {
+    header: 'Fecha',
+    cell: (info) =>
+      flexRenderComponent(GridDatetimeCellComponent, {
+        inputs: { context: info },
+      }),
+    enableResizing: true,
+  }),
   taskHelper.accessor('done', {
     header: 'Completa',
     cell: (info) =>
@@ -399,6 +709,16 @@ readonly taskColumns: GridColumnDef<TaskRow>[] = [
         inputs: {
           context: info,
         },
+    }),
+    meta: { align: 'center' },
+    enableResizing: true,
+  }),
+  taskHelper.display({
+    id: 'actions',
+    header: 'Accion',
+    cell: (info) =>
+      flexRenderComponent(GridModalActionCellComponent, {
+        inputs: { context: info },
       }),
     meta: { align: 'center' },
     enableResizing: true,
@@ -411,6 +731,18 @@ readonly taskColumns: GridColumnDef<TaskRow>[] = [
     enableSorting: true,
   }),
 ];`;
+
+  employeeRowsJson(): string {
+    return JSON.stringify(this.employeeRows);
+  }
+
+  financeRowsJson(): string {
+    return JSON.stringify(this.financeRows);
+  }
+
+  taskRowsJson(): string {
+    return JSON.stringify(this.taskRows);
+  }
 
   private formatCurrency(value: number): string {
     return new Intl.NumberFormat('es-PE', {

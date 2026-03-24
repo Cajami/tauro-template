@@ -59,6 +59,10 @@
       [resizableColumns]="true"
       [minTableWidth]="860"
     ></app-grid>
+
+    <div class="mt-2 overflow-x-auto px-1 font-mono text-[11px] leading-5 text-slate-500">
+      employeeRows: {{ employeeRowsJson() }}
+    </div>
   </app-component-showcase>
 
   <section class="rounded-2xl border border-gray-200 bg-white p-6">
@@ -89,6 +93,10 @@
       [stickyHeader]="true"
       [minTableWidth]="980"
     ></app-grid>
+
+    <div class="mt-2 overflow-x-auto px-1 font-mono text-[11px] leading-5 text-slate-500">
+      financeRows: {{ financeRowsJson() }}
+    </div>
   </app-component-showcase>
 
   <section class="rounded-2xl border border-gray-200 bg-white p-6">
@@ -107,7 +115,7 @@
 
   <app-component-showcase
     title="Pinning, resize y celdas con componentes shared"
-    description="La grid tambien puede renderizar componentes Angular dentro de una celda. Aqui se usa app-checkbox para representar un booleano."
+    description="La grid tambien puede renderizar componentes shared reales dentro de una celda. En este ejemplo conviven app-input, app-datetime-picker, app-checkbox y un boton que abre un modal."
     [htmlCode]="htmlEjemplo3"
     [tsCode]="tsEjemplo3"
   >
@@ -120,8 +128,12 @@
       [stickyHeader]="true"
       [showPagination]="true"
       [resizableColumns]="true"
-      [minTableWidth]="960"
+      [minTableWidth]="1320"
     ></app-grid>
+
+    <div class="mt-2 overflow-x-auto px-1 font-mono text-[11px] leading-5 text-slate-500">
+      taskRows: {{ taskRowsJson() }}
+    </div>
   </app-component-showcase>
 
   <section class="rounded-2xl border border-primary-200 bg-primary-50/60 p-6">
@@ -139,6 +151,83 @@
         La primera version resuelve bien casos administrativos comunes. Sobre esta base se pueden agregar luego filtro global,
         toolbar, seleccion de filas, acciones por fila, estados de carga mas ricos o integracion con backend paginado.
       </p>
+    </div>
+  </section>
+
+  <section class="rounded-2xl border border-gray-200 bg-white p-6">
+    <div class="space-y-2">
+      <p class="text-xs font-semibold uppercase tracking-[0.24em] text-primary-700">Referencia API</p>
+      <h2 class="text-2xl font-bold tracking-tight text-slate-900">Propiedades del componente y de las columnas</h2>
+      <p class="text-sm leading-6 text-slate-600">
+        Esta referencia resume la API real del shared `app-grid`. La primera tabla cubre inputs del componente y la
+        segunda las propiedades mas utiles al definir columnas.
+      </p>
+    </div>
+
+    <div class="mt-6 space-y-8">
+      <div>
+        <h3 class="text-lg font-semibold text-slate-900">Inputs de `app-grid`</h3>
+        <div class="mt-3 overflow-x-auto rounded-xl border border-gray-200">
+          <table class="min-w-full table-fixed divide-y divide-gray-200">
+            <colgroup>
+              <col class="w-44" />
+              <col class="w-56" />
+              <col class="w-60" />
+              <col />
+            </colgroup>
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Propiedad</th>
+                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Valores</th>
+                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Por defecto</th>
+                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Descripcion</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 bg-white">
+              @for (item of gridProps; track item.property) {
+                <tr>
+                  <td class="px-4 py-3 font-mono text-sm text-primary-700">{{ item.property }}</td>
+                  <td class="px-4 py-3 font-mono text-xs text-slate-500">{{ item.values }}</td>
+                  <td class="px-4 py-3 font-mono text-xs text-slate-500">{{ item.defaultValue }}</td>
+                  <td class="px-4 py-3 text-sm leading-6 text-slate-700">{{ item.description }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-semibold text-slate-900">Propiedades clave por columna</h3>
+        <div class="mt-3 overflow-x-auto rounded-xl border border-gray-200">
+          <table class="min-w-full table-fixed divide-y divide-gray-200">
+            <colgroup>
+              <col class="w-44" />
+              <col class="w-56" />
+              <col class="w-60" />
+              <col />
+            </colgroup>
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Propiedad</th>
+                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Valores</th>
+                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Por defecto</th>
+                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Descripcion</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 bg-white">
+              @for (item of columnProps; track item.property) {
+                <tr>
+                  <td class="px-4 py-3 font-mono text-sm text-primary-700">{{ item.property }}</td>
+                  <td class="px-4 py-3 font-mono text-xs text-slate-500">{{ item.values }}</td>
+                  <td class="px-4 py-3 font-mono text-xs text-slate-500">{{ item.defaultValue }}</td>
+                  <td class="px-4 py-3 text-sm leading-6 text-slate-700">{{ item.description }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </section>
 </div>

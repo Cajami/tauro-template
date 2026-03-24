@@ -130,6 +130,9 @@ Capacidades actuales:
 - Scroll horizontal cuando el ancho de columnas supera el espacio visible.
 - Celdas custom con Angular real usando renderers, incluyendo componentes shared como `Checkbox`.
 - Documentacion propia en `Components > Grid` con ejemplos detallados de listados, resumen financiero y celdas custom.
+- La demo avanzada del `Grid` ya muestra varios componentes shared reales dentro de celdas: `Checkbox`, `Input`, `DateTimePicker` y un boton que abre un modal.
+- La documentacion del `Grid` ahora incluye tambien una seccion de referencia API que enumera las propiedades soportadas por `app-grid` y por la definicion de columnas.
+- La documentacion del `Grid` muestra tambien la data enlazada dentro de cada showcase, justo debajo de la grilla, como una linea compacta de texto para visualizar al instante la relacion entre la grilla y el array fuente.
 
 ### Componente ComponentShowcase
 El `ComponentShowcase` es la base visual usada en la documentacion de componentes para mostrar preview y codigo lado a lado.
