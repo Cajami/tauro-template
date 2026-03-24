@@ -50,6 +50,7 @@ Actualmente aun esta en construccion o expansion:
 - SCSS
 - Lucide Angular
 - Flatpickr para DateTimePicker
+- TanStack Table para el nuevo shared `Grid`
 - GitHub Pages para demo publica
 - GitHub Actions para build y deploy
 
@@ -107,6 +108,7 @@ Inventario identificado en `src/app/shared/components`:
 - `form/password-input`
 - `form/textarea`
 - `header-page`
+- `grid`
 - `dialog`
 - `modal`
 - `radio-group`
@@ -114,6 +116,20 @@ Inventario identificado en `src/app/shared/components`:
 - `toast`
 
 Estos componentes son parte central del valor del template y deben crecer con enfoque de reusabilidad.
+
+### Componente Grid
+La tabla shared del template ahora se apoya en TanStack Table para ofrecer una base mas potente que una tabla HTML simple.
+
+Capacidades actuales:
+- Sticky header configurable.
+- Paginacion local con selector de tamanos y rango visible.
+- Sorting opt-in por columna; cada columna debe declarar explicitamente `enableSorting: true` si debe ordenarse.
+- Header groups y footer groups.
+- Pinning de columnas a izquierda o derecha mediante metadata declarativa.
+- Resize de columnas cuando la grid y la columna lo permiten.
+- Scroll horizontal cuando el ancho de columnas supera el espacio visible.
+- Celdas custom con Angular real usando renderers, incluyendo componentes shared como `Checkbox`.
+- Documentacion propia en `Components > Grid` con ejemplos detallados de listados, resumen financiero y celdas custom.
 
 ### Componente ComponentShowcase
 El `ComponentShowcase` es la base visual usada en la documentacion de componentes para mostrar preview y codigo lado a lado.
@@ -224,6 +240,7 @@ Rutas principales detectadas:
 - `/components/checkbox`
 - `/components/radio`
 - `/components/tabs`
+- `/components/grid`
 - `/components/datetimepicker`
 - `/components/button`
 - `/components/modal`
@@ -290,6 +307,7 @@ Observacion tecnica importante:
 - Se agrego un sistema de modal dinamico con host global y apertura por servicio.
 - Se agregaron documentacion para `Checkbox` y un nuevo shared `Radio Group` con soporte para Reactive Forms y ngModel.
 - Se agrego un nuevo shared `Tabs` con soporte para iconos, badges, variantes visuales, navegacion por teclado y documentacion propia en `Components > Tabs`.
+- Se agrego un nuevo shared `Grid` construido sobre TanStack Table con sticky header, paginacion, grouped headers/footers, pinning, resize y soporte para celdas custom con componentes Angular.
 - Se agrego redimensionamiento manual al `ComponentShowcase` en desktop para ajustar el ancho entre preview y codigo durante las demos.
 - Se fortalecio `app-alert` como mensaje inline reusable y se agrego su pagina de documentacion.
 - Se agrego `DialogService` sobre el sistema de modal para mensajes modales y confirmaciones.

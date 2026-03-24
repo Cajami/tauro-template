@@ -110,6 +110,7 @@ export class SidebarComponent implements AfterViewInit {
         { label: 'Checkbox', icon: '', route: '/components/checkbox' },
         { label: 'Radio', icon: '', route: '/components/radio' },
         { label: 'Tabs', icon: '', route: '/components/tabs' },
+        { label: 'Grid', icon: '', route: '/components/grid' },
         {
           label: 'DateTimePicker',
           icon: '',

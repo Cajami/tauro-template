@@ -1,0 +1,146 @@
+<div class="space-y-8">
+  <app-header-page
+    title="Grid Guia"
+    subTitle="Base reusable construida sobre TanStack Table para tablas con paginacion, sticky header, pinning, resize y celdas custom."
+  ></app-header-page>
+
+  <section class="rounded-2xl border border-primary-200 bg-primary-50/60 p-6">
+    <div class="space-y-4">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-primary-700">Capacidades base</p>
+        <h2 class="mt-2 text-2xl font-bold tracking-tight text-slate-900">
+          La grid shared ya nace preparada para crecer como un modulo serio
+        </h2>
+      </div>
+
+      <div class="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+        <div class="rounded-xl border border-primary-200 bg-white/90 p-4 text-sm text-slate-700">
+          <strong class="block text-slate-900">Sticky header</strong>
+          El header puede quedarse fijo mientras el usuario recorre filas largas.
+        </div>
+        <div class="rounded-xl border border-primary-200 bg-white/90 p-4 text-sm text-slate-700">
+          <strong class="block text-slate-900">Headers y footers agrupados</strong>
+          Puedes crear varias filas visuales usando grupos de columnas.
+        </div>
+        <div class="rounded-xl border border-primary-200 bg-white/90 p-4 text-sm text-slate-700">
+          <strong class="block text-slate-900">Pinning lateral</strong>
+          Sirve para congelar columnas importantes a la izquierda o derecha.
+        </div>
+        <div class="rounded-xl border border-primary-200 bg-white/90 p-4 text-sm text-slate-700">
+          <strong class="block text-slate-900">Resize opcional</strong>
+          El resize solo aparece cuando activas `resizableColumns` y la columna lo permite.
+        </div>
+        <div class="rounded-xl border border-primary-200 bg-white/90 p-4 text-sm text-slate-700">
+          <strong class="block text-slate-900">Celdas con Angular real</strong>
+          Las columnas pueden renderizar templates, texto o componentes shared como `Checkbox`.
+        </div>
+        <div class="rounded-xl border border-primary-200 bg-white/90 p-4 text-sm text-slate-700">
+          <strong class="block text-slate-900">Paginacion interna</strong>
+          Incluye rango visible, cambio de pagina y selector de tamanos.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <app-component-showcase
+    title="Grid base con sticky header y paginacion"
+    description="Este es el caso mas comun para listados administrativos. Incluye ordenamiento por columna, sticky header y paginacion local."
+    [htmlCode]="htmlEjemplo1"
+    [tsCode]="tsEjemplo1"
+  >
+    <app-grid
+      [data]="employeeRows"
+      [columns]="employeeColumns"
+      ariaLabel="Listado del equipo"
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 20]"
+      [stickyHeader]="true"
+      [showPagination]="true"
+      [resizableColumns]="true"
+      [minTableWidth]="860"
+    ></app-grid>
+  </app-component-showcase>
+
+  <section class="rounded-2xl border border-gray-200 bg-white p-6">
+    <h3 class="text-lg font-semibold text-slate-900">Que resuelve este primer ejemplo</h3>
+    <div class="mt-4 grid gap-3 md:grid-cols-2">
+      <div class="rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm leading-6 text-slate-700">
+        <strong class="block text-slate-900">Sorting</strong>
+        Si una columna puede ordenarse, el header reacciona con iconografia y el cambio se refleja de inmediato en la tabla.
+      </div>
+      <div class="rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm leading-6 text-slate-700">
+        <strong class="block text-slate-900">Resize controlado</strong>
+        El componente no fuerza resize en todas las columnas: se activa solo si la grid y la definicion de columna lo permiten.
+      </div>
+    </div>
+  </section>
+
+  <app-component-showcase
+    title="Headers agrupados, footer y columnas congeladas"
+    description="Este caso replica mejor una grilla financiera. Muestra header en dos filas, footer de totales y columnas fijadas."
+    [htmlCode]="htmlEjemplo2"
+    [tsCode]="tsEjemplo2"
+  >
+    <app-grid
+      [data]="financeRows"
+      [columns]="financeColumns"
+      ariaLabel="Resumen financiero"
+      [showPagination]="false"
+      [stickyHeader]="true"
+      [minTableWidth]="980"
+    ></app-grid>
+  </app-component-showcase>
+
+  <section class="rounded-2xl border border-gray-200 bg-white p-6">
+    <h3 class="text-lg font-semibold text-slate-900">Notas de implementacion para grids mas complejas</h3>
+    <div class="mt-4 space-y-3 text-sm leading-6 text-slate-700">
+      <p>
+        Si tu tabla necesita varias filas en header o footer, la recomendacion es usar `createColumnHelper().group(...)`
+        para mantener una definicion declarativa y legible.
+      </p>
+      <p>
+        El pinning se define por columna usando `meta.pinned = 'left' | 'right'`, lo que deja el comportamiento listo
+        desde la configuracion y evita meter logica dispersa en la vista.
+      </p>
+    </div>
+  </section>
+
+  <app-component-showcase
+    title="Pinning, resize y celdas con componentes shared"
+    description="La grid tambien puede renderizar componentes Angular dentro de una celda. Aqui se usa app-checkbox para representar un booleano."
+    [htmlCode]="htmlEjemplo3"
+    [tsCode]="tsEjemplo3"
+  >
+    <app-grid
+      [data]="taskRows"
+      [columns]="taskColumns"
+      ariaLabel="Backlog del sprint"
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10]"
+      [stickyHeader]="true"
+      [showPagination]="true"
+      [resizableColumns]="true"
+      [minTableWidth]="960"
+    ></app-grid>
+  </app-component-showcase>
+
+  <section class="rounded-2xl border border-primary-200 bg-primary-50/60 p-6">
+    <h3 class="text-lg font-semibold text-slate-900">Recomendaciones para usarla en proyectos reales</h3>
+    <div class="mt-4 space-y-3 text-sm leading-6 text-slate-700">
+      <p>
+        Empieza con definiciones de columna declarativas y agrega complejidad solo donde el caso realmente lo pida:
+        resize, pinning, agrupacion, footers o celdas custom.
+      </p>
+      <p>
+        Si una celda necesita UI reusable del template, puedes pasar un componente Angular como renderer. Ese patron te
+        deja usar `Checkbox`, `Button`, `Badge` futuros o cualquier celda especializada sin acoplar la grid a una sola vista.
+      </p>
+      <p>
+        La primera version resuelve bien casos administrativos comunes. Sobre esta base se pueden agregar luego filtro global,
+        toolbar, seleccion de filas, acciones por fila, estados de carga mas ricos o integracion con backend paginado.
+      </p>
+    </div>
+  </section>
+</div>
+
+<app-api-info></app-api-info>

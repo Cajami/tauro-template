@@ -58,6 +58,13 @@ export const COMPONENTS_ROUTES: Routes = [
       ),
   },
   {
+    path: 'grid',
+    loadComponent: () =>
+      import('./grid-docs-page/grid-docs-page.component').then(
+        (m) => m.GridDocsPageComponent,
+      ),
+  },
+  {
     path: 'datetimepicker',
     loadComponent: () =>
       import('./datetimepicker-docs-page/datetimepicker-docs-page.component').then(

@@ -5,6 +5,9 @@ import { Component, ElementRef, HostListener, ViewChild, computed, input, signal
   imports: [],
   templateUrl: './component-showcase.component.html',
   styleUrl: './component-showcase.component.scss',
+  host: {
+    '[attr.title]': 'null',
+  },
 })
 export class ComponentShowcaseComponent {
   @ViewChild('showcaseLayout') private showcaseLayout?: ElementRef<HTMLDivElement>;

@@ -1,0 +1,185 @@
+<div class="space-y-4">
+  <div class="overflow-hidden rounded-2xl border border-primary-200/70 bg-white shadow-[0_20px_45px_-30px_color-mix(in_srgb,var(--color-primary-400)_28%,transparent)]">
+    <div class="custom-scrollbar overflow-x-auto">
+      <table
+        class="min-w-full border-separate border-spacing-0"
+        [style.minWidth]="tableMinWidth()"
+        [attr.aria-label]="ariaLabel()"
+      >
+        <thead>
+          @for (headerGroup of table().getHeaderGroups(); track headerGroup.id) {
+            <tr>
+              @for (header of headerGroup.headers; track header.id) {
+                <th
+                  scope="col"
+                  [attr.colspan]="header.colSpan"
+                  [class]="getHeaderCellClasses(header)"
+                  [ngStyle]="getPinnedStyles(header, 'header')"
+                >
+                  @if (!header.isPlaceholder) {
+                    <div
+                      class="flex min-h-8 items-center gap-2"
+                      [class.cursor-pointer]="getCanSort(header)"
+                      (click)="toggleSorting($event, header)"
+                      (keydown.enter)="toggleSorting($event, header)"
+                      (keydown.space)="toggleSorting($event, header)"
+                      [attr.tabindex]="getCanSort(header) ? 0 : null"
+                    >
+                      <div class="min-w-0 flex-1">
+                        <ng-template
+                          [flexRender]="header.column.columnDef.header"
+                          [flexRenderProps]="header.getContext()"
+                          let-rendered
+                        >{{ rendered }}</ng-template>
+                      </div>
+
+                      @if (getCanSort(header)) {
+                        <lucide-icon
+                          [img]="getSortIconFor(header.column)"
+                          [size]="14"
+                          [class]="getSortIconClasses(header.column)"
+                        ></lucide-icon>
+                      }
+                    </div>
+
+                    @if (resizableColumns() && header.column.getCanResize()) {
+                      <button
+                        type="button"
+                        aria-label="Redimensionar columna"
+                        class="group/resize absolute inset-y-0 right-0 z-50 w-4 translate-x-1/2 cursor-col-resize touch-none"
+                        (mousedown)="handleResizeStart($event, header)"
+                        (touchstart)="handleResizeStart($event, header)"
+                      >
+                        <span
+                          class="absolute bottom-2 left-1/2 top-2 w-px -translate-x-1/2 opacity-0 transition-all duration-150 group-hover/resize:opacity-100"
+                          [class.bg-primary-500]="header.column.getIsResizing()"
+                          [class.bg-primary-200]="!header.column.getIsResizing()"
+                          [class.opacity-100]="header.column.getIsResizing()"
+                        ></span>
+                      </button>
+                    }
+                  }
+                </th>
+              }
+            </tr>
+          }
+        </thead>
+
+        <tbody>
+          @if (loading()) {
+            <tr>
+              <td
+                [attr.colspan]="visibleColumnCount()"
+                class="px-4 py-14 text-center text-sm text-slate-500"
+              >
+                Cargando registros...
+              </td>
+            </tr>
+          } @else if (!rows().length) {
+            <tr>
+              <td
+                [attr.colspan]="visibleColumnCount()"
+                class="px-6 py-14 text-center"
+              >
+                <div class="mx-auto max-w-md space-y-2">
+                  <p class="text-base font-semibold text-primary-950">{{ emptyTitle() }}</p>
+                  <p class="text-sm leading-6 text-slate-500">{{ emptyDescription() }}</p>
+                </div>
+              </td>
+            </tr>
+          } @else {
+            @for (row of rows(); track getRowId($index, row)) {
+              <tr class="transition-colors hover:bg-primary-50/55">
+                @for (cell of row.getVisibleCells(); track cell.id) {
+                  <td
+                    [class]="getBodyCellClasses(cell, $index)"
+                    [ngStyle]="getPinnedStyles(cell.column, 'body')"
+                  >
+                    <ng-template
+                      [flexRender]="cell.column.columnDef.cell"
+                      [flexRenderProps]="cell.getContext()"
+                      let-rendered
+                    >{{ rendered }}</ng-template>
+                  </td>
+                }
+              </tr>
+            }
+          }
+        </tbody>
+
+        @if (hasFooter()) {
+          <tfoot>
+            @for (footerGroup of table().getFooterGroups(); track footerGroup.id) {
+              <tr>
+                @for (header of footerGroup.headers; track header.id) {
+                  <th
+                    scope="row"
+                    [attr.colspan]="header.colSpan"
+                    [class]="getFooterCellClasses(header)"
+                    [ngStyle]="getPinnedStyles(header, 'footer')"
+                  >
+                    @if (!header.isPlaceholder) {
+                      <ng-template
+                        [flexRender]="header.column.columnDef.footer"
+                        [flexRenderProps]="header.getContext()"
+                        let-rendered
+                      >{{ rendered }}</ng-template>
+                    }
+                  </th>
+                }
+              </tr>
+            }
+          </tfoot>
+        }
+      </table>
+    </div>
+
+    @if (showPagination()) {
+      <div class="flex flex-col gap-4 border-t border-primary-100 bg-primary-50/50 px-4 py-4 lg:flex-row lg:items-center lg:justify-between">
+        <div class="text-sm text-slate-600">
+          Mostrando <strong>{{ rangeStart() }}</strong> a <strong>{{ rangeEnd() }}</strong> de
+          <strong>{{ totalRows() }}</strong> registros
+        </div>
+
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
+          <label class="flex items-center gap-2 text-sm text-slate-600">
+            Filas por pagina
+            <select
+              class="rounded-lg border border-primary-200 bg-white px-3 py-2 text-sm text-slate-700 outline-none transition-colors hover:border-primary-300 focus:border-primary-400 focus:bg-primary-50/40"
+              [value]="pageSize()"
+              (change)="updatePageSizeFromEvent($event)"
+            >
+              @for (size of pageSizeOptions(); track size) {
+                <option [value]="size">{{ size }}</option>
+              }
+            </select>
+          </label>
+
+          <div class="flex items-center gap-2">
+            <span class="text-sm text-slate-600">
+              Pagina {{ pageCount() ? pageIndex() + 1 : 0 }} de {{ pageCount() || 0 }}
+            </span>
+
+            <button
+              type="button"
+              class="rounded-lg border border-primary-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700 disabled:cursor-not-allowed disabled:border-gray-200 disabled:text-slate-400 disabled:opacity-45"
+              [disabled]="!table().getCanPreviousPage()"
+              (click)="goToPreviousPage()"
+            >
+              Anterior
+            </button>
+
+            <button
+              type="button"
+              class="rounded-lg border border-primary-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700 disabled:cursor-not-allowed disabled:border-gray-200 disabled:text-slate-400 disabled:opacity-45"
+              [disabled]="!table().getCanNextPage()"
+              (click)="goToNextPage()"
+            >
+              Siguiente
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

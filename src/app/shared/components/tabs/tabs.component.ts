@@ -28,6 +28,9 @@ let nextTabsId = 0;
   standalone: true,
   imports: [CommonModule, LucideAngularModule],
   templateUrl: './tabs.component.html',
+  host: {
+    class: 'block w-full min-w-0',
+  },
 })
 export class TabsComponent implements AfterContentInit {
   readonly tabs = input<TabItem[]>([]);
