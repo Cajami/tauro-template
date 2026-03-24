@@ -1,0 +1,136 @@
+<div class="space-y-6">
+  <app-header-page
+    title="Tabs Guia"
+    subTitle="Componente de navegacion por secciones con iconos, badges, variantes visuales y soporte de teclado."
+  ></app-header-page>
+
+  <app-component-showcase
+    title="Underline con iconos"
+    description="Ideal para paginas de detalle o configuracion donde quieres una navegacion limpia por secciones."
+    [htmlCode]="htmlEjemplo1"
+    [tsCode]="tsEjemplo1"
+  >
+    <app-tabs
+      [tabs]="profileTabs"
+      [(activeTab)]="activeProfileTab"
+      ariaLabel="Secciones del perfil"
+    >
+      <ng-template tabContent="general">
+        <div class="rounded-2xl border border-gray-200 bg-white p-4">
+          <h3 class="text-sm font-semibold text-slate-900">Datos generales</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">
+            Aqui puedes agrupar informacion basica del usuario, formulario principal o configuraciones generales.
+          </p>
+        </div>
+      </ng-template>
+
+      <ng-template tabContent="security">
+        <div class="rounded-2xl border border-gray-200 bg-white p-4">
+          <h3 class="text-sm font-semibold text-slate-900">Seguridad</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">
+            Usa esta pestana para password, sesiones activas, MFA o politicas de acceso.
+          </p>
+        </div>
+      </ng-template>
+
+      <ng-template tabContent="notifications">
+        <div class="rounded-2xl border border-gray-200 bg-white p-4">
+          <h3 class="text-sm font-semibold text-slate-900">Notificaciones</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">
+            Los badges ayudan a mostrar pendientes o volumen de items sin salir del contexto de la seccion.
+          </p>
+        </div>
+      </ng-template>
+    </app-tabs>
+
+    <div class="mt-3 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+      Tab activa: <strong>{{ activeProfileTab }}</strong>
+    </div>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Variante pills"
+    description="Una opcion mas visible para paneles de configuracion o agrupaciones cortas."
+    [htmlCode]="htmlEjemplo2"
+    [tsCode]="tsEjemplo2"
+  >
+    <app-tabs
+      [tabs]="settingsTabs"
+      [(activeTab)]="activeSettingsTab"
+      variant="pills"
+      ariaLabel="Configuracion"
+    >
+      <ng-template tabContent="filters">
+        <div class="rounded-2xl border border-primary-200 bg-primary-50 p-4 text-sm text-primary-900">
+          Ajusta filtros y criterios de listado sin perder el contexto visual del tema.
+        </div>
+      </ng-template>
+
+      <ng-template tabContent="preferences">
+        <div class="rounded-2xl border border-gray-200 bg-white p-4 text-sm text-slate-700">
+          Las preferencias pueden contener switches, selects o radios dentro de una seccion compacta.
+        </div>
+      </ng-template>
+
+      <ng-template tabContent="analytics">
+        <div class="rounded-2xl border border-gray-200 bg-white p-4 text-sm text-slate-700">
+          Esta pestana esta deshabilitada para mostrar el comportamiento visual de tabs no disponibles.
+        </div>
+      </ng-template>
+    </app-tabs>
+
+    <div class="mt-3 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+      Tab activa: <strong>{{ activeSettingsTab }}</strong>
+    </div>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Variante segmented"
+    description="Funciona bien para cambios rapidos dentro de una misma tarjeta. Tambien puedes estirarlo para ocupar todo el ancho."
+    [htmlCode]="htmlEjemplo3"
+    [tsCode]="tsEjemplo3"
+  >
+    <app-tabs
+      [tabs]="compactTabs"
+      [(activeTab)]="activeCompactTab"
+      variant="segmented"
+      [stretch]="true"
+      ariaLabel="Resumen del equipo"
+    >
+      <ng-template tabContent="overview">
+        <div class="grid gap-3 md:grid-cols-3">
+          <div class="rounded-2xl border border-gray-200 bg-white p-4">
+            <p class="text-xs uppercase tracking-[0.22em] text-slate-500">Tareas</p>
+            <p class="mt-2 text-2xl font-semibold text-slate-900">48</p>
+          </div>
+          <div class="rounded-2xl border border-gray-200 bg-white p-4">
+            <p class="text-xs uppercase tracking-[0.22em] text-slate-500">Activas</p>
+            <p class="mt-2 text-2xl font-semibold text-slate-900">17</p>
+          </div>
+          <div class="rounded-2xl border border-gray-200 bg-white p-4">
+            <p class="text-xs uppercase tracking-[0.22em] text-slate-500">Bloqueos</p>
+            <p class="mt-2 text-2xl font-semibold text-slate-900">2</p>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template tabContent="history">
+        <div class="rounded-2xl border border-gray-200 bg-white p-4 text-sm text-slate-700">
+          El historial puede mostrar actividad reciente, auditoria o cambios relevantes del proceso.
+        </div>
+      </ng-template>
+
+      <ng-template tabContent="members">
+        <div class="rounded-2xl border border-gray-200 bg-white p-4 text-sm text-slate-700">
+          La pestana con badge es util para equipos, comentarios, pendientes o cualquier conteo corto.
+        </div>
+      </ng-template>
+    </app-tabs>
+
+    <div class="mt-3 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+      Tab activa: <strong>{{ activeCompactTab }}</strong>
+    </div>
+  </app-component-showcase>
+</div>
+
+<app-api-info></app-api-info>

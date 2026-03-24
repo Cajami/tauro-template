@@ -110,6 +110,7 @@ Inventario identificado en `src/app/shared/components`:
 - `dialog`
 - `modal`
 - `radio-group`
+- `tabs`
 - `toast`
 
 Estos componentes son parte central del valor del template y deben crecer con enfoque de reusabilidad.
@@ -212,6 +213,7 @@ Rutas principales detectadas:
 - `/components/toast`
 - `/components/checkbox`
 - `/components/radio`
+- `/components/tabs`
 - `/components/datetimepicker`
 - `/components/button`
 - `/components/modal`
@@ -277,6 +279,7 @@ Observacion tecnica importante:
 - Se ajusto `component-showcase` para soportar componentes con overlays o dropdowns sin cortar su render en las paginas de documentacion.
 - Se agrego un sistema de modal dinamico con host global y apertura por servicio.
 - Se agregaron documentacion para `Checkbox` y un nuevo shared `Radio Group` con soporte para Reactive Forms y ngModel.
+- Se agrego un nuevo shared `Tabs` con soporte para iconos, badges, variantes visuales, navegacion por teclado y documentacion propia en `Components > Tabs`.
 - Se fortalecio `app-alert` como mensaje inline reusable y se agrego su pagina de documentacion.
 - Se agrego `DialogService` sobre el sistema de modal para mensajes modales y confirmaciones.
 - Se agrego `ToastService` con host global, posiciones configurables y autocierre con pausa al hover.

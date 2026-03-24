@@ -51,6 +51,13 @@ export const COMPONENTS_ROUTES: Routes = [
       ),
   },
   {
+    path: 'tabs',
+    loadComponent: () =>
+      import('./tabs-docs-page/tabs-docs-page.component').then(
+        (m) => m.TabsDocsPageComponent,
+      ),
+  },
+  {
     path: 'datetimepicker',
     loadComponent: () =>
       import('./datetimepicker-docs-page/datetimepicker-docs-page.component').then(

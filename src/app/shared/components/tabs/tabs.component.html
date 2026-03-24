@@ -1,0 +1,49 @@
+<div class="space-y-4">
+  <div
+    [class]="getTabListClasses()"
+    role="tablist"
+    [attr.aria-label]="ariaLabel()"
+  >
+    @for (tab of tabs(); track tab.id; let index = $index) {
+      <button
+        #tabButton
+        type="button"
+        role="tab"
+        [id]="getTriggerId(tab.id)"
+        [class]="getTabButtonClasses(tab)"
+        [attr.aria-selected]="isActive(tab.id)"
+        [attr.aria-controls]="getPanelId(tab.id)"
+        [attr.tabindex]="isActive(tab.id) ? 0 : -1"
+        [attr.title]="tab.label"
+        [disabled]="tab.disabled"
+        (click)="selectTab(tab.id)"
+        (keydown)="onKeydown($event, index)"
+      >
+        @if (tab.icon) {
+          <lucide-icon [img]="tab.icon" [size]="16" class="shrink-0"></lucide-icon>
+        }
+
+        <span class="truncate">{{ tab.label }}</span>
+
+        @if (tab.badge !== undefined && tab.badge !== null && tab.badge !== '') {
+          <span
+            class="inline-flex min-w-5 items-center justify-center rounded-full bg-primary-100 px-1.5 py-0.5 text-[11px] font-semibold text-primary-700"
+          >
+            {{ tab.badge }}
+          </span>
+        }
+      </button>
+    }
+  </div>
+
+  @if (activeTab(); as currentTabId) {
+    <div
+      role="tabpanel"
+      [id]="getPanelId(currentTabId)"
+      [attr.aria-labelledby]="getTriggerId(currentTabId)"
+      class="min-w-0"
+    >
+      <ng-container *ngTemplateOutlet="getActiveTemplate()"></ng-container>
+    </div>
+  }
+</div>
