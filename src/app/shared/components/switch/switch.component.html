@@ -1,0 +1,33 @@
+<button
+  type="button"
+  role="switch"
+  class="group inline-flex max-w-full select-none items-center gap-3 text-left"
+  [attr.aria-checked]="checked"
+  [attr.aria-disabled]="disabled"
+  [disabled]="disabled"
+  (click)="toggle()"
+  (keydown)="handleKeydown($event)"
+  (blur)="onTouched()"
+>
+  <span
+    class="relative inline-flex h-7 w-12 shrink-0 rounded-full transition-colors duration-200 ease-out"
+    [class.bg-primary-600]="checked"
+    [class.bg-gray-300]="!checked"
+    [class.opacity-60]="disabled"
+  >
+    <span
+      class="absolute top-1 left-1 h-5 w-5 rounded-full bg-white shadow-sm transition-transform duration-200 ease-out"
+      [class.translate-x-5]="checked"
+    ></span>
+  </span>
+
+  <span class="min-w-0">
+    @if (label) {
+      <span class="block text-sm font-semibold text-slate-900">{{ label }}</span>
+    }
+
+    @if (description) {
+      <span class="mt-1 block text-sm leading-5 text-slate-500">{{ description }}</span>
+    }
+  </span>
+</button>

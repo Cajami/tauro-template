@@ -109,6 +109,7 @@ export class SidebarComponent implements AfterViewInit {
         { label: 'Dialog', icon: '', route: '/components/dialog' },
         { label: 'Toast', icon: '', route: '/components/toast' },
         { label: 'Checkbox', icon: '', route: '/components/checkbox' },
+        { label: 'Switch', icon: '', route: '/components/switch' },
         { label: 'Radio', icon: '', route: '/components/radio' },
         { label: 'Tabs', icon: '', route: '/components/tabs' },
         { label: 'Grid', icon: '', route: '/components/grid' },

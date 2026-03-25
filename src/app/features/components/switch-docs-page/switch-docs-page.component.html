@@ -1,0 +1,151 @@
+<form [formGroup]="form" class="space-y-6">
+  <app-header-page
+    title="Switch Guia"
+    subTitle="Alternativa visual al checkbox para activar o desactivar configuraciones de forma mas directa."
+  ></app-header-page>
+
+  <app-component-showcase
+    title="Uso basico"
+    description="Ideal para preferencias del sistema, configuraciones rapidas o flags que el usuario interpreta como encendido/apagado."
+    [htmlCode]="htmlEjemplo1"
+    [tsCode]="tsEjemplo1"
+  >
+    <app-switch
+      label="Ahorro de energia"
+      description="Reduce actualizaciones visuales cuando el usuario no esta interactuando."
+      formControlName="energySaving"
+    ></app-switch>
+
+    <div class="mt-3 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+      Valor actual: <strong>{{ form.get('energySaving')?.value ? 'Activo' : 'Inactivo' }}</strong>
+    </div>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Uso con ngModel"
+    description="Funciona bien en configuraciones locales o formularios sencillos donde necesitas reflejar el valor al instante."
+    [htmlCode]="htmlEjemplo2"
+    [tsCode]="tsEjemplo2"
+  >
+    <app-switch
+      label="Guardado automatico"
+      description="Guarda borradores en segundo plano cada vez que detecta cambios."
+      [(ngModel)]="autoSave"
+      [ngModelOptions]="{ standalone: true }"
+    ></app-switch>
+
+    <div class="mt-3 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+      Valor actual: <strong>{{ autoSave ? 'Activo' : 'Inactivo' }}</strong>
+    </div>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Estados y disabled"
+    description="Puedes combinar un switch editable con otro bloqueado cuando quieres mostrar permisos o configuraciones no disponibles."
+    [htmlCode]="htmlEjemplo3"
+    [tsCode]="tsEjemplo3"
+  >
+    <div class="space-y-4">
+      <app-switch
+        label="Aprobacion manual"
+        description="Exige una validacion antes de publicar cambios."
+        formControlName="approvals"
+      ></app-switch>
+
+      <app-switch
+        label="Sincronizacion externa"
+        description="Control bloqueado para cuentas sin permisos."
+        [disabled]="true"
+        [ngModel]="true"
+        [ngModelOptions]="{ standalone: true }"
+      ></app-switch>
+    </div>
+
+    <div class="mt-3 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+      Valor actual: <strong>{{ form.get('approvals')?.value ? 'Activo' : 'Inactivo' }}</strong>
+    </div>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Lista compacta sin descripcion"
+    description="Util para paneles de preferencias donde quieres mostrar varios switches en una lista vertical limpia, sin texto secundario."
+    [htmlCode]="htmlEjemplo4"
+    [tsCode]="tsEjemplo4"
+  >
+    <div class="w-full max-w-md divide-y divide-gray-200 overflow-hidden rounded-2xl border border-gray-200 bg-white">
+      <div class="px-4 py-4">
+        <app-switch
+          label="Notificaciones"
+          [(ngModel)]="compactSettings.notifications"
+          [ngModelOptions]="{ standalone: true }"
+        ></app-switch>
+      </div>
+
+      <div class="px-4 py-4">
+        <app-switch
+          label="Tracking"
+          [(ngModel)]="compactSettings.tracking"
+          [ngModelOptions]="{ standalone: true }"
+        ></app-switch>
+      </div>
+
+      <div class="px-4 py-4">
+        <app-switch
+          label="Backups"
+          [(ngModel)]="compactSettings.backups"
+          [ngModelOptions]="{ standalone: true }"
+        ></app-switch>
+      </div>
+
+      <div class="px-4 py-4">
+        <app-switch
+          label="Vista publica"
+          [(ngModel)]="compactSettings.publicView"
+          [ngModelOptions]="{ standalone: true }"
+        ></app-switch>
+      </div>
+    </div>
+  </app-component-showcase>
+
+  <section class="rounded-2xl border border-gray-200 bg-white p-6">
+    <div class="space-y-2">
+      <p class="text-xs font-semibold uppercase tracking-[0.24em] text-primary-700">Referencia API</p>
+      <h2 class="text-2xl font-bold tracking-tight text-slate-900">Propiedades de `app-switch`</h2>
+      <p class="text-sm leading-6 text-slate-600">
+        El switch esta pensado para configuraciones binarias donde conviene una lectura visual de encendido o apagado,
+        manteniendo una API corta y alineada con Angular Forms.
+      </p>
+    </div>
+
+    <div class="mt-6 overflow-x-auto rounded-xl border border-gray-200">
+      <table class="min-w-full table-fixed divide-y divide-gray-200">
+        <colgroup>
+          <col class="w-44" />
+          <col class="w-64" />
+          <col class="w-60" />
+          <col />
+        </colgroup>
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Propiedad</th>
+            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Valores</th>
+            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Por defecto</th>
+            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Descripcion</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200 bg-white">
+          @for (item of switchProps; track item.property) {
+            <tr>
+              <td class="px-4 py-3 font-mono text-sm text-primary-700">{{ item.property }}</td>
+              <td class="px-4 py-3 font-mono text-xs text-slate-500">{{ item.values }}</td>
+              <td class="px-4 py-3 font-mono text-xs text-slate-500">{{ item.defaultValue }}</td>
+              <td class="px-4 py-3 text-sm leading-6 text-slate-700">{{ item.description }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+</form>
+
+<app-api-info></app-api-info>

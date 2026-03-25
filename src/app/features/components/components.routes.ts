@@ -51,6 +51,13 @@ export const COMPONENTS_ROUTES: Routes = [
       ),
   },
   {
+    path: 'switch',
+    loadComponent: () =>
+      import('./switch-docs-page/switch-docs-page.component').then(
+        (m) => m.SwitchDocsPageComponent,
+      ),
+  },
+  {
     path: 'radio',
     loadComponent: () =>
       import('./radio-docs-page/radio-docs-page.component').then(

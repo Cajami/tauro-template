@@ -113,6 +113,7 @@ Inventario identificado en `src/app/shared/components`:
 - `loading-block`
 - `modal`
 - `radio-group`
+- `switch`
 - `tabs`
 - `toast`
 
@@ -277,6 +278,7 @@ Rutas principales detectadas:
 - `/components/dialog`
 - `/components/toast`
 - `/components/checkbox`
+- `/components/switch`
 - `/components/radio`
 - `/components/tabs`
 - `/components/grid`
@@ -355,6 +357,7 @@ Observacion tecnica importante:
 - Se refino el sidebar para distinguir mejor padres con y sin hijos, y se normalizo un scrollbar global mas sutil para todo el template.
 - La documentacion publica de componentes ahora incorpora una referencia API al final de cada pagina, con nivel de detalle variable segun la complejidad de cada componente.
 - Se agrego `app-loading-block` para estados de carga de seccion o de pagina dentro del `main`, con mensaje por defecto y posibilidad de sobrescribirlo.
+- Se agrego un nuevo shared `Switch` como alternativa visual al `Checkbox`, con soporte para Angular Forms, estados deshabilitados y documentacion propia en `Components > Switch`.
 
 ## Convenciones para futuros agentes
 Antes de hacer cambios en el proyecto:
