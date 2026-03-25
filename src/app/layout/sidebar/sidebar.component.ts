@@ -130,6 +130,7 @@ export class SidebarComponent implements AfterViewInit {
       children: [
         { label: 'Layout', icon: '', route: '/theme/layout' },
         { label: 'Forms', icon: '', route: '/theme/forms' },
+        { label: 'Icons', icon: '', route: '/theme/icons' },
         { label: 'Color', icon: '', route: '/theme/color' },
       ],
     },

@@ -263,6 +263,8 @@ Estado actual:
 - Existe la ruta `Theme > Forms`.
 - `Theme > Forms` documenta patrones reales para maquetar formularios con Tailwind y con los componentes shared del template, usando ejemplos de una columna, composiciones responsive y layouts con columna secundaria.
 - La misma guia ahora cierra con una referencia rapida de utilities base de Tailwind usadas en formularios, para acelerar la lectura de clases como `grid-cols-1`, `gap-6`, `col-span-full` y patrones `auto-fit/minmax`.
+- Existe la ruta `Theme > Icons`.
+- `Theme > Icons` muestra una galeria rapida de iconos Lucide utiles para dashboards y deja al final el enlace a la documentacion oficial para explorar el catalogo completo.
 - Existe la ruta `Theme > Color`.
 - Explica que el color principal se cambia desde `src/styles/theme.scss`.
 - Muestra paletas sugeridas para empezar rapido.
@@ -291,6 +293,7 @@ Rutas principales detectadas:
 - `/components/loading`
 - `/theme/layout`
 - `/theme/forms`
+- `/theme/icons`
 - `/theme/color`
 
 Comportamiento general:
@@ -363,6 +366,7 @@ Observacion tecnica importante:
 - Se agrego `app-loading-block` para estados de carga de seccion o de pagina dentro del `main`, con mensaje por defecto y posibilidad de sobrescribirlo.
 - Se agrego un nuevo shared `Switch` como alternativa visual al `Checkbox`, con soporte para Angular Forms, estados deshabilitados y documentacion propia en `Components > Switch`.
 - Se agrego `Theme > Forms` para ensenar como componer formularios del template con Tailwind y los shared existentes, evitando recrear un sistema de layout tipo Bootstrap.
+- Se agrego `Theme > Icons` como guia visual rapida de iconografia Lucide usada en el template, con acceso a la documentacion oficial al cierre.
 
 ## Convenciones para futuros agentes
 Antes de hacer cambios en el proyecto:

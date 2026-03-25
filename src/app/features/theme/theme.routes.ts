@@ -16,6 +16,13 @@ export const THEME_ROUTES: Routes = [
       ),
   },
   {
+    path: 'icons',
+    loadComponent: () =>
+      import('./theme-icons-page/theme-icons-page.component').then(
+        (m) => m.ThemeIconsPageComponent,
+      ),
+  },
+  {
     path: 'color',
     loadComponent: () =>
       import('./theme-color-page/theme-color-page.component').then(
