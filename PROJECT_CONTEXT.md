@@ -260,6 +260,9 @@ La feature `theme` agrupa documentacion para personalizar el template sin mezcla
 Estado actual:
 - Existe la ruta `Theme > Layout`.
 - `Theme > Layout` documenta el shell del dashboard, la estructura base del layout y como retirar el footer sin romper la grilla.
+- Existe la ruta `Theme > Forms`.
+- `Theme > Forms` documenta patrones reales para maquetar formularios con Tailwind y con los componentes shared del template, usando ejemplos de una columna, composiciones responsive y layouts con columna secundaria.
+- La misma guia ahora cierra con una referencia rapida de utilities base de Tailwind usadas en formularios, para acelerar la lectura de clases como `grid-cols-1`, `gap-6`, `col-span-full` y patrones `auto-fit/minmax`.
 - Existe la ruta `Theme > Color`.
 - Explica que el color principal se cambia desde `src/styles/theme.scss`.
 - Muestra paletas sugeridas para empezar rapido.
@@ -287,6 +290,7 @@ Rutas principales detectadas:
 - `/components/modal`
 - `/components/loading`
 - `/theme/layout`
+- `/theme/forms`
 - `/theme/color`
 
 Comportamiento general:
@@ -358,6 +362,7 @@ Observacion tecnica importante:
 - La documentacion publica de componentes ahora incorpora una referencia API al final de cada pagina, con nivel de detalle variable segun la complejidad de cada componente.
 - Se agrego `app-loading-block` para estados de carga de seccion o de pagina dentro del `main`, con mensaje por defecto y posibilidad de sobrescribirlo.
 - Se agrego un nuevo shared `Switch` como alternativa visual al `Checkbox`, con soporte para Angular Forms, estados deshabilitados y documentacion propia en `Components > Switch`.
+- Se agrego `Theme > Forms` para ensenar como componer formularios del template con Tailwind y los shared existentes, evitando recrear un sistema de layout tipo Bootstrap.
 
 ## Convenciones para futuros agentes
 Antes de hacer cambios en el proyecto:

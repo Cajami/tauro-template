@@ -9,6 +9,13 @@ export const THEME_ROUTES: Routes = [
       ),
   },
   {
+    path: 'forms',
+    loadComponent: () =>
+      import('./theme-forms-page/theme-forms-page.component').then(
+        (m) => m.ThemeFormsPageComponent,
+      ),
+  },
+  {
     path: 'color',
     loadComponent: () =>
       import('./theme-color-page/theme-color-page.component').then(

@@ -1,0 +1,180 @@
+<app-header-page
+  title="Theme / Forms"
+  subTitle="Guia para maquetar formularios con Tailwind y los componentes shared del template, sin recrear un sistema tipo row/col."
+></app-header-page>
+
+<section class="mt-8 space-y-8">
+  <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+      <div class="max-w-3xl space-y-3">
+        <p class="text-sm font-semibold uppercase tracking-[0.28em] text-primary-600">
+          Composicion de formularios
+        </p>
+        <h2 class="text-2xl font-semibold text-slate-900">
+          En este template los formularios se ordenan con <code>grid</code>, <code>flex</code> y breakpoints de Tailwind
+        </h2>
+        <p class="text-sm leading-6 text-slate-600">
+          En lugar de recrear componentes tipo Bootstrap para filas y columnas, la idea es usar utilidades
+          del layout junto con los shared del proyecto. Asi mantienes flexibilidad y el usuario aprende patrones
+          reales de composicion para dashboards.
+        </p>
+      </div>
+
+      <div class="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
+        <p class="font-semibold text-slate-900">Regla base</p>
+        <p class="mt-1 font-mono text-xs">grid-cols-1 + breakpoints + gap consistente</p>
+      </div>
+    </div>
+  </article>
+
+  <app-component-showcase
+    title="Formulario simple de una columna"
+    description="Patron util para perfiles, observaciones o formularios cortos donde cada campo necesita ancho completo."
+    [htmlCode]="singleColumnHtml"
+  >
+    <form [formGroup]="basicForm" class="grid grid-cols-1 gap-4">
+      <app-input label="Nombre completo" placeholder="Ej. Lucia Herrera" formControlName="fullName"></app-input>
+
+      <app-input
+        label="Correo de contacto"
+        type="email"
+        placeholder="equipo@empresa.com"
+        formControlName="email"
+      ></app-input>
+
+      <app-textarea label="Notas" [rows]="4" formControlName="notes"></app-textarea>
+
+      <div class="flex justify-end">
+        <app-button>Guardar borrador</app-button>
+      </div>
+    </form>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Formulario responsive de dos y cuatro columnas"
+    description="Aqui usamos `auto-fit/minmax` para que la grilla reaccione mejor al ancho real disponible, incluso dentro de previews o cards redimensionables."
+    [htmlCode]="twoColumnHtml"
+  >
+    <form [formGroup]="twoColumnForm" class="grid grid-cols-[repeat(auto-fit,minmax(14rem,1fr))] gap-4">
+      <app-input label="Documento" formControlName="documentNumber"></app-input>
+      <app-select label="Rol" [options]="roleOptions" formControlName="role"></app-select>
+      <app-select label="Area" [options]="areaOptions" formControlName="area"></app-select>
+      <app-select label="Region" [options]="regionOptions" formControlName="region"></app-select>
+
+      <app-datetime-picker label="Inicio" mode="date" formControlName="startDate"></app-datetime-picker>
+      <app-datetime-picker label="Fin" mode="date" formControlName="endDate"></app-datetime-picker>
+
+      <div class="col-span-full grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 md:grid-cols-2">
+        <app-switch label="Usuario activo" formControlName="active"></app-switch>
+        <app-checkbox label="Enviar alertas" formControlName="alerts"></app-checkbox>
+      </div>
+    </form>
+  </app-component-showcase>
+
+  <app-component-showcase
+    title="Formulario con columna secundaria de configuracion"
+    description="Este patron ya no fuerza dos columnas demasiado pronto. La columna lateral aparece cuando hay espacio real; si no, todo se apila limpio en una sola columna."
+    [htmlCode]="advancedHtml"
+  >
+    <div [formGroup]="advancedForm" class="grid grid-cols-1 gap-6 2xl:grid-cols-[minmax(0,2fr)_minmax(18rem,1fr)]">
+      <form class="grid grid-cols-[repeat(auto-fit,minmax(14rem,1fr))] gap-4">
+        <app-input label="Proyecto" formControlName="projectName"></app-input>
+        <app-input label="Responsable" formControlName="owner"></app-input>
+        <app-select label="Ambiente" [options]="environmentOptions" formControlName="environment"></app-select>
+        <app-select label="Region" [options]="regionOptions" formControlName="region"></app-select>
+        <app-datetime-picker label="Salida" mode="date" formControlName="launchDate"></app-datetime-picker>
+        <app-datetime-picker label="Corte" mode="date" formControlName="cutoffDate"></app-datetime-picker>
+
+        <div class="col-span-full">
+          <app-textarea label="Resumen funcional" [rows]="4" formControlName="summary"></app-textarea>
+        </div>
+
+        <div class="col-span-full">
+          <app-textarea label="Notas internas" [rows]="4" formControlName="internalNotes"></app-textarea>
+        </div>
+
+        <div class="col-span-full flex flex-wrap justify-end gap-3 pt-2">
+          <app-button variant="secondary">Cancelar</app-button>
+          <app-button>Guardar configuracion</app-button>
+        </div>
+      </form>
+
+      <aside class="rounded-3xl border border-slate-200 bg-slate-50 p-5">
+        <p class="text-xs font-semibold uppercase tracking-[0.22em] text-primary-600">Preferencias</p>
+        <h3 class="mt-2 text-lg font-semibold text-slate-900">Bloque lateral complementario</h3>
+        <p class="mt-2 text-sm leading-6 text-slate-600">
+          Aqui puedes mover switches, checkboxes, ayudas o resumenes sin mezclar esas decisiones con los datos principales del formulario.
+        </p>
+
+        <div class="mt-5 space-y-4">
+          <app-switch label="Publicar portal" formControlName="publishPortal"></app-switch>
+          <app-switch label="Requiere aprobacion" formControlName="requireApproval"></app-switch>
+          <app-checkbox label="Enviar resumen diario" formControlName="sendDigest"></app-checkbox>
+        </div>
+      </aside>
+    </div>
+  </app-component-showcase>
+
+  <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div class="space-y-2">
+      <p class="text-sm font-semibold uppercase tracking-[0.28em] text-primary-600">Recomendaciones practicas</p>
+      <h2 class="text-2xl font-semibold text-slate-900">Como pensar el layout de formularios en este template</h2>
+      <p class="text-sm leading-6 text-slate-600">
+        Estas pautas ayudan a mantener coherencia visual entre las pantallas nuevas sin caer en un sistema abstracto de filas y columnas separado de Tailwind.
+      </p>
+    </div>
+
+    <div class="mt-6 grid gap-4 lg:grid-cols-2">
+      @for (tip of compositionTips; track tip.title) {
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-primary-600">{{ tip.title }}</p>
+          <p class="mt-3 text-sm leading-6 text-slate-700">{{ tip.description }}</p>
+        </div>
+      }
+    </div>
+  </article>
+
+  <article class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div class="space-y-2">
+      <p class="text-sm font-semibold uppercase tracking-[0.28em] text-primary-600">Lectura rapida de clases</p>
+      <h2 class="text-2xl font-semibold text-slate-900">Utilities basicas para entender estos formularios</h2>
+      <p class="text-sm leading-6 text-slate-600">
+        Esta tabla resume las clases de Tailwind mas repetidas en los ejemplos para que cualquier desarrollador pueda leer el layout y entender rapido que esta pasando.
+      </p>
+    </div>
+
+    <div class="mt-6 overflow-x-auto rounded-xl border border-gray-200">
+      <table class="min-w-full table-fixed divide-y divide-gray-200">
+        <colgroup>
+          <col class="w-72" />
+          <col class="w-72" />
+          <col />
+        </colgroup>
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Clase</th>
+            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Que significa</th>
+            <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Cuando usarla</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200 bg-white">
+          @for (item of utilityCheatSheet; track item.utility) {
+            <tr>
+              <td class="px-4 py-3 font-mono text-xs text-primary-700">{{ item.utility }}</td>
+              <td class="px-4 py-3 text-sm leading-6 text-slate-700">{{ item.meaning }}</td>
+              <td class="px-4 py-3 text-sm leading-6 text-slate-700">{{ item.usage }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </article>
+
+  <article class="rounded-3xl border border-primary-200 bg-primary-50 p-6 shadow-sm">
+    <p class="text-sm font-semibold uppercase tracking-[0.28em] text-primary-700">Criterio del template</p>
+    <p class="mt-3 text-sm leading-6 text-primary-900">
+      La guia <strong>Theme / Forms</strong> existe para ensenar composicion real con Tailwind y con los componentes shared.
+      No se busca recrear una API tipo Bootstrap para filas y columnas, sino dejar patrones claros que puedas copiar y adaptar en proyectos nuevos.
+    </p>
+  </article>
+</section>

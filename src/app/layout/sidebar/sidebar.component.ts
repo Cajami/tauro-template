@@ -129,6 +129,7 @@ export class SidebarComponent implements AfterViewInit {
       expanded: false,
       children: [
         { label: 'Layout', icon: '', route: '/theme/layout' },
+        { label: 'Forms', icon: '', route: '/theme/forms' },
         { label: 'Color', icon: '', route: '/theme/color' },
       ],
     },
