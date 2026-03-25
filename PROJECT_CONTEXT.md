@@ -110,6 +110,7 @@ Inventario identificado en `src/app/shared/components`:
 - `header-page`
 - `grid`
 - `dialog`
+- `loading-block`
 - `modal`
 - `radio-group`
 - `tabs`
@@ -162,6 +163,20 @@ Capacidades actuales:
 - El divisor muestra un estado visual de hover para comunicar que puede moverse horizontalmente.
 - La vista previa ya no queda limitada a un ancho fijo, por lo que aprovecha el espacio extra cuando el usuario ensancha la columna izquierda.
 - En mobile mantiene una disposicion apilada sin redimensionamiento manual.
+
+### Componente LoadingBlock
+El template ahora tiene un shared reutilizable para estados de espera visual cuando una seccion o toda la pagina central debe quedar bloqueada mientras responde un API.
+
+Capacidades actuales:
+- Envuelve cualquier contenido proyectado.
+- Muestra un mensaje por defecto: `Un momento por favor...`.
+- Permite sobrescribir el mensaje por caso de uso.
+- Permite un mensaje secundario opcional para procesos que requieran contexto adicional.
+- Soporta `mode="section"` para tablas, cards o formularios puntuales.
+- Soporta `mode="page"` para cubrir toda el area central envuelta dentro de `main`, sin tocar header ni sidebar.
+- Bloquea la interaccion del contenido mientras el overlay esta activo.
+- Tiene documentacion demo propia en `Components > Loading`.
+- El `DashboardLayout` ya renderiza un overlay absoluto sobre su `main` y el estado se controla desde `MainLoadingService`, de modo que una pagina puede disparar un loading real del area central sin implementar overlays propios.
 
 ### Componente Alert
 El `Alert` compartido se mantiene como mensaje inline dentro del flujo de la pagina.
@@ -256,6 +271,7 @@ Rutas principales detectadas:
 - `/auth/login`
 - `/dashboard/home`
 - `/components/input`
+- `/components/textarea`
 - `/components/select`
 - `/components/alert`
 - `/components/dialog`
@@ -267,6 +283,7 @@ Rutas principales detectadas:
 - `/components/datetimepicker`
 - `/components/button`
 - `/components/modal`
+- `/components/loading`
 - `/theme/layout`
 - `/theme/color`
 
@@ -337,6 +354,7 @@ Observacion tecnica importante:
 - Se agrego `ToastService` con host global, posiciones configurables y autocierre con pausa al hover.
 - Se refino el sidebar para distinguir mejor padres con y sin hijos, y se normalizo un scrollbar global mas sutil para todo el template.
 - La documentacion publica de componentes ahora incorpora una referencia API al final de cada pagina, con nivel de detalle variable segun la complejidad de cada componente.
+- Se agrego `app-loading-block` para estados de carga de seccion o de pagina dentro del `main`, con mensaje por defecto y posibilidad de sobrescribirlo.
 
 ## Convenciones para futuros agentes
 Antes de hacer cambios en el proyecto:

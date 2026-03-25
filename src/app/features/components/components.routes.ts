@@ -16,6 +16,13 @@ export const COMPONENTS_ROUTES: Routes = [
       ),
   },
   {
+    path: 'textarea',
+    loadComponent: () =>
+      import('./textarea-docs-page/textarea-docs-page.component').then(
+        (m) => m.TextareaDocsPageComponent,
+      ),
+  },
+  {
     path: 'alert',
     loadComponent: () =>
       import('./alert-docs-page/alert-docs-page.component').then(
@@ -83,6 +90,13 @@ export const COMPONENTS_ROUTES: Routes = [
     loadComponent: () =>
       import('./modal-docs-page/modal-docs-page.component').then(
         (m) => m.ModalDocsPageComponent,
+      ),
+  },
+  {
+    path: 'loading',
+    loadComponent: () =>
+      import('./loading-docs-page/loading-docs-page.component').then(
+        (m) => m.LoadingDocsPageComponent,
       ),
   },
   {

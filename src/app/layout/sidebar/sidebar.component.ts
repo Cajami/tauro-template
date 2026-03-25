@@ -103,6 +103,7 @@ export class SidebarComponent implements AfterViewInit {
       expanded: false,
       children: [
         { label: 'Input', icon: '', route: '/components/input' },
+        { label: 'Textarea', icon: '', route: '/components/textarea' },
         { label: 'Select', icon: '', route: '/components/select' },
         { label: 'Alert', icon: '', route: '/components/alert' },
         { label: 'Dialog', icon: '', route: '/components/dialog' },
@@ -118,6 +119,7 @@ export class SidebarComponent implements AfterViewInit {
         },
         { label: 'Button', icon: '', route: '/components/button' },
         { label: 'Modal', icon: '', route: '/components/modal' },
+        { label: 'Loading', icon: '', route: '/components/loading' },
       ],
     },
     {

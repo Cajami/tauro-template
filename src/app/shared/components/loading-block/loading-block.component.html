@@ -1,0 +1,52 @@
+<div [class]="wrapperClasses()">
+  <ng-content></ng-content>
+
+  @if (loading()) {
+    <div
+      [class]="overlayClasses()"
+      [style.borderRadius]="mode() === 'section' ? 'inherit' : '0px'"
+      aria-live="polite"
+      aria-busy="true"
+    >
+      @if (mode() === 'page') {
+        <div [class]="pageOverlayInnerClasses()">
+          <div [class]="cardClasses()">
+            <div class="relative inline-flex select-none flex-col items-center">
+              <div class="absolute inset-x-[-2.5rem] inset-y-[-1.5rem] rounded-[999px] bg-white/62 blur-2xl"></div>
+              <div class="relative mx-auto h-14 w-14">
+                <div class="absolute inset-0 rounded-full border-[3px] border-primary-100"></div>
+                <div
+                  class="absolute inset-0 animate-spin rounded-full border-[3px] border-transparent border-r-primary-400 border-t-primary-600"
+                ></div>
+                <div class="absolute inset-[9px] rounded-full bg-primary-50/80 ring-1 ring-primary-100/80"></div>
+              </div>
+              <p class="relative mt-4 text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-primary-700">Procesando</p>
+              <p class="relative mt-2 text-base font-semibold text-slate-900">{{ message() }}</p>
+              @if (secondaryMessage()) {
+                <p class="relative mt-2 text-sm text-slate-600">{{ secondaryMessage() }}</p>
+              }
+            </div>
+          </div>
+        </div>
+      } @else {
+        <div [class]="cardClasses()">
+          <div class="relative inline-flex select-none flex-col items-center">
+            <div class="absolute inset-x-[-2rem] inset-y-[-1.25rem] rounded-[999px] bg-white/58 blur-2xl"></div>
+            <div class="relative mx-auto h-12 w-12">
+              <div class="absolute inset-0 rounded-full border-[3px] border-primary-100"></div>
+              <div
+                  class="absolute inset-0 animate-spin rounded-full border-[3px] border-transparent border-r-primary-400 border-t-primary-600"
+              ></div>
+              <div class="absolute inset-[8px] rounded-full bg-primary-50/80 ring-1 ring-primary-100/80"></div>
+            </div>
+            <p class="relative mt-4 text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-primary-700">Procesando</p>
+            <p class="relative mt-2 text-sm font-semibold text-slate-900">{{ message() }}</p>
+            @if (secondaryMessage()) {
+              <p class="relative mt-2 text-xs text-slate-600">{{ secondaryMessage() }}</p>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

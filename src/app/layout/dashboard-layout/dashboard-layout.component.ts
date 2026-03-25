@@ -5,6 +5,7 @@ import {
   DestroyRef,
   ElementRef,
   HostListener,
+  effect,
   ViewChild,
   inject,
   signal,
@@ -12,6 +13,7 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
+import { MainLoadingService } from '@core/services/main-loading.service';
 import { FooterComponent } from '@layout/footer/footer.component';
 import { HeaderComponent } from '@layout/header/header.component';
 import { SidebarComponent } from '@layout/sidebar/sidebar.component';
@@ -27,12 +29,24 @@ export class DashboardLayoutComponent implements AfterViewInit {
 
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
+  readonly mainLoadingService = inject(MainLoadingService);
 
   isSidebarOpen = signal(true);
   isMobile = signal(false);
+  protected readonly mainOverlayStyle = signal<Record<string, string>>({});
 
   constructor() {
     this.checkScreenSize();
+
+    effect(() => {
+      if (!this.mainLoadingService.loading()) {
+        return;
+      }
+
+      queueMicrotask(() => {
+        this.updateMainOverlayStyle();
+      });
+    });
   }
 
   ngAfterViewInit(): void {
@@ -49,6 +63,7 @@ export class DashboardLayoutComponent implements AfterViewInit {
   @HostListener('window:resize', [])
   onResize() {
     this.checkScreenSize();
+    this.updateMainOverlayStyle();
   }
 
   private checkScreenSize(): void {
@@ -70,8 +85,28 @@ export class DashboardLayoutComponent implements AfterViewInit {
     });
   }
 
+  private updateMainOverlayStyle(): void {
+    const mainElement = this.mainContent?.nativeElement;
+
+    if (!mainElement) {
+      return;
+    }
+
+    const rect = mainElement.getBoundingClientRect();
+
+    this.mainOverlayStyle.set({
+      top: `${rect.top}px`,
+      left: `${rect.left}px`,
+      width: `${rect.width}px`,
+      height: `${rect.height}px`,
+    });
+  }
+
   toggleSidebar(): void {
     this.isSidebarOpen.set(!this.isSidebarOpen());
+    queueMicrotask(() => {
+      this.updateMainOverlayStyle();
+    });
   }
 
   closeSidebarOnMobile(): void {
